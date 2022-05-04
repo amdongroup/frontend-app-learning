@@ -356,6 +356,279 @@
   }
 }
 
+//apo css
+.apo-progress-wrapper {
+  width: 100%;
+  background: #f2f3f5;
+  height: 96px;
+  display: flex;
+  align-items: center;
+}
+#apo-progress-mobile {
+  display: none;
+}
+#apo-progress {
+  display: flex;
+}
+#apo-progress,
+#apo-progress-mobile {
+  width: 800px;
+  height: 89px;
+  background: $s0;
+  border: 2px solid $s0;
+  box-sizing: border-box;
+  border-radius: 16px;
+  margin: 0 auto;
+  align-items: center;
+}
+
+.progress {
+  width: 276px;
+  height: 16px;
+  background: #edeef0;
+  border-radius: 99px;
+  margin-top: 8px;
+}
+
+.progress-bar {
+  height: 16px;
+  background: #e6a653;
+  border-radius: 99px;
+}
+
+.passmark {
+  width: 10px;
+  height: 10px;
+  background: #b1b1b3;
+  border-radius: 50%;
+  position: absolute;
+}
+
+.passmark-fix {
+  margin-top: -13px;
+  margin-left: 156px;
+}
+
+.progress-part {
+  margin-left: 93px;
+}
+
+.percent-part {
+  margin-left: 16px;
+  width: 110px;
+}
+
+.desc-part {
+  margin-left: 25px;
+  margin-right: 8px;
+  width: 233px;
+}
+
+.earn-cert {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  /* identical to box height, or 154% */
+
+  text-align: center;
+  font-feature-settings: "tnum" on, "lnum" on, "ss01" on, "ss03" on, "case" on,
+    "cv05" on, "cv08" on;
+
+  /* Carbon / C100 - Shuttle Gray */
+
+  color: #5c6773;
+}
+
+.veiw-cert {
+  background: #00a653;
+  border-radius: 8px;
+  width: 233px;
+  height: 40px;
+  color: $s0;
+}
+
+.refresh-part {
+  height: 100%;
+  margin-top: 15px;
+}
+
+#refresh-btn {
+  cursor: pointer;
+}
+
+.apo-progress-percent {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 28px;
+  line-height: 36px;
+  /* identical to box height, or 129% */
+
+  text-align: right;
+  font-feature-settings: "tnum" on, "lnum" on, "ss01" on, "case" on, "ss03" on,
+    "cv05" on, "cv08" on;
+
+  /* Carbon / C300- Bright Gray */
+
+  color: #363f4d;
+}
+
+.top {
+  align-items: center;
+}
+
+.desc-percent {
+  margin-left: 18px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 24px;
+  /* identical to box height, or 160% */
+
+  text-align: center;
+  font-feature-settings: "tnum" on, "lnum" on, "ss01" on, "ss03" on, "case" on,
+    "cv08" on, "cv05" on;
+
+  /* Carbon / C300- Bright Gray */
+
+  color: #363f4d;
+}
+
+.desc-percent-bottom {
+  margin-left: 18px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  /* identical to box height, or 154% */
+
+  text-align: center;
+  font-feature-settings: "tnum" on, "lnum" on, "ss01" on, "ss03" on, "case" on,
+    "cv05" on, "cv08" on;
+
+  /* Carbon / C100 - Shuttle Gray */
+
+  color: #5c6773;
+}
+
+.earn {
+  font-family: Inter;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 20px;
+  /* identical to box height, or 154% */
+
+  text-align: center;
+  font-feature-settings: "tnum" on, "lnum" on, "ss01" on, "ss03" on, "case" on,
+    "cv05" on, "cv08" on;
+
+  /* Carbon / C100 - Shuttle Gray */
+
+  color: #5c6773;
+}
+
+#over-pass #view-cert,
+#over-pass-mobile #view-cert-mobile {
+  width: 233px;
+  height: 40px;
+  background: #00a653;
+  border-radius: 8px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-feature-settings: "tnum" on, "lnum" on, "ss01" on, "ss03" on, "case" on,
+    "cv08" on, "cv05" on;
+  color: $s0 !important;
+  text-decoration: none;
+}
+
+#over-pass #no-cert,
+#over-pass-mobile #no-cert-mobile {
+  width: 233px;
+  height: 40px;
+  background: #edeef0;
+  border-radius: 8px;
+  font-family: Inter;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 15px;
+  line-height: 24px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  font-feature-settings: "tnum" on, "lnum" on, "ss01" on, "ss03" on, "case" on,
+    "cv08" on, "cv05" on;
+  color: $s0 !important;
+  text-decoration: none;
+  cursor: not-allowed;
+}
+@media (max-width: 800px) and (min-width: 420px) {
+  .progress-part {
+    margin-left: 30px;
+  }
+}
+@media (max-width: 420px) {
+  .apo-progress-wrapper {
+    height: 180px;
+  }
+  .progress-part {
+    margin-left: 0px;
+  }
+  #apo-progress-mobile {
+    display: flex;
+    flex-direction: column;
+    height: 150px;
+    justify-content: center;
+  }
+  #apo-progress {
+    display: none;
+  }
+  .progress {
+    width: 330px;
+  }
+  .passmark-fix {
+    margin-top: 11px;
+    margin-left: 190px;
+  }
+  .top {
+    width: 100%;
+    padding: 0px 16px;
+    justify-content: space-around;
+  }
+  .percent-part {
+    margin: 0px;
+  }
+  .refresh-part {
+    margin: 0px;
+  }
+  .desc-part {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 330px;
+    margin: 0px;
+    .top {
+      justify-content: center;
+    }
+  }
+  .desc-percent-bottom {
+    margin-left: 0px;
+  }
+}
+//apo css end
+
 // Import component-specific sass files
 @import "courseware/course/celebration/CelebrationModal.scss";
 @import "courseware/course/NotificationTray.scss";
