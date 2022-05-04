@@ -46,48 +46,50 @@ function ProgressHeader({ intl }) {
 
   return (
     <>
-      <div class="apo-progress-wrapper" id="apo-progress-wrapper">
+      <div className="apo-progress-wrapper" id="apo-progress-wrapper">
         <div id="apo-progress">
-          <div class="progress-part">
+          <div className="progress-part">
             <span>Your current grade</span>
-            <div class="progress">
+            <div className="progress">
               <div
-                class="progress-bar"
+                className="progress-bar"
                 id="progress-value"
                 role="progressbar"
                 aria-valuemin="0"
                 aria-valuemax="100"
               ></div>
             </div>
-            <div class="passmark passmark-fix"></div>
+            <div className="passmark passmark-fix"></div>
           </div>
-          <div class="percent-part">
-            <span class="apo-progress-percent">{overall_percentage}%</span>
+          <div className="percent-part">
+            <span className="apo-progress-percent">{overall_percentage}%</span>
           </div>
-          <div class="desc-part" id="under-pass">
-            <div class="top d-flex">
-              <div class="passmark" style="position: relative;"></div>
-              <span class="desc-percent">Passing grade 60%</span>
+          <div className="desc-part" id="under-pass">
+            <div className="top d-flex">
+              <div className="passmark" style="position: relative;"></div>
+              <span className="desc-percent">Passing grade 60%</span>
             </div>
-            <span class="desc-percent-bottom">Earn 60% to get Certificate</span>
+            <span className="desc-percent-bottom">
+              Earn 60% to get Certificate
+            </span>
           </div>
-          <div class="desc-part" id="over-pass" style="display: none;">
-            <div class="top d-flex">
-              <span class="earn">You earned this certificate</span>
+          <div className="desc-part" id="over-pass" style="display: none;">
+            <div className="top d-flex">
+              <span className="earn">You earned this certificate</span>
             </div>
             <a
               target="_blank"
               href="https://sff.apixoxygen.com/certificate/${available_cert_id}"
-              class="view-cert"
+              className="view-cert"
               id="view-cert"
             >
               View certificate
             </a>
-            <a class="no-cert" id="no-cert">
+            <a className="no-cert" id="no-cert">
               View certificate
             </a>
           </div>
-          <div class="refresh-part">
+          <div className="refresh-part">
             <img
               src="/static/oxygen-theme/images/refresh.png"
               alt=""
@@ -96,14 +98,16 @@ function ProgressHeader({ intl }) {
           </div>
         </div>
         <div id="apo-progress-mobile">
-          <div class="top d-flex align-item-start">
-            <div class="progress-part">
+          <div className="top d-flex align-item-start">
+            <div className="progress-part">
               <span>Your current progress</span>
             </div>
-            <div class="percent-part">
-              <span class="apo-progress-percent">${overall_percentage}%</span>
+            <div className="percent-part">
+              <span className="apo-progress-percent">
+                ${overall_percentage}%
+              </span>
             </div>
-            <div class="refresh-part" style="margin-left: 6px;">
+            <div className="refresh-part" style="margin-left: 6px;">
               <img
                 src="/static/oxygen-theme/images/refresh.png"
                 alt=""
@@ -111,41 +115,45 @@ function ProgressHeader({ intl }) {
               />
             </div>
           </div>
-          <div class="mid d-flex">
-            <div class="progress">
+          <div className="mid d-flex">
+            <div className="progress">
               <div
-                class="progress-bar"
+                className="progress-bar"
                 id="progress-value-mobile"
                 role="progressbar"
                 aria-valuemin="0"
                 aria-valuemax="100"
               ></div>
             </div>
-            <div class="passmark passmark-fix"></div>
+            <div className="passmark passmark-fix"></div>
           </div>
-          <div class="bottom d-flex" style="margin-top: 8px;">
-            <div class="desc-part" id="under-pass-mobile">
-              <div class="top d-flex">
-                <div class="passmark" style="position: relative;"></div>
-                <span class="desc-percent">Passing grade 60%</span>
+          <div className="bottom d-flex" style="margin-top: 8px;">
+            <div className="desc-part" id="under-pass-mobile">
+              <div className="top d-flex">
+                <div className="passmark" style="position: relative;"></div>
+                <span className="desc-percent">Passing grade 60%</span>
               </div>
-              <span class="desc-percent-bottom">
+              <span className="desc-percent-bottom">
                 Earn 60% to get Certificate
               </span>
             </div>
-            <div class="desc-part" id="over-pass-mobile" style="display: none;">
-              <div class="top d-flex">
-                <span class="earn">You earned this certificate</span>
+            <div
+              className="desc-part"
+              id="over-pass-mobile"
+              style="display: none;"
+            >
+              <div className="top d-flex">
+                <span className="earn">You earned this certificate</span>
               </div>
               <a
                 target="_blank"
                 href="https://sff.apixoxygen.com/certificate/${available_cert_id}"
-                class="view-cert"
+                className="view-cert"
                 id="view-cert-mobile"
               >
                 View certificate
               </a>
-              <a class="no-cert" id="no-cert-mobile">
+              <a className="no-cert" id="no-cert-mobile">
                 View certificate
               </a>
             </div>
