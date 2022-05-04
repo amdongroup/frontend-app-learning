@@ -374,8 +374,8 @@
 #apo-progress-mobile {
   width: 800px;
   height: 89px;
-  background: $s0;
-  border: 2px solid $s0;
+  background: #ffffff;
+  border: 2px solid #ffffff;
   box-sizing: border-box;
   border-radius: 16px;
   margin: 0 auto;
@@ -446,7 +446,7 @@
   border-radius: 8px;
   width: 233px;
   height: 40px;
-  color: $s0;
+  color: #ffffff;
 }
 
 .refresh-part {
@@ -549,7 +549,7 @@
   text-align: center;
   font-feature-settings: "tnum" on, "lnum" on, "ss01" on, "ss03" on, "case" on,
     "cv08" on, "cv05" on;
-  color: $s0 !important;
+  color: #ffffff !important;
   text-decoration: none;
 }
 
@@ -570,7 +570,7 @@
   text-align: center;
   font-feature-settings: "tnum" on, "lnum" on, "ss01" on, "ss03" on, "case" on,
     "cv08" on, "cv05" on;
-  color: $s0 !important;
+  color: #ffffff !important;
   text-decoration: none;
   cursor: not-allowed;
 }
