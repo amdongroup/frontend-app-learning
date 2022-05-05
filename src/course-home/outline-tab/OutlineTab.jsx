@@ -112,28 +112,6 @@ function OutlineTab({ intl }) {
   const [overall_percentage, setOverall_percentage] = useState(0);
   const [available_cert_id, setAvailable_cert_id] = useState("");
 
-  if (overall_percentage >= 60) {
-    document.getElementById("under-pass").style.display = "none";
-    document.getElementById("over-pass").style.display = "";
-    document.getElementById("under-pass-mobile").style.display = "none";
-    document.getElementById("over-pass-mobile").style.display = "";
-  } else {
-    document.getElementById("under-pass-mobile").style.display = "";
-    document.getElementById("over-pass-mobile").style.display = "none";
-  }
-
-  if (available_cert_id) {
-    document.getElementById("view-cert").style.display = "";
-    document.getElementById("no-cert").style.display = "none";
-    document.getElementById("view-cert-mobile").style.display = "";
-    document.getElementById("no-cert-mobile").style.display = "none";
-  } else {
-    document.getElementById("view-cert").style.display = "none";
-    document.getElementById("no-cert").style.display = "";
-    document.getElementById("view-cert-mobile").style.display = "none";
-    document.getElementById("no-cert-mobile").style.display = "";
-  }
-
   useEffect(() => {
     window.addEventListener("scroll", (event) => {
       let scroll = this.scrollY;
@@ -162,6 +140,27 @@ function OutlineTab({ intl }) {
     // });
   }, []);
   componentDidMount(() => {
+    if (overall_percentage >= 60) {
+      document.getElementById("under-pass").style.display = "none";
+      document.getElementById("over-pass").style.display = "";
+      document.getElementById("under-pass-mobile").style.display = "none";
+      document.getElementById("over-pass-mobile").style.display = "";
+    } else {
+      document.getElementById("under-pass-mobile").style.display = "";
+      document.getElementById("over-pass-mobile").style.display = "none";
+    }
+
+    if (available_cert_id) {
+      document.getElementById("view-cert").style.display = "";
+      document.getElementById("no-cert").style.display = "none";
+      document.getElementById("view-cert-mobile").style.display = "";
+      document.getElementById("no-cert-mobile").style.display = "none";
+    } else {
+      document.getElementById("view-cert").style.display = "none";
+      document.getElementById("no-cert").style.display = "";
+      document.getElementById("view-cert-mobile").style.display = "none";
+      document.getElementById("no-cert-mobile").style.display = "";
+    }
     document
       .getElementById("refresh-btn")
       .addEventListener("click", function () {
