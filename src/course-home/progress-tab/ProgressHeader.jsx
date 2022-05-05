@@ -66,14 +66,14 @@ function ProgressHeader({ intl }) {
           </div>
           <div className="desc-part" id="under-pass">
             <div className="top d-flex">
-              <div className="passmark" style="position: relative;"></div>
+              <div className="passmark" style={{ position: "relative" }}></div>
               <span className="desc-percent">Passing grade 60%</span>
             </div>
             <span className="desc-percent-bottom">
               Earn 60% to get Certificate
             </span>
           </div>
-          <div className="desc-part" id="over-pass" style="display: none;">
+          <div className="desc-part" id="over-pass" style={{ display: "none" }}>
             <div className="top d-flex">
               <span className="earn">You earned this certificate</span>
             </div>
@@ -107,7 +107,7 @@ function ProgressHeader({ intl }) {
                 ${overall_percentage}%
               </span>
             </div>
-            <div className="refresh-part" style="margin-left: 6px;">
+            <div className="refresh-part" style={{ marginLeft: "6px" }}>
               <img
                 src="/static/oxygen-theme/images/refresh.png"
                 alt=""
@@ -127,10 +127,13 @@ function ProgressHeader({ intl }) {
             </div>
             <div className="passmark passmark-fix"></div>
           </div>
-          <div className="bottom d-flex" style="margin-top: 8px;">
+          <div className="bottom d-flex" style={{ marginTop: "8px" }}>
             <div className="desc-part" id="under-pass-mobile">
               <div className="top d-flex">
-                <div className="passmark" style="position: relative;"></div>
+                <div
+                  className="passmark"
+                  style={{ position: "relative" }}
+                ></div>
                 <span className="desc-percent">Passing grade 60%</span>
               </div>
               <span className="desc-percent-bottom">
@@ -140,7 +143,7 @@ function ProgressHeader({ intl }) {
             <div
               className="desc-part"
               id="over-pass-mobile"
-              style="display: none;"
+              style={{ display: "none" }}
             >
               <div className="top d-flex">
                 <span className="earn">You earned this certificate</span>
