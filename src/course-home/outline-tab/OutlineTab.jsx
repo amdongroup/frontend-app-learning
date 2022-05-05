@@ -132,14 +132,6 @@ function OutlineTab({ intl }) {
       }
     });
 
-    //api call here
-    // fetch("https://api.edx.org/api/certificates/v0/certificates/").then(data=>{
-    //   console.log(data);
-    //   setOverall_percentage(data.overall_percentage);
-    //   setAvailable_cert_id(data.available_cert_id);
-    // });
-  }, []);
-  componentDidMount(() => {
     if (overall_percentage >= 60) {
       document.getElementById("under-pass").style.display = "none";
       document.getElementById("over-pass").style.display = "";
@@ -176,7 +168,14 @@ function OutlineTab({ intl }) {
       });
     document.getElementById("progress-value-mobile").style.width =
       overall_percentage + "%";
-  });
+
+    //api call here
+    // fetch("https://api.edx.org/api/certificates/v0/certificates/").then(data=>{
+    //   console.log(data);
+    //   setOverall_percentage(data.overall_percentage);
+    //   setAvailable_cert_id(data.available_cert_id);
+    // });
+  }, []);
 
   return (
     <>
