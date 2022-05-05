@@ -109,7 +109,75 @@ function OutlineTab({ intl }) {
 
   /** show post enrolment survey to only B2C learners */
   const learnerType = isEnterpriseUser() ? "enterprise_learner" : "b2c_learner";
+  const [overall_percentage, setOverall_percentage] = useState(0);
+  const [available_cert_id, setAvailable_cert_id] = useState("");
 
+  if (overall_percentage >= 60) {
+    document.getElementById("under-pass").style.display = "none";
+    document.getElementById("over-pass").style.display = "";
+    document.getElementById("under-pass-mobile").style.display = "none";
+    document.getElementById("over-pass-mobile").style.display = "";
+  } else {
+    document.getElementById("under-pass-mobile").style.display = "";
+    document.getElementById("over-pass-mobile").style.display = "none";
+  }
+
+  if (available_cert_id) {
+    document.getElementById("view-cert").style.display = "";
+    document.getElementById("no-cert").style.display = "none";
+    document.getElementById("view-cert-mobile").style.display = "";
+    document.getElementById("no-cert-mobile").style.display = "none";
+  } else {
+    document.getElementById("view-cert").style.display = "none";
+    document.getElementById("no-cert").style.display = "";
+    document.getElementById("view-cert-mobile").style.display = "none";
+    document.getElementById("no-cert-mobile").style.display = "";
+  }
+
+  useEffect(() => {
+    window.addEventListener("scroll", (event) => {
+      let scroll = this.scrollY;
+      console.log(scroll);
+      if (scroll >= 230) {
+        document.getElementById("apo-progress-wrapper").style.position =
+          "fixed";
+        document.getElementById("apo-progress-wrapper").style.zIndex = "999";
+        document.getElementById("apo-progress-wrapper").style.top = "0";
+        document.getElementById("apo-progress-wrapper").style.background =
+          "rgba(0, 0, 0, 0.1)";
+      } else {
+        document.getElementById("apo-progress-wrapper").style.position = "";
+        document.getElementById("apo-progress-wrapper").style.zIndex = "";
+        document.getElementById("apo-progress-wrapper").style.top = "";
+        document.getElementById("apo-progress-wrapper").style.background =
+          "#F2F3F5";
+      }
+    });
+
+    //api call here
+    // fetch("https://api.edx.org/api/certificates/v0/certificates/").then(data=>{
+    //   console.log(data);
+    //   setOverall_percentage(data.overall_percentage);
+    //   setAvailable_cert_id(data.available_cert_id);
+    // });
+  }, []);
+  componentDidMount(() => {
+    document
+      .getElementById("refresh-btn")
+      .addEventListener("click", function () {
+        location.reload();
+      });
+    document.getElementById("progress-value").style.width =
+      overall_percentage + "%";
+
+    document
+      .getElementById("refresh-btn-mobile")
+      .addEventListener("click", function () {
+        location.reload();
+      });
+    document.getElementById("progress-value-mobile").style.width =
+      overall_percentage + "%";
+  });
   return (
     <>
       <Toast
@@ -190,6 +258,132 @@ function OutlineTab({ intl }) {
               }}
             />
           )}
+          <div className="apo-progress-wrapper" id="apo-progress-wrapper">
+            <div id="apo-progress">
+              <div className="progress-part">
+                <span>Your current grade</span>
+                <div className="progress">
+                  <div
+                    className="progress-bar"
+                    id="progress-value"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+                <div className="passmark passmark-fix"></div>
+              </div>
+              <div className="percent-part">
+                <span className="apo-progress-percent">
+                  {overall_percentage}%
+                </span>
+              </div>
+              <div className="desc-part" id="under-pass">
+                <div className="top d-flex">
+                  <div
+                    className="passmark"
+                    style={{ position: "relative" }}
+                  ></div>
+                  <span className="desc-percent">Passing grade 60%</span>
+                </div>
+                <span className="desc-percent-bottom">
+                  Earn 60% to get Certificate
+                </span>
+              </div>
+              <div
+                className="desc-part"
+                id="over-pass"
+                style={{ display: "none" }}
+              >
+                <div className="top d-flex">
+                  <span className="earn">You earned this certificate</span>
+                </div>
+                <a
+                  target="_blank"
+                  href="https://sff.apixoxygen.com/certificate/${available_cert_id}"
+                  className="view-cert"
+                  id="view-cert"
+                >
+                  View certificate
+                </a>
+                <a className="no-cert" id="no-cert">
+                  View certificate
+                </a>
+              </div>
+              <div className="refresh-part">
+                <img
+                  src="../../generic/assets/refresh.png"
+                  alt=""
+                  id="refresh-btn"
+                />
+              </div>
+            </div>
+            <div id="apo-progress-mobile">
+              <div className="top d-flex align-item-start">
+                <div className="progress-part">
+                  <span>Your current progress</span>
+                </div>
+                <div className="percent-part">
+                  <span className="apo-progress-percent">
+                    {overall_percentage}%
+                  </span>
+                </div>
+                <div className="refresh-part" style={{ marginLeft: "6px" }}>
+                  <img
+                    src="../../generic/assets/refresh.png"
+                    alt=""
+                    id="refresh-btn-mobile"
+                  />
+                </div>
+              </div>
+              <div className="mid d-flex">
+                <div className="progress">
+                  <div
+                    className="progress-bar"
+                    id="progress-value-mobile"
+                    role="progressbar"
+                    aria-valuemin="0"
+                    aria-valuemax="100"
+                  ></div>
+                </div>
+                <div className="passmark passmark-fix"></div>
+              </div>
+              <div className="bottom d-flex" style={{ marginTop: "8px" }}>
+                <div className="desc-part" id="under-pass-mobile">
+                  <div className="top d-flex">
+                    <div
+                      className="passmark"
+                      style={{ position: "relative" }}
+                    ></div>
+                    <span className="desc-percent">Passing grade 60%</span>
+                  </div>
+                  <span className="desc-percent-bottom">
+                    Earn 60% to get Certificate
+                  </span>
+                </div>
+                <div
+                  className="desc-part"
+                  id="over-pass-mobile"
+                  style={{ display: "none" }}
+                >
+                  <div className="top d-flex">
+                    <span className="earn">You earned this certificate</span>
+                  </div>
+                  <a
+                    target="_blank"
+                    href="https://sff.apixoxygen.com/certificate/${available_cert_id}"
+                    className="view-cert"
+                    id="view-cert-mobile"
+                  >
+                    View certificate
+                  </a>
+                  <a className="no-cert" id="no-cert-mobile">
+                    View certificate
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
           <WelcomeMessage courseId={courseId} />
           {rootCourseId && (
             <>

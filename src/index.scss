@@ -4,6 +4,10 @@
 @import "~@edx/brand/paragon/overrides";
 
 @import "~@edx/frontend-component-footer/dist/footer";
+$banner: #15236e;
+$footer: #1c013f;
+$defaultBackground: #e5e5e5;
+$white: #ffffff;
 
 #root {
   display: flex;
@@ -16,6 +20,8 @@
 
   header {
     flex: 0 0 auto;
+    background: $banner;
+    color: $white;
 
     .logo {
       display: block;
@@ -33,6 +39,8 @@
 
   footer {
     flex: 0;
+    background-color: $footer;
+    color: $white;
   }
 }
 
