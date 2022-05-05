@@ -114,7 +114,7 @@ function OutlineTab({ intl }) {
 
   useEffect(() => {
     window.addEventListener("scroll", (event) => {
-      let scroll = this.scrollY;
+      let scroll = window.scrollY || window.pageYOffset;
       console.log(scroll);
       if (scroll >= 230) {
         document.getElementById("apo-progress-wrapper").style.position =

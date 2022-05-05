@@ -21,7 +21,7 @@ $white: #ffffff;
   header {
     flex: 0 0 auto;
     background: $banner;
-    color: $white;
+    color: $white !important;
 
     .logo {
       display: block;
@@ -37,14 +37,17 @@ $white: #ffffff;
     }
 
     a {
-      color: $white;
+      color: $white !important;
     }
   }
 
   footer {
     flex: 0;
     background-color: $footer;
-    color: $white;
+    color: $white !important;
+    * {
+      color: $white !important;
+    }
   }
 }
 
@@ -371,10 +374,13 @@ $white: #ffffff;
 //apo css
 .apo-progress-wrapper {
   width: 100%;
-  background: #f2f3f5;
+  // background: #f2f3f5;
   height: 96px;
   display: flex;
   align-items: center;
+  border: 2px solid #f2f3f5;
+  border-radius: 15px;
+  margin-bottom: 16px;
 }
 #apo-progress-mobile {
   display: none;
