@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import {
   sendTrackEvent,
@@ -177,6 +177,7 @@ function OutlineTab({ intl }) {
     document.getElementById("progress-value-mobile").style.width =
       overall_percentage + "%";
   });
+
   return (
     <>
       <Toast
