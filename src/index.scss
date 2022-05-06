@@ -647,6 +647,39 @@ $white: #ffffff;
 }
 //apo css end
 
+//override start
+#main-content {
+  background-color: $defaultBackground !important;
+}
+.nav-link:hover {
+  font-weight: 500 !important;
+}
+.text-gray-700 .mr-3 {
+  display: none !important;
+}
+.xmodule_display.xmodule_VideoBlock {
+  .video {
+    .wrapper-downloads {
+      .wrapper-download-video {
+        .video-sources {
+          color: #474747;
+        }
+      }
+      .wrapper-download-transcripts {
+        .list-download-transcripts {
+          .transcript-option {
+            a {
+              color: #474747;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+//override end
+
 // Import component-specific sass files
 @import "courseware/course/celebration/CelebrationModal.scss";
 @import "courseware/course/NotificationTray.scss";
