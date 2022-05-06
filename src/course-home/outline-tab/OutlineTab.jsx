@@ -123,12 +123,19 @@ function OutlineTab({ intl }) {
         document.getElementById("apo-progress-wrapper").style.top = "0";
         document.getElementById("apo-progress-wrapper").style.background =
           "rgba(0, 0, 0, 0.1)";
+        document.getElementById("apo-progress-wrapper").style.border =
+          "2px solid #f2f3f5";
+        document.getElementById("apo-progress-wrapper").style.borderRadius =
+          "15px";
       } else {
         document.getElementById("apo-progress-wrapper").style.position = "";
         document.getElementById("apo-progress-wrapper").style.zIndex = "";
         document.getElementById("apo-progress-wrapper").style.top = "";
         document.getElementById("apo-progress-wrapper").style.background =
-          "#F2F3F5";
+          "transparent";
+        document.getElementById("apo-progress-wrapper").style.border = "none";
+        document.getElementById("apo-progress-wrapper").style.borderRadius =
+          "0px";
       }
     });
 
@@ -186,6 +193,123 @@ function OutlineTab({ intl }) {
       >
         {goalToastHeader}
       </Toast>
+      <div className="apo-progress-wrapper" id="apo-progress-wrapper">
+        <div id="apo-progress">
+          <div className="progress-part">
+            <span>Your current grade</span>
+            <div className="progress">
+              <div
+                className="progress-bar"
+                id="progress-value"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+            <div className="passmark passmark-fix"></div>
+          </div>
+          <div className="percent-part">
+            <span className="apo-progress-percent">{overall_percentage}%</span>
+          </div>
+          <div className="desc-part" id="under-pass">
+            <div className="top d-flex">
+              <div className="passmark" style={{ position: "relative" }}></div>
+              <span className="desc-percent">Passing grade 60%</span>
+            </div>
+            <span className="desc-percent-bottom">
+              Earn 60% to get Certificate
+            </span>
+          </div>
+          <div className="desc-part" id="over-pass" style={{ display: "none" }}>
+            <div className="top d-flex">
+              <span className="earn">You earned this certificate</span>
+            </div>
+            <a
+              target="_blank"
+              href="https://sff.apixoxygen.com/certificate/${available_cert_id}"
+              className="view-cert"
+              id="view-cert"
+            >
+              View certificate
+            </a>
+            <a className="no-cert" id="no-cert">
+              View certificate
+            </a>
+          </div>
+          <div className="refresh-part">
+            <img
+              src="../../generic/assets/refresh.png"
+              alt=""
+              id="refresh-btn"
+            />
+          </div>
+        </div>
+        <div id="apo-progress-mobile">
+          <div className="top d-flex align-item-start">
+            <div className="progress-part">
+              <span>Your current progress</span>
+            </div>
+            <div className="percent-part">
+              <span className="apo-progress-percent">
+                {overall_percentage}%
+              </span>
+            </div>
+            <div className="refresh-part" style={{ marginLeft: "6px" }}>
+              <img
+                src="../../generic/assets/refresh.png"
+                alt=""
+                id="refresh-btn-mobile"
+              />
+            </div>
+          </div>
+          <div className="mid d-flex">
+            <div className="progress">
+              <div
+                className="progress-bar"
+                id="progress-value-mobile"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+            <div className="passmark passmark-fix"></div>
+          </div>
+          <div className="bottom d-flex" style={{ marginTop: "8px" }}>
+            <div className="desc-part" id="under-pass-mobile">
+              <div className="top d-flex">
+                <div
+                  className="passmark"
+                  style={{ position: "relative" }}
+                ></div>
+                <span className="desc-percent">Passing grade 60%</span>
+              </div>
+              <span className="desc-percent-bottom">
+                Earn 60% to get Certificate
+              </span>
+            </div>
+            <div
+              className="desc-part"
+              id="over-pass-mobile"
+              style={{ display: "none" }}
+            >
+              <div className="top d-flex">
+                <span className="earn">You earned this certificate</span>
+              </div>
+              <a
+                target="_blank"
+                href="https://sff.apixoxygen.com/certificate/${available_cert_id}"
+                className="view-cert"
+                id="view-cert-mobile"
+              >
+                View certificate
+              </a>
+              <a className="no-cert" id="no-cert-mobile">
+                View certificate
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
       <div
         data-learner-type={learnerType}
         className="row w-100 mx-0 my-3 justify-content-between"
@@ -257,132 +381,7 @@ function OutlineTab({ intl }) {
               }}
             />
           )}
-          <div className="apo-progress-wrapper" id="apo-progress-wrapper">
-            <div id="apo-progress">
-              <div className="progress-part">
-                <span>Your current grade</span>
-                <div className="progress">
-                  <div
-                    className="progress-bar"
-                    id="progress-value"
-                    role="progressbar"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <div className="passmark passmark-fix"></div>
-              </div>
-              <div className="percent-part">
-                <span className="apo-progress-percent">
-                  {overall_percentage}%
-                </span>
-              </div>
-              <div className="desc-part" id="under-pass">
-                <div className="top d-flex">
-                  <div
-                    className="passmark"
-                    style={{ position: "relative" }}
-                  ></div>
-                  <span className="desc-percent">Passing grade 60%</span>
-                </div>
-                <span className="desc-percent-bottom">
-                  Earn 60% to get Certificate
-                </span>
-              </div>
-              <div
-                className="desc-part"
-                id="over-pass"
-                style={{ display: "none" }}
-              >
-                <div className="top d-flex">
-                  <span className="earn">You earned this certificate</span>
-                </div>
-                <a
-                  target="_blank"
-                  href="https://sff.apixoxygen.com/certificate/${available_cert_id}"
-                  className="view-cert"
-                  id="view-cert"
-                >
-                  View certificate
-                </a>
-                <a className="no-cert" id="no-cert">
-                  View certificate
-                </a>
-              </div>
-              <div className="refresh-part">
-                <img
-                  src="../../generic/assets/refresh.png"
-                  alt=""
-                  id="refresh-btn"
-                />
-              </div>
-            </div>
-            <div id="apo-progress-mobile">
-              <div className="top d-flex align-item-start">
-                <div className="progress-part">
-                  <span>Your current progress</span>
-                </div>
-                <div className="percent-part">
-                  <span className="apo-progress-percent">
-                    {overall_percentage}%
-                  </span>
-                </div>
-                <div className="refresh-part" style={{ marginLeft: "6px" }}>
-                  <img
-                    src="../../generic/assets/refresh.png"
-                    alt=""
-                    id="refresh-btn-mobile"
-                  />
-                </div>
-              </div>
-              <div className="mid d-flex">
-                <div className="progress">
-                  <div
-                    className="progress-bar"
-                    id="progress-value-mobile"
-                    role="progressbar"
-                    aria-valuemin="0"
-                    aria-valuemax="100"
-                  ></div>
-                </div>
-                <div className="passmark passmark-fix"></div>
-              </div>
-              <div className="bottom d-flex" style={{ marginTop: "8px" }}>
-                <div className="desc-part" id="under-pass-mobile">
-                  <div className="top d-flex">
-                    <div
-                      className="passmark"
-                      style={{ position: "relative" }}
-                    ></div>
-                    <span className="desc-percent">Passing grade 60%</span>
-                  </div>
-                  <span className="desc-percent-bottom">
-                    Earn 60% to get Certificate
-                  </span>
-                </div>
-                <div
-                  className="desc-part"
-                  id="over-pass-mobile"
-                  style={{ display: "none" }}
-                >
-                  <div className="top d-flex">
-                    <span className="earn">You earned this certificate</span>
-                  </div>
-                  <a
-                    target="_blank"
-                    href="https://sff.apixoxygen.com/certificate/${available_cert_id}"
-                    className="view-cert"
-                    id="view-cert-mobile"
-                  >
-                    View certificate
-                  </a>
-                  <a className="no-cert" id="no-cert-mobile">
-                    View certificate
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+
           <WelcomeMessage courseId={courseId} />
           {rootCourseId && (
             <>
