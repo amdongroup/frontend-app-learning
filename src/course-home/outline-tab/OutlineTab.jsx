@@ -14,7 +14,7 @@ import CourseDates from "./widgets/CourseDates";
 import CourseGoalCard from "./widgets/CourseGoalCard";
 import CourseHandouts from "./widgets/CourseHandouts";
 import CourseTools from "./widgets/CourseTools";
-import { fetchOutlineTab } from "../data";
+import { fetchOutlineTab, fetchProgressTab } from "../data";
 import genericMessages from "../../generic/messages";
 import messages from "./messages";
 import Section from "./Section";
@@ -36,6 +36,7 @@ import AccountActivationAlert from "../../alerts/logistration-alert/AccountActiv
 import { initHomeMMP2P, MMP2PFlyover } from "../../experiments/mm-p2p";
 
 function OutlineTab({ intl }) {
+  const { fetch } = props;
   const { courseId } = useSelector((state) => state.courseHome);
 
   const { isSelfPaced, org, title, username, userTimezone } = useModel(
@@ -121,21 +122,23 @@ function OutlineTab({ intl }) {
           "fixed";
         document.getElementById("apo-progress-wrapper").style.zIndex = "999";
         document.getElementById("apo-progress-wrapper").style.top = "0";
+        document.getElementById("apo-progress-wrapper").style.left = "0";
         document.getElementById("apo-progress-wrapper").style.background =
           "rgba(0, 0, 0, 0.1)";
-        document.getElementById("apo-progress-wrapper").style.border =
-          "2px solid #f2f3f5";
+        document.getElementById("apo-progress-wrapper").style.border = "none";
         document.getElementById("apo-progress-wrapper").style.borderRadius =
-          "15px";
+          "0px";
       } else {
         document.getElementById("apo-progress-wrapper").style.position = "";
         document.getElementById("apo-progress-wrapper").style.zIndex = "";
         document.getElementById("apo-progress-wrapper").style.top = "";
         document.getElementById("apo-progress-wrapper").style.background =
           "transparent";
-        document.getElementById("apo-progress-wrapper").style.border = "none";
+
+        document.getElementById("apo-progress-wrapper").style.border =
+          "2px solid #f2f3f5";
         document.getElementById("apo-progress-wrapper").style.borderRadius =
-          "0px";
+          "15px";
       }
     });
 
@@ -182,6 +185,7 @@ function OutlineTab({ intl }) {
     //   setOverall_percentage(data.overall_percentage);
     //   setAvailable_cert_id(data.available_cert_id);
     // });
+    console.log("fetch", fetch);
   }, []);
 
   return (
@@ -226,7 +230,7 @@ function OutlineTab({ intl }) {
             </div>
             <a
               target="_blank"
-              href="https://sff.apixoxygen.com/certificate/${available_cert_id}"
+              href="https://sff.apixoxygen.com/certificate/:available_cert_id"
               className="view-cert"
               id="view-cert"
             >
@@ -297,7 +301,7 @@ function OutlineTab({ intl }) {
               </div>
               <a
                 target="_blank"
-                href="https://sff.apixoxygen.com/certificate/${available_cert_id}"
+                href="https://sff.apixoxygen.com/certificate/:available_cert_id"
                 className="view-cert"
                 id="view-cert-mobile"
               >
