@@ -658,7 +658,8 @@ $white: #ffffff;
 //apo css end
 
 //override start
-#main-content {
+#main-content,
+body {
   background-color: $defaultBackground !important;
 }
 .nav-link:hover {
@@ -717,6 +718,34 @@ section.text-dark-700.my-4.rounded.shadow-sm {
         }
       }
     }
+  }
+}
+
+.icon-container {
+  display: none;
+}
+
+@media (min-width: 576px) {
+  .sequence {
+    border: solid 1px #474747 !important;
+  }
+}
+
+.sequence-navigation {
+  .btn {
+    border: solid 1px #474747 !important;
+  }
+  .previous-btn {
+    border: 1px solid #474747 !important;
+  }
+  .next-btn {
+    border: 1px solid #474747 !important;
+  }
+}
+
+.unit-navigation {
+  .next-button {
+    flex-basis: 25%;
   }
 }
 

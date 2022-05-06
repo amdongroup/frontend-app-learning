@@ -135,10 +135,9 @@ function OutlineTab({ intl }) {
         document.getElementById("apo-progress-wrapper").style.background =
           "transparent";
 
-        document.getElementById("apo-progress-wrapper").style.border =
-          "2px solid #f2f3f5";
+        document.getElementById("apo-progress-wrapper").style.border = "none";
         document.getElementById("apo-progress-wrapper").style.borderRadius =
-          "15px";
+          "0px";
       }
     });
 

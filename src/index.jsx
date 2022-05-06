@@ -59,7 +59,7 @@ subscribe(APP_READY, () => {
             <PageRoute path="/course/:courseId/home">
               <TabContainer
                 tab="outline"
-                fetch={fetchOulineTab}
+                fetch={fetchOutlineTab}
                 slice="courseHome"
               >
                 <OutlineTab />
