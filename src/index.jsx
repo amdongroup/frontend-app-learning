@@ -56,15 +56,20 @@ subscribe(APP_READY, () => {
               path="/redirect"
               component={CoursewareRedirectLandingPage}
             />
-            <PageRoute path="/course/:courseId/home">
-              <TabContainer
-                tab="outline"
-                fetch={fetchOutlineTab}
-                slice="courseHome"
-              >
-                <OutlineTab fetch={fetchProgressTab(courseId, null)} />
-              </TabContainer>
-            </PageRoute>
+            <PageRoute
+              path="/course/:courseId/home"
+              render={({ match }) => (
+                <TabContainer
+                  tab="outline"
+                  fetch={(courseId) =>
+                    fetchProgressTab(courseId, match.params.targetUserId)
+                  }
+                  slice="courseHome"
+                >
+                  <OutlineTab />
+                </TabContainer>
+              )}
+            ></PageRoute>
             <PageRoute path="/course/:courseId/dates">
               <TabContainer
                 tab="dates"

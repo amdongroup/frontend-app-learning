@@ -36,7 +36,7 @@ import AccountActivationAlert from "../../alerts/logistration-alert/AccountActiv
 import { initHomeMMP2P, MMP2PFlyover } from "../../experiments/mm-p2p";
 
 function OutlineTab({ intl }) {
-  const { fetch } = props;
+  // const { fetch } = props;
   const { courseId } = useSelector((state) => state.courseHome);
 
   const { isSelfPaced, org, title, username, userTimezone } = useModel(
@@ -185,7 +185,7 @@ function OutlineTab({ intl }) {
     //   setOverall_percentage(data.overall_percentage);
     //   setAvailable_cert_id(data.available_cert_id);
     // });
-    console.log("fetch", fetch);
+    // console.log("fetch", fetch);
   }, []);
 
   return (
