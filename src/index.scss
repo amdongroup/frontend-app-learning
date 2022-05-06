@@ -4,10 +4,21 @@
 @import "~@edx/brand/paragon/overrides";
 
 @import "~@edx/frontend-component-footer/dist/footer";
+@import url("https://fonts.googleapis.com/css2?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&display=swap");
 $banner: #15236e;
 $footer: #1c013f;
 $defaultBackground: #e5e5e5;
 $white: #ffffff;
+
+.h1,
+.h2,
+.h3,
+.h4,
+.h5,
+.h6 {
+  font-family: "Poppins", sans-serif !important;
+}
 
 #root {
   display: flex;
@@ -35,9 +46,8 @@ $white: #ffffff;
         height: 100%;
       }
     }
-
-    a {
-      color: $white !important;
+    a.text-gray-700.mr-3 {
+      display: none;
     }
   }
 
@@ -443,7 +453,7 @@ $white: #ffffff;
 }
 
 .earn-cert {
-  // font-family: Inter;
+  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -477,7 +487,7 @@ $white: #ffffff;
 }
 
 .apo-progress-percent {
-  // font-family: Inter;
+  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 28px;
@@ -499,7 +509,7 @@ $white: #ffffff;
 
 .desc-percent {
   margin-left: 18px;
-  // font-family: Inter;
+  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 15px;
@@ -517,7 +527,7 @@ $white: #ffffff;
 
 .desc-percent-bottom {
   margin-left: 18px;
-  // font-family: Inter;
+  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -534,7 +544,7 @@ $white: #ffffff;
 }
 
 .earn {
-  // font-family: Inter;
+  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: 500;
   font-size: 13px;
@@ -556,7 +566,7 @@ $white: #ffffff;
   height: 40px;
   background: #00a653;
   border-radius: 8px;
-  // font-family: Inter;
+  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 15px;
@@ -577,7 +587,7 @@ $white: #ffffff;
   height: 40px;
   background: #edeef0;
   border-radius: 8px;
-  // font-family: Inter;
+  font-family: "Inter", sans-serif;
   font-style: normal;
   font-weight: bold;
   font-size: 15px;
@@ -672,6 +682,38 @@ $white: #ffffff;
               color: #474747;
             }
           }
+        }
+      }
+    }
+  }
+}
+
+.btn-outline-primary.dropdown-toggle {
+  color: #454545;
+  background-color: #f0f3f5;
+  border-color: #07223c;
+}
+
+.course-tabs-navigation {
+  border-bottom: solid 1px #474747;
+}
+
+section.text-dark-700.mb-4.rounded.shadow-sm.p-4 {
+  background: $white;
+}
+section.text-dark-700.my-4.rounded.shadow-sm {
+  background: $white;
+}
+.grades.my-4.p-4.rounded.shadow-sm {
+  background: $white;
+}
+.course-tabs-navigation {
+  .nav {
+    a {
+      &:not(.active) {
+        &:hover {
+          background-color: transparent !important;
+          border-bottom-color: #0a3055 !important;
         }
       }
     }
