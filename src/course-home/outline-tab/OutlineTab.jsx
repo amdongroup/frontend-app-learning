@@ -113,79 +113,79 @@ function OutlineTab({ intl }) {
   const [overall_percentage, setOverall_percentage] = useState(0);
   const [available_cert_id, setAvailable_cert_id] = useState("");
 
-  useEffect(() => {
-    window.addEventListener("scroll", (event) => {
-      let scroll = window.scrollY || window.pageYOffset;
-      console.log(scroll);
-      if (scroll >= 230) {
-        document.getElementById("apo-progress-wrapper").style.position =
-          "fixed";
-        document.getElementById("apo-progress-wrapper").style.zIndex = "999";
-        document.getElementById("apo-progress-wrapper").style.top = "0";
-        document.getElementById("apo-progress-wrapper").style.left = "0";
-        document.getElementById("apo-progress-wrapper").style.background =
-          "rgba(0, 0, 0, 0.1)";
-        document.getElementById("apo-progress-wrapper").style.border = "none";
-        document.getElementById("apo-progress-wrapper").style.borderRadius =
-          "0px";
-      } else {
-        document.getElementById("apo-progress-wrapper").style.position = "";
-        document.getElementById("apo-progress-wrapper").style.zIndex = "";
-        document.getElementById("apo-progress-wrapper").style.top = "";
-        document.getElementById("apo-progress-wrapper").style.background =
-          "transparent";
+  // useEffect(() => {
+  //   window.addEventListener("scroll", (event) => {
+  //     let scroll = window.scrollY || window.pageYOffset;
+  //     console.log(scroll);
+  //     if (scroll >= 230) {
+  //       document.getElementById("apo-progress-wrapper").style.position =
+  //         "fixed";
+  //       document.getElementById("apo-progress-wrapper").style.zIndex = "999";
+  //       document.getElementById("apo-progress-wrapper").style.top = "0";
+  //       document.getElementById("apo-progress-wrapper").style.left = "0";
+  //       document.getElementById("apo-progress-wrapper").style.background =
+  //         "rgba(0, 0, 0, 0.1)";
+  //       document.getElementById("apo-progress-wrapper").style.border = "none";
+  //       document.getElementById("apo-progress-wrapper").style.borderRadius =
+  //         "0px";
+  //     } else {
+  //       document.getElementById("apo-progress-wrapper").style.position = "";
+  //       document.getElementById("apo-progress-wrapper").style.zIndex = "";
+  //       document.getElementById("apo-progress-wrapper").style.top = "";
+  //       document.getElementById("apo-progress-wrapper").style.background =
+  //         "transparent";
 
-        document.getElementById("apo-progress-wrapper").style.border = "none";
-        document.getElementById("apo-progress-wrapper").style.borderRadius =
-          "0px";
-      }
-    });
+  //       document.getElementById("apo-progress-wrapper").style.border = "none";
+  //       document.getElementById("apo-progress-wrapper").style.borderRadius =
+  //         "0px";
+  //     }
+  //   });
 
-    if (overall_percentage >= 60) {
-      document.getElementById("under-pass").style.display = "none";
-      document.getElementById("over-pass").style.display = "";
-      document.getElementById("under-pass-mobile").style.display = "none";
-      document.getElementById("over-pass-mobile").style.display = "";
-    } else {
-      document.getElementById("under-pass-mobile").style.display = "";
-      document.getElementById("over-pass-mobile").style.display = "none";
-    }
+  //   if (overall_percentage >= 60) {
+  //     document.getElementById("under-pass").style.display = "none";
+  //     document.getElementById("over-pass").style.display = "";
+  //     document.getElementById("under-pass-mobile").style.display = "none";
+  //     document.getElementById("over-pass-mobile").style.display = "";
+  //   } else {
+  //     document.getElementById("under-pass-mobile").style.display = "";
+  //     document.getElementById("over-pass-mobile").style.display = "none";
+  //   }
 
-    if (available_cert_id) {
-      document.getElementById("view-cert").style.display = "";
-      document.getElementById("no-cert").style.display = "none";
-      document.getElementById("view-cert-mobile").style.display = "";
-      document.getElementById("no-cert-mobile").style.display = "none";
-    } else {
-      document.getElementById("view-cert").style.display = "none";
-      document.getElementById("no-cert").style.display = "";
-      document.getElementById("view-cert-mobile").style.display = "none";
-      document.getElementById("no-cert-mobile").style.display = "";
-    }
-    document
-      .getElementById("refresh-btn")
-      .addEventListener("click", function () {
-        location.reload();
-      });
-    document.getElementById("progress-value").style.width =
-      overall_percentage + "%";
+  //   if (available_cert_id) {
+  //     document.getElementById("view-cert").style.display = "";
+  //     document.getElementById("no-cert").style.display = "none";
+  //     document.getElementById("view-cert-mobile").style.display = "";
+  //     document.getElementById("no-cert-mobile").style.display = "none";
+  //   } else {
+  //     document.getElementById("view-cert").style.display = "none";
+  //     document.getElementById("no-cert").style.display = "";
+  //     document.getElementById("view-cert-mobile").style.display = "none";
+  //     document.getElementById("no-cert-mobile").style.display = "";
+  //   }
+  //   document
+  //     .getElementById("refresh-btn")
+  //     .addEventListener("click", function () {
+  //       location.reload();
+  //     });
+  //   document.getElementById("progress-value").style.width =
+  //     overall_percentage + "%";
 
-    document
-      .getElementById("refresh-btn-mobile")
-      .addEventListener("click", function () {
-        location.reload();
-      });
-    document.getElementById("progress-value-mobile").style.width =
-      overall_percentage + "%";
+  //   document
+  //     .getElementById("refresh-btn-mobile")
+  //     .addEventListener("click", function () {
+  //       location.reload();
+  //     });
+  //   document.getElementById("progress-value-mobile").style.width =
+  //     overall_percentage + "%";
 
-    //api call here
-    // fetch("https://api.edx.org/api/certificates/v0/certificates/").then(data=>{
-    //   console.log(data);
-    //   setOverall_percentage(data.overall_percentage);
-    //   setAvailable_cert_id(data.available_cert_id);
-    // });
-    // console.log("fetch", fetch);
-  }, []);
+  //   //api call here
+  //   // fetch("https://api.edx.org/api/certificates/v0/certificates/").then(data=>{
+  //   //   console.log(data);
+  //   //   setOverall_percentage(data.overall_percentage);
+  //   //   setAvailable_cert_id(data.available_cert_id);
+  //   // });
+  //   // console.log("fetch", fetch);
+  // }, []);
 
   return (
     <>
@@ -196,7 +196,7 @@ function OutlineTab({ intl }) {
       >
         {goalToastHeader}
       </Toast>
-      <div className="apo-progress-wrapper" id="apo-progress-wrapper">
+      {/* <div className="apo-progress-wrapper" id="apo-progress-wrapper">
         <div id="apo-progress">
           <div className="progress-part">
             <span>Your current grade</span>
@@ -312,7 +312,7 @@ function OutlineTab({ intl }) {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div
         data-learner-type={learnerType}
         className="row w-100 mx-0 my-3 justify-content-between"
