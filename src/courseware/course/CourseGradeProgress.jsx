@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
-// import refreshImage from '../../generic/';
-
+import refreshImage from "../course/celebration/assets/refresh.png";
+// import refreshImage from '../course/celebration/assets/claps_456x328.gif';
 function CourseGradeProgress({ availableCertId, overallPercentage }) {
   useEffect(() => {
     window.addEventListener("scroll", (event) => {
@@ -113,7 +113,7 @@ function CourseGradeProgress({ availableCertId, overallPercentage }) {
           </a>
         </div>
         <div className="refresh-part">
-          <img src="../../generic/assets/refresh.png" alt="" id="refresh-btn" />
+          <img src={refreshImage} alt="" id="refresh-btn" />
         </div>
       </div>
       <div id="apo-progress-mobile">
@@ -125,11 +125,7 @@ function CourseGradeProgress({ availableCertId, overallPercentage }) {
             <span className="apo-progress-percent">{overallPercentage}%</span>
           </div>
           <div className="refresh-part" style={{ marginLeft: "6px" }}>
-            <img
-              src="../../generic/assets/refresh.png"
-              alt=""
-              id="refresh-btn-mobile"
-            />
+            <img src={refreshImage} alt="" id="refresh-btn-mobile" />
           </div>
         </div>
         <div className="mid d-flex">
