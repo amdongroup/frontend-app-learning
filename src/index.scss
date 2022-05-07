@@ -411,7 +411,7 @@ $white: #ffffff;
   width: 800px;
   height: 89px;
   background: #ffffff;
-  border: 2px solid #ffffff;
+  border: 1px solid #e5e5e5;
   box-sizing: border-box;
   border-radius: 16px;
   margin: 0 auto;
@@ -670,6 +670,11 @@ $white: #ffffff;
 // body {
 //   background-color: $defaultBackground !important;
 // }
+#course-content {
+  #main {
+    background-color: #ffffff !important;
+  }
+}
 .nav-link:hover {
   font-weight: 500 !important;
 }

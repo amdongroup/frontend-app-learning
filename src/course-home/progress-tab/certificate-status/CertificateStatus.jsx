@@ -1,50 +1,51 @@
-import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { sendTrackEvent } from '@edx/frontend-platform/analytics';
-import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { sendTrackEvent } from "@edx/frontend-platform/analytics";
+import { getAuthenticatedUser } from "@edx/frontend-platform/auth";
 import {
-  FormattedDate, FormattedMessage, injectIntl, intlShape,
-} from '@edx/frontend-platform/i18n';
+  FormattedDate,
+  FormattedMessage,
+  injectIntl,
+  intlShape,
+} from "@edx/frontend-platform/i18n";
 
-import { Button, Card } from '@edx/paragon';
-import { getConfig } from '@edx/frontend-platform';
-import { useModel } from '../../../generic/model-store';
-import { COURSE_EXIT_MODES, getCourseExitMode } from '../../../courseware/course/course-exit/utils';
-import { DashboardLink, IdVerificationSupportLink, ProfileLink } from '../../../shared/links';
-import { requestCert } from '../../data/thunks';
-import messages from './messages';
+import { Button, Card } from "@edx/paragon";
+import { getConfig } from "@edx/frontend-platform";
+import { useModel } from "../../../generic/model-store";
+import {
+  COURSE_EXIT_MODES,
+  getCourseExitMode,
+} from "../../../courseware/course/course-exit/utils";
+import {
+  DashboardLink,
+  IdVerificationSupportLink,
+  ProfileLink,
+} from "../../../shared/links";
+import { requestCert } from "../../data/thunks";
+import messages from "./messages";
 
 function CertificateStatus({ intl }) {
-  const {
-    courseId,
-  } = useSelector(state => state.courseHome);
+  const { courseId } = useSelector((state) => state.courseHome);
 
-  const {
-    isEnrolled,
-    org,
-  } = useModel('courseHomeMeta', courseId);
+  const { isEnrolled, org } = useModel("courseHomeMeta", courseId);
 
   const {
     certificateData,
     end,
     enrollmentMode,
-    gradingPolicy: {
-      gradeRange,
-    },
+    gradingPolicy: { gradeRange },
     hasScheduledContent,
     userHasPassingGrade,
     verificationData,
     verifiedMode,
-  } = useModel('progress', courseId);
-  const {
-    certificateAvailableDate,
-  } = certificateData || {};
+  } = useModel("progress", courseId);
+  const { certificateAvailableDate } = certificateData || {};
 
   const mode = getCourseExitMode(
     certificateData,
     hasScheduledContent,
     isEnrolled,
-    userHasPassingGrade,
+    userHasPassingGrade
   );
 
   const eventProperties = {
@@ -74,9 +75,10 @@ function CertificateStatus({ intl }) {
   let endDate;
   let certAvailabilityDate;
 
-  let gradeEventName = 'not_passing';
+  let gradeEventName = "not_passing";
   if (userHasPassingGrade) {
-    gradeEventName = Object.entries(gradeRange).length > 1 ? 'passing_grades' : 'passing';
+    gradeEventName =
+      Object.entries(gradeRange).length > 1 ? "passing_grades" : "passing";
   }
 
   const dashboardLink = <DashboardLink />;
@@ -86,30 +88,32 @@ function CertificateStatus({ intl }) {
   // Some learners have a valid ("downloadable") certificate without being in a passing
   // state (e.g. learners who have been added to a course's allowlist), so we need to
   // skip grade validation for these learners
-  const certIsDownloadable = certStatus === 'downloadable';
+  const certIsDownloadable = certStatus === "downloadable";
   if (mode === COURSE_EXIT_MODES.disabled) {
-    certEventName = 'certificate_status_disabled';
+    certEventName = "certificate_status_disabled";
   } else if (mode === COURSE_EXIT_MODES.nonPassing && !certIsDownloadable) {
-    certCase = 'notPassing';
-    certEventName = 'not_passing';
+    certCase = "notPassing";
+    certEventName = "not_passing";
     body = intl.formatMessage(messages[`${certCase}Body`]);
   } else if (mode === COURSE_EXIT_MODES.inProgress && !certIsDownloadable) {
-    certCase = 'inProgress';
-    certEventName = 'has_scheduled_content';
+    certCase = "inProgress";
+    certEventName = "has_scheduled_content";
     body = intl.formatMessage(messages[`${certCase}Body`]);
   } else if (mode === COURSE_EXIT_MODES.celebration || certIsDownloadable) {
     switch (certStatus) {
-      case 'requesting':
-        certCase = 'requestable';
-        buttonAction = () => { dispatch(requestCert(courseId)); };
+      case "requesting":
+        certCase = "requestable";
+        buttonAction = () => {
+          dispatch(requestCert(courseId));
+        };
         body = intl.formatMessage(messages[`${certCase}Body`]);
         buttonText = intl.formatMessage(messages[`${certCase}Button`]);
         break;
 
-      case 'unverified':
-        certCase = 'unverified';
-        if (verificationData.status === 'pending') {
-          body = (<p>{intl.formatMessage(messages.unverifiedPendingBody)}</p>);
+      case "unverified":
+        certCase = "unverified";
+        if (verificationData.status === "pending") {
+          body = <p>{intl.formatMessage(messages.unverifiedPendingBody)}</p>;
         } else {
           body = (
             <FormattedMessage
@@ -123,9 +127,9 @@ function CertificateStatus({ intl }) {
         }
         break;
 
-      case 'downloadable':
+      case "downloadable":
         // Certificate available, download/viewable
-        certCase = 'downloadable';
+        certCase = "downloadable";
         body = (
           <FormattedMessage
             id="progress.certificateStatus.downloadableBody"
@@ -138,20 +142,38 @@ function CertificateStatus({ intl }) {
         );
 
         if (certWebViewUrl) {
-          certEventName = 'earned_viewable';
-          buttonLocation = `${getConfig().LMS_BASE_URL}${certWebViewUrl}`;
+          let certId = null;
+          let certAry = certWebViewUrl.split("certificates/");
+          if (certAry.length == 2) certId = certAry[1];
+          certEventName = "earned_viewable";
+          buttonLocation =
+            "https://exts-dev.stemwerkz.org/open-edx-cert/" + certId;
           buttonText = intl.formatMessage(messages.viewableButton);
         } else if (downloadUrl) {
-          certEventName = 'earned_downloadable';
+          certEventName = "earned_downloadable";
           buttonLocation = downloadUrl;
           buttonText = intl.formatMessage(messages.downloadableButton);
         }
         break;
 
-      case 'earned_but_not_available':
-        certCase = 'notAvailable';
-        endDate = <FormattedDate value={end} day="numeric" month="long" year="numeric" />;
-        certAvailabilityDate = <FormattedDate value={certificateAvailableDate} day="numeric" month="long" year="numeric" />;
+      case "earned_but_not_available":
+        certCase = "notAvailable";
+        endDate = (
+          <FormattedDate
+            value={end}
+            day="numeric"
+            month="long"
+            year="numeric"
+          />
+        );
+        certAvailabilityDate = (
+          <FormattedDate
+            value={certificateAvailableDate}
+            day="numeric"
+            month="long"
+            year="numeric"
+          />
+        );
         body = (
           <FormattedMessage
             id="courseCelebration.certificateBody.notAvailable.endDate"
@@ -162,30 +184,30 @@ function CertificateStatus({ intl }) {
         );
         break;
 
-      case 'audit_passing':
-      case 'honor_passing':
+      case "audit_passing":
+      case "honor_passing":
         if (verifiedMode) {
-          certCase = 'upgrade';
+          certCase = "upgrade";
           body = intl.formatMessage(messages[`${certCase}Body`]);
           buttonLocation = verifiedMode.upgradeUrl;
           buttonText = intl.formatMessage(messages[`${certCase}Button`]);
         } else {
           certCase = null; // Do not render the certificate component if the upgrade deadline has passed
-          certEventName = 'audit_passing_missed_upgrade_deadline';
+          certEventName = "audit_passing_missed_upgrade_deadline";
         }
         break;
 
       // This code shouldn't be hit but coding defensively since switch expects a default statement
       default:
         certCase = null;
-        certEventName = 'no_certificate_status';
+        certEventName = "no_certificate_status";
         break;
     }
   }
 
   // Log visit to progress tab
   useEffect(() => {
-    sendTrackEvent('edx.ui.lms.course_progress.visited', {
+    sendTrackEvent("edx.ui.lms.course_progress.visited", {
       org_key: org,
       courserun_key: courseId,
       is_staff: administrator,
@@ -202,39 +224,42 @@ function CertificateStatus({ intl }) {
   const header = intl.formatMessage(messages[`${certCase}Header`]);
 
   const logCertificateStatusButtonClicked = () => {
-    sendTrackEvent('edx.ui.lms.course_progress.certificate_status.clicked', {
+    sendTrackEvent("edx.ui.lms.course_progress.certificate_status.clicked", {
       org_key: org,
       courserun_key: courseId,
       is_staff: administrator,
       certificate_status_variant: certEventName,
     });
-    if (certCase === 'upgrade') {
-      sendTrackEvent('edx.bi.ecommerce.upsell_links_clicked', {
+    if (certCase === "upgrade") {
+      sendTrackEvent("edx.bi.ecommerce.upsell_links_clicked", {
         ...eventProperties,
-        linkCategory: '(none)',
-        linkName: 'progress_certificate',
-        linkType: 'button',
-        pageName: 'progress',
+        linkCategory: "(none)",
+        linkName: "progress_certificate",
+        linkType: "button",
+        pageName: "progress",
       });
     }
   };
 
   return (
-    <section data-testid="certificate-status-component" className="text-dark-700 mb-4">
+    <section
+      data-testid="certificate-status-component"
+      className="text-dark-700 mb-4"
+    >
       <Card className="bg-light-200 shadow-sm border-0">
         <Card.Body>
           <Card.Title>
             <h3>{header}</h3>
           </Card.Title>
-          <Card.Text className="small text-gray-700">
-            {body}
-          </Card.Text>
+          <Card.Text className="small text-gray-700">{body}</Card.Text>
           {buttonText && (buttonLocation || buttonAction) && (
             <Button
               variant="outline-brand"
               onClick={() => {
                 logCertificateStatusButtonClicked(certStatus);
-                if (buttonAction) { buttonAction(); }
+                if (buttonAction) {
+                  buttonAction();
+                }
               }}
               href={buttonLocation}
               block
