@@ -32,6 +32,9 @@ import WelcomeMessage from "./widgets/WelcomeMessage";
 import ProctoringInfoPanel from "./widgets/ProctoringInfoPanel";
 import AccountActivationAlert from "../../alerts/logistration-alert/AccountActivationAlert";
 
+import { getConfig } from '@edx/frontend-platform';
+import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
+
 /** [MM-P2P] Experiment */
 import { initHomeMMP2P, MMP2PFlyover } from "../../experiments/mm-p2p";
 
@@ -110,8 +113,33 @@ function OutlineTab({ intl }) {
 
   /** show post enrolment survey to only B2C learners */
   const learnerType = isEnterpriseUser() ? "enterprise_learner" : "b2c_learner";
-  const [overall_percentage, setOverall_percentage] = useState(0);
-  const [available_cert_id, setAvailable_cert_id] = useState("");
+  // const [overall_percentage, setOverall_percentage] = useState(0);
+  // const [available_cert_id, setAvailable_cert_id] = useState("");
+
+  // useEffect(() => {
+
+  //   let url = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
+  //   const getCourseProgress = async () => {
+      
+  //     const { data } = await getAuthenticatedHttpClient().get(url)
+
+  //     console.log("Course Progress")
+  //     console.log(url)
+  //     console.log(data)
+  //     console.log(data.course_grade.percent)
+
+  //     setOverall_percentage(data.course_grade.percent * 100)
+
+  //     document.getElementById("progress-value").style.width = overall_percentage + "%"
+
+  //   }
+
+  //   getCourseProgress()
+
+  // })
+
+  // console.log("Overall Percentage")
+  // console.log(overall_percentage)
 
   // useEffect(() => {
   //   window.addEventListener("scroll", (event) => {

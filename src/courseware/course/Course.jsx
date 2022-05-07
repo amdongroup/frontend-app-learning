@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import { useDispatch } from 'react-redux';
@@ -19,6 +19,9 @@ import { getLocalStorage, setLocalStorage } from '../../data/localStorage';
 
 /** [MM-P2P] Experiment */
 import { initCoursewareMMP2P, MMP2PBlockModal } from '../../experiments/mm-p2p';
+
+import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
+import CourseGradeProgress from './CourseGradeProgress';
 
 function Course({
   courseId,
@@ -77,6 +80,52 @@ function Course({
     setLocalStorage('notificationStatus', 'inactive');
   };
 
+  const [overall_percentage, setOverall_percentage] = useState(0);
+  const [available_cert_id, setAvailable_cert_id] = useState("");
+
+  useEffect(() => {
+
+    let url = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
+    const getCourseProgress = async () => {
+      
+      const { data } = await getAuthenticatedHttpClient().get(url)
+
+      console.log("Course Progress")
+      console.log(url)
+      console.log(data)
+      console.log(data.course_grade.percent)
+
+      if(data != null) {
+
+        if(data.certificate_data != null) {
+          let certId = null
+        if(data.certificate_data.cert_web_view_url) {
+
+          let certAry = data.certificate_data.cert_web_view_url.split("certificates/")
+          if(certAry.length == 2)
+            certId = certAry[1]
+
+        }
+
+        //data.course_grade.percent
+        setAvailable_cert_id(certId)
+        }
+        
+        if(data.course_grade != null) {
+          setOverall_percentage(data.course_grade.percent * 100)
+        }
+
+      }
+
+      // setAvailable_cert_id("12345678")
+      // setOverall_percentage(70)
+
+    }
+
+    getCourseProgress()
+
+  })
+
   /** [MM-P2P] Experiment */
   const MMP2P = initCoursewareMMP2P(courseId, sequenceId, unitId);
 
@@ -106,6 +155,128 @@ function Course({
           />
         ) : null}
       </div>
+      <CourseGradeProgress 
+        availableCertId={available_cert_id}
+        overallPercentage={overall_percentage}/>
+
+      {/* <div className="apo-progress-wrapper" id="apo-progress-wrapper">
+        <div id="apo-progress">
+          <div className="progress-part">
+            <span>Your current grade</span>
+            <div className="progress">
+              <div
+                className="progress-bar"
+                id="progress-value"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+            <div className="passmark passmark-fix"></div>
+          </div>
+          <div className="percent-part">
+            <span className="apo-progress-percent">{overall_percentage}%</span>
+          </div>
+          <div className="desc-part" id="under-pass">
+            <div className="top d-flex">
+              <div className="passmark" style={{ position: "relative" }}></div>
+              <span className="desc-percent">Passing grade 60%</span>
+            </div>
+            <span className="desc-percent-bottom">
+              Earn 60% to get Certificate
+            </span>
+          </div>
+          <div className="desc-part" id="over-pass" style={{ display: "none" }}>
+            <div className="top d-flex">
+              <span className="earn">You earned this certificate</span>
+            </div>
+            <a
+              target="_blank"
+              href="https://sff.apixoxygen.com/certificate/:available_cert_id"
+              className="view-cert"
+              id="view-cert"
+            >
+              View certificate
+            </a>
+            <a className="no-cert" id="no-cert">
+              View certificate
+            </a>
+          </div>
+          <div className="refresh-part">
+            <img
+              src="../../generic/assets/refresh.png"
+              alt=""
+              id="refresh-btn"
+            />
+          </div>
+        </div>
+        <div id="apo-progress-mobile">
+          <div className="top d-flex align-item-start">
+            <div className="progress-part">
+              <span>Your current progress</span>
+            </div>
+            <div className="percent-part">
+              <span className="apo-progress-percent">
+                {overall_percentage}%
+              </span>
+            </div>
+            <div className="refresh-part" style={{ marginLeft: "6px" }}>
+              <img
+                src="../../generic/assets/refresh.png"
+                alt=""
+                id="refresh-btn-mobile"
+              />
+            </div>
+          </div>
+          <div className="mid d-flex">
+            <div className="progress">
+              <div
+                className="progress-bar"
+                id="progress-value-mobile"
+                role="progressbar"
+                aria-valuemin="0"
+                aria-valuemax="100"
+              ></div>
+            </div>
+            <div className="passmark passmark-fix"></div>
+          </div>
+          <div className="bottom d-flex" style={{ marginTop: "8px" }}>
+            <div className="desc-part" id="under-pass-mobile">
+              <div className="top d-flex">
+                <div
+                  className="passmark"
+                  style={{ position: "relative" }}
+                ></div>
+                <span className="desc-percent">Passing grade 60%</span>
+              </div>
+              <span className="desc-percent-bottom">
+                Earn 60% to get Certificate
+              </span>
+            </div>
+            <div
+              className="desc-part"
+              id="over-pass-mobile"
+              style={{ display: "none" }}
+            >
+              <div className="top d-flex">
+                <span className="earn">You earned this certificate</span>
+              </div>
+              <a
+                target="_blank"
+                href="https://sff.apixoxygen.com/certificate/:available_cert_id"
+                className="view-cert"
+                id="view-cert-mobile"
+              >
+                View certificate
+              </a>
+              <a className="no-cert" id="no-cert-mobile">
+                View certificate
+              </a>
+            </div>
+          </div>
+        </div>
+      </div> */}
+
 
       <AlertList topic="sequence" />
       <Sequence
