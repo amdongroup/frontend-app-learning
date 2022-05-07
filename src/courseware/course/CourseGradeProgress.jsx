@@ -1,14 +1,9 @@
-import React, { useEffect } from 'react';
-//import refreshImage from '../../../generic/assets/refresh.png';
+import React, { useEffect } from "react";
+// import refreshImage from '../../generic/';
 
-function CourseGradeProgress({
-  availableCertId,
-  overallPercentage
-}) {
-
+function CourseGradeProgress({ availableCertId, overallPercentage }) {
   useEffect(() => {
-
-       window.addEventListener("scroll", (event) => {
+    window.addEventListener("scroll", (event) => {
       let scroll = window.scrollY || window.pageYOffset;
       console.log(scroll);
       if (scroll >= 230) {
@@ -62,7 +57,7 @@ function CourseGradeProgress({
         location.reload();
       });
     document.getElementById("progress-value").style.width =
-    overallPercentage + "%";
+      overallPercentage + "%";
 
     document
       .getElementById("refresh-btn-mobile")
@@ -70,30 +65,87 @@ function CourseGradeProgress({
         location.reload();
       });
     document.getElementById("progress-value-mobile").style.width =
-    overallPercentage + "%";
+      overallPercentage + "%";
+  });
 
-  })
-  
-  return(
+  return (
     <div className="apo-progress-wrapper" id="apo-progress-wrapper">
-        <div id="apo-progress">
+      <div id="apo-progress">
+        <div className="progress-part">
+          <span>Your current grade</span>
+          <div className="progress">
+            <div
+              className="progress-bar"
+              id="progress-value"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+          <div className="passmark passmark-fix"></div>
+        </div>
+        <div className="percent-part">
+          <span className="apo-progress-percent">{overallPercentage}%</span>
+        </div>
+        <div className="desc-part" id="under-pass">
+          <div className="top d-flex">
+            <div className="passmark" style={{ position: "relative" }}></div>
+            <span className="desc-percent">Passing grade 60%</span>
+          </div>
+          <span className="desc-percent-bottom">
+            Earn 60% to get Certificate
+          </span>
+        </div>
+        <div className="desc-part" id="over-pass" style={{ display: "none" }}>
+          <div className="top d-flex">
+            <span className="earn">You earned this certificate</span>
+          </div>
+          <a
+            target="_blank"
+            href={`https://exts-dev.stemwerkz.org/open-edx-cert/${availableCertId}`}
+            className="view-cert"
+            id="view-cert"
+          >
+            View certificate
+          </a>
+          <a className="no-cert" id="no-cert">
+            View certificate
+          </a>
+        </div>
+        <div className="refresh-part">
+          <img src="../../generic/assets/refresh.png" alt="" id="refresh-btn" />
+        </div>
+      </div>
+      <div id="apo-progress-mobile">
+        <div className="top d-flex align-item-start">
           <div className="progress-part">
-            <span>Your current grade</span>
-            <div className="progress">
-              <div
-                className="progress-bar"
-                id="progress-value"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
-            </div>
-            <div className="passmark passmark-fix"></div>
+            <span>Your current progress</span>
           </div>
           <div className="percent-part">
             <span className="apo-progress-percent">{overallPercentage}%</span>
           </div>
-          <div className="desc-part" id="under-pass">
+          <div className="refresh-part" style={{ marginLeft: "6px" }}>
+            <img
+              src="../../generic/assets/refresh.png"
+              alt=""
+              id="refresh-btn-mobile"
+            />
+          </div>
+        </div>
+        <div className="mid d-flex">
+          <div className="progress">
+            <div
+              className="progress-bar"
+              id="progress-value-mobile"
+              role="progressbar"
+              aria-valuemin="0"
+              aria-valuemax="100"
+            ></div>
+          </div>
+          <div className="passmark passmark-fix"></div>
+        </div>
+        <div className="bottom d-flex" style={{ marginTop: "8px" }}>
+          <div className="desc-part" id="under-pass-mobile">
             <div className="top d-flex">
               <div className="passmark" style={{ position: "relative" }}></div>
               <span className="desc-percent">Passing grade 60%</span>
@@ -102,98 +154,30 @@ function CourseGradeProgress({
               Earn 60% to get Certificate
             </span>
           </div>
-          <div className="desc-part" id="over-pass" style={{ display: "none" }}>
+          <div
+            className="desc-part"
+            id="over-pass-mobile"
+            style={{ display: "none" }}
+          >
             <div className="top d-flex">
               <span className="earn">You earned this certificate</span>
             </div>
             <a
               target="_blank"
-              href= {`https://exts-dev.stemwerkz.org/open-edx-cert/${availableCertId}`}
+              href={`https://exts-dev.stemwerkz.org/open-edx-cert/${availableCertId}`}
               className="view-cert"
-              id="view-cert"
+              id="view-cert-mobile"
             >
               View certificate
             </a>
-            <a className="no-cert" id="no-cert">
+            <a className="no-cert" id="no-cert-mobile">
               View certificate
             </a>
-          </div>
-          <div className="refresh-part">
-            <img
-              src="../../../generic/assets/refresh.png"
-              alt=""
-              id="refresh-btn"
-            />
-          </div>
-        </div>
-        <div id="apo-progress-mobile">
-          <div className="top d-flex align-item-start">
-            <div className="progress-part">
-              <span>Your current progress</span>
-            </div>
-            <div className="percent-part">
-              <span className="apo-progress-percent">
-                {overallPercentage}%
-              </span>
-            </div>
-            <div className="refresh-part" style={{ marginLeft: "6px" }}>
-              <img
-                src="../../../generic/assets/refresh.png"
-                alt=""
-                id="refresh-btn-mobile"
-              />
-            </div>
-          </div>
-          <div className="mid d-flex">
-            <div className="progress">
-              <div
-                className="progress-bar"
-                id="progress-value-mobile"
-                role="progressbar"
-                aria-valuemin="0"
-                aria-valuemax="100"
-              ></div>
-            </div>
-            <div className="passmark passmark-fix"></div>
-          </div>
-          <div className="bottom d-flex" style={{ marginTop: "8px" }}>
-            <div className="desc-part" id="under-pass-mobile">
-              <div className="top d-flex">
-                <div
-                  className="passmark"
-                  style={{ position: "relative" }}
-                ></div>
-                <span className="desc-percent">Passing grade 60%</span>
-              </div>
-              <span className="desc-percent-bottom">
-                Earn 60% to get Certificate
-              </span>
-            </div>
-            <div
-              className="desc-part"
-              id="over-pass-mobile"
-              style={{ display: "none" }}
-            >
-              <div className="top d-flex">
-                <span className="earn">You earned this certificate</span>
-              </div>
-              <a
-                target="_blank"
-                href={`https://exts-dev.stemwerkz.org/open-edx-cert/${availableCertId}`}
-                className="view-cert"
-                id="view-cert-mobile"
-              >
-                View certificate
-              </a>
-              <a className="no-cert" id="no-cert-mobile">
-                View certificate
-              </a>
-            </div>
           </div>
         </div>
       </div>
-  )
-
+    </div>
+  );
 }
 
-export default CourseGradeProgress
+export default CourseGradeProgress;

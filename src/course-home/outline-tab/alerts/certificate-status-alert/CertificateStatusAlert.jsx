@@ -1,28 +1,31 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React from "react";
+import PropTypes from "prop-types";
 import {
   FormattedDate,
   FormattedMessage,
   injectIntl,
   intlShape,
-} from '@edx/frontend-platform/i18n';
-import { Alert, Button } from '@edx/paragon';
-import { useDispatch } from 'react-redux';
+} from "@edx/frontend-platform/i18n";
+import { Alert, Button } from "@edx/paragon";
+import { useDispatch } from "react-redux";
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCheckCircle, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
-import { getConfig } from '@edx/frontend-platform';
-import { sendTrackEvent } from '@edx/frontend-platform/analytics';
-import { getAuthenticatedUser } from '@edx/frontend-platform/auth';
-import certMessages from './messages';
-import certStatusMessages from '../../../progress-tab/certificate-status/messages';
-import { requestCert } from '../../../data/thunks';
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+  faCheckCircle,
+  faExclamationTriangle,
+} from "@fortawesome/free-solid-svg-icons";
+import { getConfig } from "@edx/frontend-platform";
+import { sendTrackEvent } from "@edx/frontend-platform/analytics";
+import { getAuthenticatedUser } from "@edx/frontend-platform/auth";
+import certMessages from "./messages";
+import certStatusMessages from "../../../progress-tab/certificate-status/messages";
+import { requestCert } from "../../../data/thunks";
 
 export const CERT_STATUS_TYPE = {
-  EARNED_NOT_AVAILABLE: 'earned_but_not_available',
-  DOWNLOADABLE: 'downloadable',
-  REQUESTING: 'requesting',
-  UNVERIFIED: 'unverified',
+  EARNED_NOT_AVAILABLE: "earned_but_not_available",
+  DOWNLOADABLE: "downloadable",
+  REQUESTING: "requesting",
+  UNVERIFIED: "unverified",
 };
 
 function CertificateStatusAlert({ intl, payload }) {
@@ -54,15 +57,31 @@ function CertificateStatusAlert({ intl, payload }) {
 
   const renderCertAwardedStatus = () => {
     const alertProps = {
-      variant: 'success',
+      variant: "success",
       icon: faCheckCircle,
-      iconClassName: 'alert-icon text-success-500',
+      iconClassName: "alert-icon text-success-500",
     };
     if (certStatus === CERT_STATUS_TYPE.EARNED_NOT_AVAILABLE) {
       const timezoneFormatArgs = userTimezone ? { timeZone: userTimezone } : {};
-      const certificateAvailableDateFormatted = <FormattedDate value={certificateAvailableDate} day="numeric" month="long" year="numeric" />;
-      const courseEndDateFormatted = <FormattedDate value={courseEndDate} day="numeric" month="long" year="numeric" />;
-      alertProps.header = intl.formatMessage(certMessages.certStatusEarnedNotAvailableHeader);
+      const certificateAvailableDateFormatted = (
+        <FormattedDate
+          value={certificateAvailableDate}
+          day="numeric"
+          month="long"
+          year="numeric"
+        />
+      );
+      const courseEndDateFormatted = (
+        <FormattedDate
+          value={courseEndDate}
+          day="numeric"
+          month="long"
+          year="numeric"
+        />
+      );
+      alertProps.header = intl.formatMessage(
+        certMessages.certStatusEarnedNotAvailableHeader
+      );
       alertProps.body = (
         <p>
           <FormattedMessage
@@ -78,24 +97,44 @@ function CertificateStatusAlert({ intl, payload }) {
         </p>
       );
     } else if (certStatus === CERT_STATUS_TYPE.DOWNLOADABLE) {
-      alertProps.header = intl.formatMessage(certMessages.certStatusDownloadableHeader);
+      alertProps.header = intl.formatMessage(
+        certMessages.certStatusDownloadableHeader
+      );
       if (isWebCert) {
-        alertProps.buttonMessage = intl.formatMessage(certStatusMessages.viewableButton);
+        alertProps.buttonMessage = intl.formatMessage(
+          certStatusMessages.viewableButton
+        );
       } else {
-        alertProps.buttonMessage = intl.formatMessage(certStatusMessages.downloadableButton);
+        alertProps.buttonMessage = intl.formatMessage(
+          certStatusMessages.downloadableButton
+        );
       }
       alertProps.buttonVisible = true;
-      alertProps.buttonLink = certURL;
+
+      let certId = null;
+      let certAry = certURL.split("certificates/");
+      if (certAry.length == 2) certId = certAry[1];
+
+      alertProps.buttonLink =
+        "https://exts-dev.stemwerkz.org/open-edx-cert/" + certId;
       alertProps.buttonAction = () => {
-        sendAlertClickTracking('edx.ui.lms.course_outline.certificate_alert_downloadable_button.clicked');
+        sendAlertClickTracking(
+          "edx.ui.lms.course_outline.certificate_alert_downloadable_button.clicked"
+        );
       };
     } else if (certStatus === CERT_STATUS_TYPE.REQUESTING) {
-      alertProps.header = intl.formatMessage(certMessages.certStatusDownloadableHeader);
-      alertProps.buttonMessage = intl.formatMessage(certStatusMessages.requestableButton);
+      alertProps.header = intl.formatMessage(
+        certMessages.certStatusDownloadableHeader
+      );
+      alertProps.buttonMessage = intl.formatMessage(
+        certStatusMessages.requestableButton
+      );
       alertProps.buttonVisible = true;
-      alertProps.buttonLink = '';
+      alertProps.buttonLink = "";
       alertProps.buttonAction = () => {
-        sendAlertClickTracking('edx.ui.lms.course_outline.certificate_alert_request_cert_button.clicked');
+        sendAlertClickTracking(
+          "edx.ui.lms.course_outline.certificate_alert_request_cert_button.clicked"
+        );
         dispatch(requestCert(courseId));
       };
     }
@@ -104,16 +143,20 @@ function CertificateStatusAlert({ intl, payload }) {
 
   const renderNotIDVerifiedStatus = () => {
     const alertProps = {
-      variant: 'warning',
+      variant: "warning",
       icon: faExclamationTriangle,
-      iconClassName: 'alert-icon text-warning-500',
+      iconClassName: "alert-icon text-warning-500",
       header: intl.formatMessage(certStatusMessages.unverifiedHomeHeader),
-      buttonMessage: intl.formatMessage(certStatusMessages.unverifiedHomeButton),
+      buttonMessage: intl.formatMessage(
+        certStatusMessages.unverifiedHomeButton
+      ),
       body: intl.formatMessage(certStatusMessages.unverifiedHomeBody),
       buttonVisible: true,
       buttonLink: getConfig().SUPPORT_URL_ID_VERIFICATION,
       buttonAction: () => {
-        sendAlertClickTracking('edx.ui.lms.course_outline.certificate_alert_unverified_button.clicked');
+        sendAlertClickTracking(
+          "edx.ui.lms.course_outline.certificate_alert_unverified_button.clicked"
+        );
       },
     };
 
@@ -121,17 +164,21 @@ function CertificateStatusAlert({ intl, payload }) {
   };
 
   const renderNotPassingCourseEnded = () => {
-    const progressTab = tabs.find(tab => tab.slug === 'progress');
+    const progressTab = tabs.find((tab) => tab.slug === "progress");
     const progressLink = progressTab && progressTab.url;
 
     const alertProps = {
       header: intl.formatMessage(certMessages.certStatusNotPassingHeader),
-      buttonMessage: intl.formatMessage(certMessages.certStatusNotPassingButton),
+      buttonMessage: intl.formatMessage(
+        certMessages.certStatusNotPassingButton
+      ),
       body: intl.formatMessage(certStatusMessages.notPassingBody),
       buttonVisible: true,
       buttonLink: progressLink,
       buttonAction: () => {
-        sendAlertClickTracking('edx.ui.lms.course_outline.certificate_alert_view_grades_button.clicked');
+        sendAlertClickTracking(
+          "edx.ui.lms.course_outline.certificate_alert_view_grades_button.clicked"
+        );
       },
     };
 
@@ -170,7 +217,7 @@ function CertificateStatusAlert({ intl, payload }) {
       }) => (
         <Alert variant={variant}>
           <div className="d-flex flex-column flex-lg-row justify-content-between align-items-center">
-            <div className={buttonVisible ? 'col-lg-8' : 'col-auto'}>
+            <div className={buttonVisible ? "col-lg-8" : "col-auto"}>
               <FontAwesomeIcon icon={icon} className={iconClassName} />
               <Alert.Heading>{header}</Alert.Heading>
               {body}
@@ -181,7 +228,9 @@ function CertificateStatusAlert({ intl, payload }) {
                   variant="primary"
                   href={buttonLink}
                   onClick={() => {
-                    if (buttonAction) { buttonAction(); }
+                    if (buttonAction) {
+                      buttonAction();
+                    }
                   }}
                 >
                   {buttonMessage}
@@ -190,7 +239,6 @@ function CertificateStatusAlert({ intl, payload }) {
             )}
           </div>
         </Alert>
-
       )}
     </AlertWrapper>
   );
@@ -208,11 +256,13 @@ CertificateStatusAlert.propTypes = {
     userTimezone: PropTypes.string,
     org: PropTypes.string,
     notPassingCourseEnded: PropTypes.bool,
-    tabs: PropTypes.arrayOf(PropTypes.shape({
-      tab_id: PropTypes.string,
-      title: PropTypes.string,
-      url: PropTypes.string,
-    })),
+    tabs: PropTypes.arrayOf(
+      PropTypes.shape({
+        tab_id: PropTypes.string,
+        title: PropTypes.string,
+        url: PropTypes.string,
+      })
+    ),
   }).isRequired,
 };
 
