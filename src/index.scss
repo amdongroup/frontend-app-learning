@@ -11,20 +11,24 @@ $footer: #1c013f;
 $defaultBackground: #e5e5e5;
 $white: #ffffff;
 
-.h1,
-.h2,
-.h3,
-.h4,
-.h5,
-.h6 {
+// .h1,
+// .h2,
+// .h3,
+// .h4,
+// .h5,
+// .h6 {
+//   font-family: "Poppins", sans-serif !important;
+// }
+
+.course-title {
   font-family: "Poppins", sans-serif !important;
 }
 
-span,
-a,
-p {
-  font-family: "Inter", sans-serif !important;
-}
+// span,
+// a,
+// p {
+//   font-family: "Inter", sans-serif !important;
+// }
 
 #root {
   display: flex;
@@ -672,6 +676,7 @@ p {
 .text-gray-700 .mr-3 {
   display: none !important;
 }
+
 .xmodule_display.xmodule_VideoBlock {
   .video {
     .wrapper-downloads {
@@ -725,9 +730,9 @@ p {
 //   }
 // }
 
-// .icon-container {
-//   display: none;
-// }
+.icon-container {
+  display: none;
+}
 
 // @media (min-width: 576px) {
 //   .sequence {
