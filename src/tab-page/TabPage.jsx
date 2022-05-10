@@ -16,6 +16,10 @@ import messages from './messages';
 import LoadedTabPage from './LoadedTabPage';
 import { setCallToActionToast } from '../course-home/data/slice';
 
+import { getConfig } from '@edx/frontend-platform';
+import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
+import { getUser } from '../experiments/mm-p2p/utils'
+
 function TabPage({ intl, ...props }) {
   const {
     activeTabSlug,
@@ -37,6 +41,27 @@ function TabPage({ intl, ...props }) {
     start,
     title,
   } = useModel(metadataModel, courseId);
+
+  const authenticatedUser = getUser()
+  const [ fullName, setFullName ] = useState("")
+
+  console.log(authenticatedUser)
+
+  useEffect(() => {
+
+    const getUserAccount = async () => {
+      let url = `${getConfig().LMS_BASE_URL}/api/user/v1/accounts/${authenticatedUser.username}`
+      const { data } = await getAuthenticatedHttpClient().get(url)
+
+      console.log("Account Data")
+      console.log(data)
+
+      setFullName(data.name)
+    }
+
+    getUserAccount()
+
+  })
 
   if (courseStatus === 'loading') {
     return (
@@ -77,6 +102,7 @@ function TabPage({ intl, ...props }) {
           courseOrg={org}
           courseNumber={number}
           courseTitle={title}
+          fullName={fullName}
         />
         <LoadedTabPage {...props} />
         <Footer />
