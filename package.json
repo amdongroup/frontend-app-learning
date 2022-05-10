@@ -33,7 +33,6 @@
   "dependencies": {
     "@edx/brand": "npm:@edx/brand-openedx@1.1.0",
     "@edx/frontend-component-footer": "10.1.6",
-    "@edx/frontend-component-header": "git+https://github.com/amdongroup/frontend-component-header-oxygen.git",
     "@edx/frontend-enterprise-utils": "1.1.1",
     "@edx/frontend-lib-special-exams": "1.14.1",
     "@edx/frontend-platform": "1.14.3",
@@ -47,6 +46,7 @@
     "@reduxjs/toolkit": "1.6.2",
     "classnames": "2.3.1",
     "core-js": "3.18.3",
+    "frontend-component-header-oxygen": "^1.0.0",
     "js-cookie": "3.0.1",
     "lodash.camelcase": "4.3.0",
     "prop-types": "15.7.2",
