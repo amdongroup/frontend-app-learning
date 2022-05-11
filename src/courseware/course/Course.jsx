@@ -82,6 +82,7 @@ function Course({
 
   const [overall_percentage, setOverall_percentage] = useState(0);
   const [available_cert_id, setAvailable_cert_id] = useState("");
+  const [pass_point, setPass_point] = useState(0);
 
   useEffect(() => {
 
@@ -94,6 +95,8 @@ function Course({
       console.log(url)
       console.log(data)
       console.log(data.course_grade.percent)
+      console.log("PassingPoint")
+      console.log(data.grading_policy.grade_range.Pass)
 
       if(data != null) {
 
@@ -113,6 +116,10 @@ function Course({
         
         if(data.course_grade != null) {
           setOverall_percentage(data.course_grade.percent * 100)
+        }
+
+        if(data.grading_policy != null && data.grading_policy.grade_range != null) {
+          setPass_point(data.grading_policy.grade_range.Pass)
         }
 
       }
@@ -157,7 +164,8 @@ function Course({
       </div>
       <CourseGradeProgress 
         availableCertId={available_cert_id}
-        overallPercentage={overall_percentage}/>
+        overallPercentage={overall_percentage}
+        passingPoint={pass_point}/>
 
       {/* <div className="apo-progress-wrapper" id="apo-progress-wrapper">
         <div id="apo-progress">

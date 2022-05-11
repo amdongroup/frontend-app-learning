@@ -440,9 +440,8 @@ $white: #ffffff;
   position: absolute;
 }
 
-.passmark-fix {
-  margin-top: -13px;
-  margin-left: 156px;
+#progress-pointer {
+  margin-left: 10px;
 }
 
 .progress-part {
@@ -634,10 +633,11 @@ $white: #ffffff;
   .progress {
     width: 330px;
   }
-  .passmark-fix {
-    margin-top: 11px;
-    margin-left: 190px;
+  
+  #progress-pointer {
+    margin-left: 10px;
   }
+
   .top {
     width: 100%;
     padding: 0px 16px;

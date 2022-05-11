@@ -1,8 +1,17 @@
 import React, { useEffect } from "react";
 import refreshImage from "../course/celebration/assets/refresh.png";
 // import refreshImage from '../course/celebration/assets/claps_456x328.gif';
-function CourseGradeProgress({ availableCertId, overallPercentage }) {
+function CourseGradeProgress({ availableCertId, overallPercentage, passingPoint }) {
+
+  const passingPointIn100 = passingPoint * 100
+
   useEffect(() => {
+
+    let progress_bar_width = 276;
+    let progress_pointer_width = 10;
+    document.getElementById("progress-pointer").style.marginTop = "-13px"
+    document.getElementById("progress-pointer").style.marginLeft = `${(passingPoint != 0)? (progress_bar_width * passingPoint) - progress_pointer_width : 10}px`
+
     window.addEventListener("scroll", (event) => {
       let scroll = window.scrollY || window.pageYOffset;
       console.log(scroll);
@@ -30,12 +39,14 @@ function CourseGradeProgress({ availableCertId, overallPercentage }) {
       }
     });
 
-    if (overallPercentage >= 60) {
+    if (overallPercentage >= passingPointIn100) {
       document.getElementById("under-pass").style.display = "none";
       document.getElementById("over-pass").style.display = "";
       document.getElementById("under-pass-mobile").style.display = "none";
       document.getElementById("over-pass-mobile").style.display = "";
     } else {
+      document.getElementById("under-pass").style.display = "";
+      document.getElementById("over-pass").style.display = "none";
       document.getElementById("under-pass-mobile").style.display = "";
       document.getElementById("over-pass-mobile").style.display = "none";
     }
@@ -82,7 +93,7 @@ function CourseGradeProgress({ availableCertId, overallPercentage }) {
               aria-valuemax="100"
             ></div>
           </div>
-          <div className="passmark passmark-fix"></div>
+          <div id="progress-pointer" className="passmark"></div>
         </div>
         <div className="percent-part">
           <span className="apo-progress-percent">{overallPercentage}%</span>
@@ -90,10 +101,10 @@ function CourseGradeProgress({ availableCertId, overallPercentage }) {
         <div className="desc-part" id="under-pass">
           <div className="top d-flex">
             <div className="passmark" style={{ position: "relative" }}></div>
-            <span className="desc-percent">Passing grade 60%</span>
+            <span className="desc-percent">Passing grade {passingPointIn100}%</span>
           </div>
           <span className="desc-percent-bottom">
-            Earn 60% to get Certificate
+            Earn {passingPointIn100}% to get Certificate
           </span>
         </div>
         <div className="desc-part" id="over-pass" style={{ display: "none" }}>
@@ -138,16 +149,16 @@ function CourseGradeProgress({ availableCertId, overallPercentage }) {
               aria-valuemax="100"
             ></div>
           </div>
-          <div className="passmark passmark-fix"></div>
+          <div id="progress-pointer" className="passmark"></div>
         </div>
         <div className="bottom d-flex" style={{ marginTop: "8px" }}>
           <div className="desc-part" id="under-pass-mobile">
             <div className="top d-flex">
               <div className="passmark" style={{ position: "relative" }}></div>
-              <span className="desc-percent">Passing grade 60%</span>
+              <span className="desc-percent">Passing grade {passingPointIn100}%</span>
             </div>
             <span className="desc-percent-bottom">
-              Earn 60% to get Certificate
+              Earn {passingPointIn100}% to get Certificate
             </span>
           </div>
           <div
