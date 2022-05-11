@@ -42,26 +42,26 @@ function TabPage({ intl, ...props }) {
     title,
   } = useModel(metadataModel, courseId);
 
-  const authenticatedUser = getUser()
-  const [ fullName, setFullName ] = useState("")
+  // const authenticatedUser = getUser()
+  // const [ fullName, setFullName ] = useState("")
 
-  console.log(authenticatedUser)
+  // console.log(authenticatedUser)
 
-  useEffect(() => {
+  // useEffect(() => {
 
-    const getUserAccount = async () => {
-      let url = `${getConfig().LMS_BASE_URL}/api/user/v1/accounts/${authenticatedUser.username}`
-      const { data } = await getAuthenticatedHttpClient().get(url)
+  //   const getUserAccount = async () => {
+  //     let url = `${getConfig().LMS_BASE_URL}/api/user/v1/accounts/${authenticatedUser.username}`
+  //     const { data } = await getAuthenticatedHttpClient().get(url)
 
-      console.log("Account Data")
-      console.log(data)
+  //     console.log("Account Data")
+  //     console.log(data)
 
-      setFullName(data.name)
-    }
+  //     setFullName(data.name)
+  //   }
 
-    getUserAccount()
+  //   getUserAccount()
 
-  })
+  // })
 
   if (courseStatus === 'loading') {
     return (
@@ -102,8 +102,13 @@ function TabPage({ intl, ...props }) {
           courseOrg={org}
           courseNumber={number}
           courseTitle={title}
-          fullName={fullName}
         />
+        {/* <Header
+          courseOrg={org}
+          courseNumber={number}
+          courseTitle={title}
+          fullName={fullName}
+        /> */}
         <LoadedTabPage {...props} />
         <Footer />
       </>
