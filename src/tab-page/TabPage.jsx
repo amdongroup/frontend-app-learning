@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { useDispatch, useSelector } from 'react-redux';
@@ -6,7 +6,8 @@ import { Redirect } from 'react-router';
 
 import Footer from '@edx/frontend-component-footer';
 import { Toast } from '@edx/paragon';
-import { LearningHeader as Header } from '@edx/frontend-component-header';
+import { LearningHeader as Header } from '../header';
+//import { LearningHeader as Header } from '@edx/frontend-component-header';
 import PageLoading from '../generic/PageLoading';
 import { getAccessDeniedRedirectUrl } from '../shared/access';
 import { useModel } from '../generic/model-store';
@@ -42,26 +43,26 @@ function TabPage({ intl, ...props }) {
     title,
   } = useModel(metadataModel, courseId);
 
-  // const authenticatedUser = getUser()
-  // const [ fullName, setFullName ] = useState("")
+  const authenticatedUser = getUser()
+  const [ fullName, setFullName ] = useState("")
 
-  // console.log(authenticatedUser)
+  console.log(authenticatedUser)
 
-  // useEffect(() => {
+  useEffect(() => {
 
-  //   const getUserAccount = async () => {
-  //     let url = `${getConfig().LMS_BASE_URL}/api/user/v1/accounts/${authenticatedUser.username}`
-  //     const { data } = await getAuthenticatedHttpClient().get(url)
+    const getUserAccount = async () => {
+      let url = `${getConfig().LMS_BASE_URL}/api/user/v1/accounts/${authenticatedUser.username}`
+      const { data } = await getAuthenticatedHttpClient().get(url)
 
-  //     console.log("Account Data")
-  //     console.log(data)
+      console.log("Account Data")
+      console.log(data)
 
-  //     setFullName(data.name)
-  //   }
+      setFullName(data.name)
+    }
 
-  //   getUserAccount()
+    getUserAccount()
 
-  // })
+  })
 
   if (courseStatus === 'loading') {
     return (
@@ -98,17 +99,17 @@ function TabPage({ intl, ...props }) {
         >
           {toastHeader}
         </Toast>
-        <Header
-          courseOrg={org}
-          courseNumber={number}
-          courseTitle={title}
-        />
         {/* <Header
           courseOrg={org}
           courseNumber={number}
           courseTitle={title}
-          fullName={fullName}
         /> */}
+        <Header
+          courseOrg={org}
+          courseNumber={number}
+          courseTitle={title}
+          fullName={fullName}
+        />
         <LoadedTabPage {...props} />
         <Footer />
       </>
