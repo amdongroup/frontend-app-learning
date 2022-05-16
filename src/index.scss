@@ -20,6 +20,10 @@ $white: #ffffff;
 //   font-family: "Poppins", sans-serif !important;
 // }
 
+#main-content {
+  min-height: calc(100vh - 212px);
+}
+
 .course-title {
   font-family: "Poppins", sans-serif !important;
 }
