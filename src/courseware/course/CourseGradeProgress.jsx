@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
 import refreshImage from "../course/celebration/assets/refresh.png";
 // import refreshImage from '../course/celebration/assets/claps_456x328.gif';
-function CourseGradeProgress({ availableCertId, overallPercentage, passingPoint }) {
-
-  const passingPointIn100 = passingPoint * 100
+function CourseGradeProgress({
+  availableCertId,
+  overallPercentage,
+  passingPoint,
+}) {
+  const passingPointIn100 = passingPoint * 100;
 
   useEffect(() => {
-
     let progress_bar_width = 276;
     let progress_pointer_width = 10;
-    document.getElementById("progress-pointer").style.marginTop = "-13px"
-    document.getElementById("progress-pointer").style.marginLeft = `${(passingPoint != 0)? (progress_bar_width * passingPoint) - progress_pointer_width : 10}px`
+    document.getElementById("progress-pointer").style.marginTop = "-13px";
+    document.getElementById("progress-pointer").style.marginLeft = `${
+      passingPoint != 0
+        ? progress_bar_width * passingPoint - progress_pointer_width
+        : 10
+    }px`;
 
     window.addEventListener("scroll", (event) => {
       let scroll = window.scrollY || window.pageYOffset;
@@ -101,7 +107,9 @@ function CourseGradeProgress({ availableCertId, overallPercentage, passingPoint 
         <div className="desc-part" id="under-pass">
           <div className="top d-flex">
             <div className="passmark" style={{ position: "relative" }}></div>
-            <span className="desc-percent">Passing grade {passingPointIn100}%</span>
+            <span className="desc-percent">
+              Passing grade {passingPointIn100}%
+            </span>
           </div>
           <span className="desc-percent-bottom">
             Earn {passingPointIn100}% to get Certificate
@@ -113,12 +121,20 @@ function CourseGradeProgress({ availableCertId, overallPercentage, passingPoint 
           </div>
           <a
             target="_blank"
-            href={`https://exts-dev.stemwerkz.org/open-edx-cert/${availableCertId}`}
+            href={`https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`}
             className="view-cert"
             id="view-cert"
           >
             View certificate
           </a>
+          {/* <a
+            target="_blank"
+            href={`https://exts-dev.stemwerkz.org/open-edx-cert/${availableCertId}`}
+            className="view-cert"
+            id="view-cert"
+          >
+            View certificate
+          </a> */}
           <a className="no-cert" id="no-cert">
             View certificate
           </a>
@@ -155,7 +171,9 @@ function CourseGradeProgress({ availableCertId, overallPercentage, passingPoint 
           <div className="desc-part" id="under-pass-mobile">
             <div className="top d-flex">
               <div className="passmark" style={{ position: "relative" }}></div>
-              <span className="desc-percent">Passing grade {passingPointIn100}%</span>
+              <span className="desc-percent">
+                Passing grade {passingPointIn100}%
+              </span>
             </div>
             <span className="desc-percent-bottom">
               Earn {passingPointIn100}% to get Certificate
@@ -171,12 +189,20 @@ function CourseGradeProgress({ availableCertId, overallPercentage, passingPoint 
             </div>
             <a
               target="_blank"
-              href={`https://exts-dev.stemwerkz.org/open-edx-cert/${availableCertId}`}
+              href={`https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`}
               className="view-cert"
               id="view-cert-mobile"
             >
               View certificate
             </a>
+            {/* <a
+              target="_blank"
+              href={`https://exts-dev.stemwerkz.org/open-edx-cert/${availableCertId}`}
+              className="view-cert"
+              id="view-cert-mobile"
+            >
+              View certificate
+            </a> */}
             <a className="no-cert" id="no-cert-mobile">
               View certificate
             </a>
