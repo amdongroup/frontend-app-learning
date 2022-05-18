@@ -147,7 +147,9 @@ function CertificateStatus({ intl }) {
           if (certAry.length == 2) certId = certAry[1];
           certEventName = "earned_viewable";
           buttonLocation =
-            "https://exts-dev.stemwerkz.org/open-edx-cert/" + certId;
+            "https://stg-certificate.apixoxygen.com/certificate/" + certId;
+          // buttonLocation =
+          //   "https://exts-dev.stemwerkz.org/open-edx-cert/" + certId;
           buttonText = intl.formatMessage(messages.viewableButton);
         } else if (downloadUrl) {
           certEventName = "earned_downloadable";
