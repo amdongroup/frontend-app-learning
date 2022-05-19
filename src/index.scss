@@ -633,7 +633,7 @@ $white: #ffffff;
   .progress {
     width: 330px;
   }
-  
+
   #progress-pointer {
     margin-left: 10px;
   }
@@ -670,6 +670,10 @@ $white: #ffffff;
 // body {
 //   background-color: $defaultBackground !important;
 // }
+#main-content {
+  // min-height: calc(100% - 60 -78);
+  min-height: calc(100vh - 138px);
+}
 .show-label {
   color: #474747 !important;
 }
