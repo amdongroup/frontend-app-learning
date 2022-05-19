@@ -18,6 +18,14 @@ function CourseGradeProgress({
         : 10
     }px`;
 
+    document.getElementById("progress-pointer-mobile").style.marginTop =
+      "-13px";
+    document.getElementById("progress-pointer-mobile").style.marginLeft = `${
+      passingPoint != 0
+        ? progress_bar_width * passingPoint - progress_pointer_width
+        : 10
+    }px`;
+
     window.addEventListener("scroll", (event) => {
       let scroll = window.scrollY || window.pageYOffset;
       console.log(scroll);
@@ -165,7 +173,7 @@ function CourseGradeProgress({
               aria-valuemax="100"
             ></div>
           </div>
-          <div id="progress-pointer" className="passmark"></div>
+          <div id="progress-pointer-mobile" className="passmark"></div>
         </div>
         <div className="bottom d-flex" style={{ marginTop: "8px" }}>
           <div className="desc-part" id="under-pass-mobile">
