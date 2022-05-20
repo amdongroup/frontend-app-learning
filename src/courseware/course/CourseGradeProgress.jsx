@@ -11,6 +11,10 @@ function CourseGradeProgress({
   useEffect(() => {
     let progress_bar_width = 276;
     let progress_pointer_width = 10;
+
+    let progress_bar_width_mobile = 330;
+    let progress_pointer_width_mobile = 10;
+
     document.getElementById("progress-pointer").style.marginTop = "-13px";
     document.getElementById("progress-pointer").style.marginLeft = `${
       passingPoint != 0
@@ -18,11 +22,11 @@ function CourseGradeProgress({
         : 10
     }px`;
 
-    document.getElementById("progress-pointer-mobile").style.marginTop =
-      "-13px";
+    document.getElementById("progress-pointer-mobile").style.marginTop = "11px";
     document.getElementById("progress-pointer-mobile").style.marginLeft = `${
       passingPoint != 0
-        ? progress_bar_width * passingPoint - progress_pointer_width
+        ? progress_bar_width_mobile * passingPoint -
+          progress_pointer_width_mobile
         : 10
     }px`;
 
