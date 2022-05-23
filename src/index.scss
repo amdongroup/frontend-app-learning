@@ -672,6 +672,7 @@ $white: #ffffff;
 // }
 #main-content {
   // min-height: calc(100% - 60 -78);
+  overflow-x: hidden;
   min-height: calc(100vh - 138px);
 }
 .show-label {
