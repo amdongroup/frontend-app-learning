@@ -29,18 +29,18 @@ function AuthenticatedUserDropdown({ intl, username, fullName }) {
         </Dropdown.Toggle>
         <Dropdown.Menu className="dropdown-menu-right">
           {dashboardMenuItem}
-          <Dropdown.Item href={`${getConfig().LMS_BASE_URL}/u/${username}`}>
+          {/* <Dropdown.Item href={`${getConfig().LMS_BASE_URL}/u/${username}`}>
             {intl.formatMessage(messages.profile)}
           </Dropdown.Item>
           <Dropdown.Item href={`${getConfig().LMS_BASE_URL}/account/settings`}>
             {intl.formatMessage(messages.account)}
-          </Dropdown.Item>
+          </Dropdown.Item> */}
           { getConfig().ORDER_HISTORY_URL && (
             <Dropdown.Item href={getConfig().ORDER_HISTORY_URL}>
               {intl.formatMessage(messages.orderHistory)}
             </Dropdown.Item>
           )}
-          <Dropdown.Item href={getConfig().LOGOUT_URL}>
+          <Dropdown.Item href={getConfig().LOGOUT_URL + "?next=https://devsfe.proxtera.app/"}>
             {intl.formatMessage(messages.signOut)}
           </Dropdown.Item>
         </Dropdown.Menu>
