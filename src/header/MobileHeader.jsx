@@ -59,7 +59,14 @@ class MobileHeader extends React.Component {
   renderUserMenuItems() {
     const { userMenu } = this.props;
 
-    return userMenu.map(({ type, href, content }) => (
+    let filteredUserMenu = userMenu.filter((menu) => menu.content !== "Profile" && menu.content !== "Account")
+
+    let logoutIndex = filteredUserMenu.findIndex((menuItem) => menuItem.content === "Logout")
+    
+    if(logoutIndex != -1)
+      filteredUserMenu[logoutIndex].href += "?next=https://devsfe.proxtera.app/"
+
+    return filteredUserMenu.map(({ type, href, content }) => (
       <li className="nav-item" key={`${type}-${content}`}>
         <a className="nav-link" href={href}>{content}</a>
       </li>

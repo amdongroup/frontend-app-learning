@@ -81,8 +81,12 @@ class DesktopHeader extends React.Component {
       intl,
     } = this.props;
 
-    console.log("Fullname in desktop header")
-    console.log(fullName)
+    let filteredUserMenu = userMenu.filter((menu) => menu.content !== "Profile" && menu.content !== "Account")
+
+    let logoutIndex = filteredUserMenu.findIndex((menuItem) => menuItem.content === "Logout")
+    
+    if(logoutIndex != -1)
+      filteredUserMenu[logoutIndex].href += "?next=https://devsfe.proxtera.app/"
 
     return (
       <Menu transitionClassName="menu-dropdown" transitionTimeout={250}>
@@ -95,7 +99,7 @@ class DesktopHeader extends React.Component {
           {fullName} <CaretIcon role="img" aria-hidden focusable="false" />
         </MenuTrigger>
         <MenuContent className="mb-0 dropdown-menu show dropdown-menu-right pin-right shadow py-2">
-          {userMenu.map(({ type, href, content }) => (
+          {filteredUserMenu.map(({ type, href, content }) => (
             <a className={`dropdown-${type}`} key={`${type}-${content}`} href={href}>{content}</a>
           ))}
         </MenuContent>
