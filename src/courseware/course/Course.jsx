@@ -22,6 +22,7 @@ import { initCoursewareMMP2P, MMP2PBlockModal } from '../../experiments/mm-p2p';
 
 import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import CourseGradeProgress from './CourseGradeProgress';
+import CertificateReceiveAlert from './CertificateReceiveAlert';
 
 function Course({
   courseId,
@@ -162,6 +163,11 @@ function Course({
           />
         ) : null}
       </div>
+      <CertificateReceiveAlert  availableCertId={available_cert_id}
+        overallPercentage={overall_percentage}
+        passingPoint={pass_point}
+        checked={false}
+        />
       <CourseGradeProgress 
         availableCertId={available_cert_id}
         overallPercentage={overall_percentage}

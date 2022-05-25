@@ -13,7 +13,13 @@ function CertificateReceiveAlert({
     }
 
   useEffect(() => {
-    if(!checked && availableCertId){
+    // if(!checked && availableCertId){
+    //     document.getElementById('certificate-receive-alert').style.display="";
+    // }else{
+    //     document.getElementById('certificate-receive-alert').style.display="none";
+    // }
+
+    if(!checked){
         document.getElementById('certificate-receive-alert').style.display="";
     }else{
         document.getElementById('certificate-receive-alert').style.display="none";
