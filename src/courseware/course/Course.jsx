@@ -87,6 +87,8 @@ function Course({
 
   useEffect(() => {
 
+    //call api to check whether have ever showed the certificate receive alert
+
     let url = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
     const getCourseProgress = async () => {
       
@@ -119,9 +121,17 @@ function Course({
           setOverall_percentage(data.course_grade.percent * 100)
         }
 
-        if(data.grading_policy != null && data.grading_policy.grade_range != null) {
+        //in case passing grade is more than fail or pass
+        if(data.grading_policy != null && data.grading_policy.grade_range != null && Object.keys(data.grading_policy.grade_range).length > 1){
+          // find smallest point
+          let arr = Object.values(data.grading_policy.grade_range);
+          let min = Math.min(...arr);
+          setPass_point(min);
+        }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
           setPass_point(data.grading_policy.grade_range.Pass)
         }
+
+        
 
       }
 
@@ -167,6 +177,7 @@ function Course({
         overallPercentage={overall_percentage}
         passingPoint={pass_point}
         checked={false}
+        courseId={courseId}
         />
       <CourseGradeProgress 
         availableCertId={available_cert_id}
