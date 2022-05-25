@@ -122,7 +122,7 @@ function Course({
         // various Grade
 
         if(data.grading_policy != null && data.grading_policy.grade_range != null && Object.keys(data.grading_policy.grade_range).length > 1) {
-          let arr = Object.values(obj);
+          let arr = Object.values(data.grading_policy.grade_range);
           let min = Math.min(...arr);
           setPass_point(min)
         }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
