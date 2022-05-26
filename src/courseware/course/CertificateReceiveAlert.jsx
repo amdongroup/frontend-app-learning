@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { getConfig } from '@edx/frontend-platform';
 import refreshImage from "../course/celebration/assets/refresh.png";
 import { getConfig } from '@edx/frontend-platform';
 // import refreshImage from '../course/celebration/assets/claps_456x328.gif';
@@ -7,24 +8,20 @@ function CertificateReceiveAlert({
   overallPercentage,
   passingPoint,
   checked,
-  courseId
+  courseId,
+  changedGrade
 }) {
 
-    const certLink = `https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`;
-    const progressLink = getConfig().LMS_BASE_URL+`learning/course/${courseId}/progress`;
+  const certUrl = `https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`;
+  const baseUrl = getConfig().LMS_BASE_URL;
+  const progressUrl = `${baseUrl}/learning/course/${courseId}/progress`;
 
     const closeAlertBox = () =>{
         document.getElementById('certificate-receive-alert').style.display="none";
     }
 
   useEffect(() => {
-    // if(!checked && availableCertId){
-    //     document.getElementById('certificate-receive-alert').style.display="";
-    // }else{
-    //     document.getElementById('certificate-receive-alert').style.display="none";
-    // }
-
-    if(!checked){
+    if(!checked && availableCertId){
         document.getElementById('certificate-receive-alert').style.display="";
     }else{
         document.getElementById('certificate-receive-alert').style.display="none";
@@ -34,12 +31,12 @@ function CertificateReceiveAlert({
   return (
    <div className="alert-wrapper" id="certificate-receive-alert" style={{display:'none'}}>
        <span onClick={closeAlertBox}>Close</span>
-       <img src={refreshImage} alt="" />
-        <p>Congratulations! You have completed the course.</p>
-        <div className="btn-group">
-            <a href={certLink} className="view-cert">View Cert</a>
-            <a href={progressLink} className="progress">Progress</a>
-        </div>
+       <img src={refreshImage} alt="Refresh Image" />
+       <p>Congratulation, You got {changedGrade}</p>
+       <div className="btn-group">
+         <a href={certUrl} className="view-cert">View Certificate</a>
+         <a href={progressUrl} className="check-progress">Check Progress</a>
+       </div>
    </div>
   );
 }

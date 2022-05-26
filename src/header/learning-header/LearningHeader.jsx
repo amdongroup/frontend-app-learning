@@ -7,6 +7,7 @@ import { AppContext } from '@edx/frontend-platform/react';
 import AnonymousUserMenu from './AnonymousUserMenu';
 import AuthenticatedUserDropdown from './AuthenticatedUserDropdown';
 import messages from './messages';
+import BackToDashboard from "../../header/dashboard.png"
 
 function LinkedLogo({
   href,
@@ -54,15 +55,21 @@ function LearningHeader({
           {/* <span className="d-block small m-0">{courseOrg} {courseNumber}</span> */}
           <span className="d-block m-0 font-weight-bold course-title">{courseTitle}</span>
         </div>
-        {showUserDropdown && authenticatedUser && (
-          <AuthenticatedUserDropdown
-            username={authenticatedUser.username}
-            fullName={fullName}
-          />
-        )}
-        {showUserDropdown && !authenticatedUser && (
-          <AnonymousUserMenu />
-        )}
+
+        <div className='d-inline-flex flex-row'>
+          <a href='https://devsfe.proxtera.app/'>
+            <img src={BackToDashboard} style={{ marginRight: "10px" }} />
+          </a>
+          {showUserDropdown && authenticatedUser && (
+            <AuthenticatedUserDropdown
+              username={authenticatedUser.username}
+              fullName={fullName}
+            />
+          )}
+          {showUserDropdown && !authenticatedUser && (
+            <AnonymousUserMenu />
+          )}
+        </div>
       </div>
     </header>
   );
