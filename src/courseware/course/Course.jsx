@@ -133,9 +133,15 @@ function Course({
         // various Grade
 
         if(data.grading_policy != null && data.grading_policy.grade_range != null && Object.keys(data.grading_policy.grade_range).length > 1) {
-          let arr = Object.values(data.grading_policy.grade_range);
-          let min = Math.min(...arr);
+          let arr = Object.values(data.grading_policy.grade_range)
+          let min = Math.min(...arr)
+          console.log('min ',min)
+          console.log('new branch works')
           setPass_point(min)
+          if(data.course_grade.letter_grade !== changedGrade){
+            setChangedGrade(data.course_grade.letter_grade)
+          }
+          
         }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
           setPass_point(data.grading_policy.grade_range.Pass)
         }
@@ -182,13 +188,13 @@ function Course({
           />
         ) : null}
       </div>
-      {/* <CertificateReceiveAlert  availableCertId={available_cert_id}
+      <CertificateReceiveAlert  availableCertId={available_cert_id}
         overallPercentage={overall_percentage}
         passingPoint={pass_point}
         checked={seenBox}
         courseId={courseId}
         changedGrade={changedGrade}
-        /> */}
+        />
       <CourseGradeProgress 
         availableCertId={available_cert_id}
         overallPercentage={overall_percentage}
