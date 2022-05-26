@@ -180,13 +180,13 @@ function Course({
           />
         ) : null}
       </div>
-      <CertificateReceiveAlert  availableCertId={available_cert_id}
+      {/* <CertificateReceiveAlert  availableCertId={available_cert_id}
         overallPercentage={overall_percentage}
         passingPoint={pass_point}
         checked={seenBox}
         courseId={courseId}
         changedGrade={changedGrade}
-        />
+        /> */}
       <CourseGradeProgress 
         availableCertId={available_cert_id}
         overallPercentage={overall_percentage}
