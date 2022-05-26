@@ -9,6 +9,7 @@ import AuthenticatedUserDropdown from './AuthenticatedUserDropdown';
 import messages from './messages';
 import BackToDashboard from "../../header/dashboard.png"
 import BackToDashboardButton from "../../header/dashboard_back_button.png"
+import Responsive from 'react-responsive';
 
 function LinkedLogo({
   href,
