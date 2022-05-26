@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { getConfig } from '@edx/frontend-platform';
 import refreshImage from "../course/celebration/assets/refresh.png";
-import { getConfig } from '@edx/frontend-platform';
 // import refreshImage from '../course/celebration/assets/claps_456x328.gif';
 function CertificateReceiveAlert({
   availableCertId,
