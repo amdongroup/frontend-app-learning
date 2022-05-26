@@ -7,7 +7,8 @@ function CertificateReceiveAlert({
   overallPercentage,
   passingPoint,
   checked,
-  courseId
+  courseId,
+  changedGrade
 }) {
 
   const certUrl = `https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`;
@@ -30,7 +31,7 @@ function CertificateReceiveAlert({
    <div className="alert-wrapper" id="certificate-receive-alert" style={{display:'none'}}>
        <span onClick={closeAlertBox}>Close</span>
        <img src={refreshImage} alt="Refresh Image" />
-       <p>Text</p>
+       <p>Congratulation, You got {changedGrade}</p>
        <div className="btn-group">
          <a href={certUrl} className="view-cert">View Certificate</a>
          <a href={progressUrl} className="check-progress">Check Progress</a>
