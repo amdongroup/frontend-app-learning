@@ -127,7 +127,7 @@ function Course({
         }
         
         if(data.course_grade != null) {
-          setOverall_percentage(data.course_grade.percent * 100)
+          setOverall_percentage(Math.round(data.course_grade.percent * 100))
         }
 
         // various Grade
