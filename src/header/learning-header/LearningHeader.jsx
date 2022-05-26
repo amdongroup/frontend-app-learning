@@ -8,6 +8,7 @@ import AnonymousUserMenu from './AnonymousUserMenu';
 import AuthenticatedUserDropdown from './AuthenticatedUserDropdown';
 import messages from './messages';
 import BackToDashboard from "../../header/dashboard.png"
+import BackToDashboardButton from "../../header/dashboard_back_button.png"
 
 function LinkedLogo({
   href,
@@ -57,9 +58,18 @@ function LearningHeader({
         </div>
 
         <div className='d-inline-flex flex-row'>
-          <a href='https://devsfe.proxtera.app/'>
-            <img src={BackToDashboard} style={{ marginRight: "10px" }} />
-          </a>
+          <>
+            <Responsive maxWidth={768}>
+              <a href='https://devsfe.proxtera.app/'>
+                <img src={BackToDashboardButton} style={{ marginRight: "10px" }} />
+              </a>
+            </Responsive>
+            <Responsive minWidth={769}>
+              <a href='https://devsfe.proxtera.app/'>
+                <img src={BackToDashboard} style={{ marginRight: "10px" }} />
+              </a>
+            </Responsive>
+          </>
           {showUserDropdown && authenticatedUser && (
             <AuthenticatedUserDropdown
               username={authenticatedUser.username}
