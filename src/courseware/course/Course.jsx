@@ -108,7 +108,8 @@ function Course({
       console.log(data)
       console.log(data.course_grade.percent)
       console.log("PassingPoint")
-      console.log(data.grading_policy.grade_range.Pass)
+      console.log(data.grading_policy.grade_range)
+
 
       if(data != null) {
 
@@ -138,7 +139,11 @@ function Course({
           console.log('min ',min)
           console.log('new branch works')
           setPass_point(min)
+          console.log('current grade ',changedGrade)
+          console.log('api grade ',data.course_grade.letter_grade)
           if(data.course_grade.letter_grade !== changedGrade){
+            console.log('set new grade')
+            setSeenBox(false);
             setChangedGrade(data.course_grade.letter_grade)
           }
           
