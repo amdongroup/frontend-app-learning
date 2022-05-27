@@ -97,7 +97,7 @@ function Course({
     // call check api whether to show pass or change grade
     let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${courseId}`
     const isChecked = async () =>{
-      const { data } = await getAuthenticatedHttpClient().get(checkApiUrl)
+      const { data } = await getAuthenticatedHttpClient().get(checkApiUrl,{apikey:process.env.AMDON_API_KEY})
       console.log('is Checked api called')
       console.log(data)
       setSeenBox(false) // change from api;
