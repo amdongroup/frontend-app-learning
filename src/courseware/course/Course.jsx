@@ -84,7 +84,7 @@ function Course({
   const [overall_percentage, setOverall_percentage] = useState(0);
   const [available_cert_id, setAvailable_cert_id] = useState("");
   const [pass_point, setPass_point] = useState(0);
-  const [seenBox,setSeenBox] = useState(true);
+  const [seenBox,setSeenBox] = useState(false);
   const [changedGrade,setChangedGrade] = useState("");
 
   useEffect(() => {
