@@ -24,6 +24,9 @@ import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
 import CourseGradeProgress from './CourseGradeProgress';
 import CertificateReceiveAlert from './CertificateReceiveAlert';
 
+// import { getUser } from '../experiments/mm-p2p/utils'
+import {getUser} from '../../experiments/mm-p2p/utils'
+
 function Course({
   courseId,
   sequenceId,
@@ -87,15 +90,17 @@ function Course({
   const [seenBox,setSeenBox] = useState(false);
   const [changedGrade,setChangedGrade] = useState("");
 
+  const authenticatedUser = getUser()
+
   useEffect(() => {
 
     // call check api whether to show pass or change grade
-    // let checkApiUrl = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
-    // const isChecked = async () =>{
-    //   const { data } = await getAuthenticatedHttpClient().get(url)
-    //   console.log(data)
-    //   setSeenBox(false) // change from api;
-    // }
+    let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${courseId}`
+    const isChecked = async () =>{
+      const { data } = await getAuthenticatedHttpClient().get(checkApiUrl)
+      console.log(data)
+      setSeenBox(false) // change from api;
+    }
     // call check api whether to show pass or change grade
 
     let url = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
