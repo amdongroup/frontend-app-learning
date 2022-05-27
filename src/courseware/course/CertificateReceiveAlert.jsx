@@ -8,7 +8,8 @@ function CertificateReceiveAlert({
   passingPoint,
   checked,
   courseId,
-  changedGrade
+  changedGrade,
+  postGrade
 }) {
 
   const certUrl = `https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`;
@@ -17,6 +18,7 @@ function CertificateReceiveAlert({
 
     const closeAlertBox = () =>{
         document.getElementById('certificate-receive-alert').style.display="none";
+        this.postGrade();
     }
 
   useEffect(() => {
@@ -32,7 +34,7 @@ function CertificateReceiveAlert({
        <span onClick={closeAlertBox}>Close</span>
        <img src={refreshImage} alt="Refresh Image" />
        <p>Congratulation, You got {changedGrade}</p>
-       <div className="btn-group">
+       <div className="btn-group" onClick={closeAlertBox}>
          <a href={certUrl} className="view-cert">View Certificate</a>
          <a href={progressUrl} className="check-progress">Check Progress</a>
        </div>

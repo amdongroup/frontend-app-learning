@@ -94,16 +94,32 @@ function Course({
 
   useEffect(() => {
 
+    const apiKey=process.env.AMDON_API_KEY;
+
     // call check api whether to show pass or change grade
     let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${courseId}`
     const isChecked = async () =>{
-      const { data } = await getAuthenticatedHttpClient().get(checkApiUrl,{apikey:process.env.AMDON_API_KEY})
+      const { data } = await getAuthenticatedHttpClient().get(checkApiUrl,{apikey:apiKey})
       console.log('is Checked api called')
       console.log(data)
       setSeenBox(false) // change from api;
     }
     isChecked();
     // call check api whether to show pass or change grade
+
+    //post grade
+    let postGradeApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades`
+    const postGrade = async ()=>{
+      const body ={
+        "user_id" : authenticatedUser.username,
+        "course_id":courseId,
+        "grade" : changedGrade
+      }
+      const { data } = await getAuthenticatedHttpClient().get(postGradeApiUrl,{apikey:apiKey},body)
+      console.log('post grade api called')
+      console.log(data)
+    }
+    //post grade
 
     let url = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
     const getCourseProgress = async () => {
@@ -206,6 +222,7 @@ function Course({
         checked={seenBox}
         courseId={courseId}
         changedGrade={changedGrade}
+        postGrade={()=>postGrade()}
         />
       <CourseGradeProgress 
         availableCertId={available_cert_id}
