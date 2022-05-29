@@ -103,25 +103,44 @@ function Course({
         method: 'GET',
         headers:{"apikey":apiKey}
       })
-        console.log('is Checked api called')
-      console.log(response);
-      setSeenBox(false) // change from api;
+      console.log('is Checked api called')
+      
+      if(response.length == 0){
+        console.log(response);
+        setSeenBox(false);
+      }
+      else{
+        console.log(response);
+
+        //comlpare grade
+        if(changedGrade !== response[0]){
+          setSeenBox(false);
+        }else{
+          setSeenBox(true);
+        }
+      }
     }
-    isChecked();
+    
     // call check api whether to show pass or change grade
 
     //post grade
     let postGradeApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades`
-    const postGrade = async ()=>{
-      const body ={
-        "user_id" : authenticatedUser.username,
-        "course_id":courseId,
-        "grade" : changedGrade
-      }
-      const { data } = await getAuthenticatedHttpClient().post(postGradeApiUrl,{apikey:apiKey},body)
-      console.log('post grade api called')
-      console.log(data)
+    const body ={
+      "user_id" : authenticatedUser.username,
+      "course_id":courseId,
+      "grade" : changedGrade
     }
+
+    const postGrade = async () =>{
+      const response = await fetch(postGradeApiUrl,{
+        method: 'POST',
+        headers:{"apikey":apiKey},
+        body: JSON.stringify(body)
+      })
+      console.log('post api response ',response)
+    }
+    
+
     //post grade
 
     let url = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
@@ -174,10 +193,13 @@ function Course({
           }
           
         }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
+          if(data.course_grade.letter_grade !== "FAIL"){
+            setChangedGrade(data.course_grade.letter_grade)
+          }
           setPass_point(data.grading_policy.grade_range.Pass)
         }
 
-        
+        isChecked()
 
       }
 
