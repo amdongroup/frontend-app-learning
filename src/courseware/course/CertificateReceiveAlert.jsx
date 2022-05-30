@@ -9,7 +9,7 @@ function CertificateReceiveAlert({
   checked,
   courseId,
   changedGrade,
-  postGrade
+  postGradeHandler
 }) {
 
   const certUrl = `https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`;
@@ -18,7 +18,7 @@ function CertificateReceiveAlert({
 
     const closeAlertBox = () =>{
         document.getElementById('certificate-receive-alert').style.display="none";
-        postGrade();
+        postGradeHandler();
     }
 
   useEffect(() => {
