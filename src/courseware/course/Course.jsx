@@ -92,6 +92,16 @@ function Course({
 
   const authenticatedUser = getUser()
 
+      const postGradeHandler = async () =>{
+      const response = await fetch(postGradeApiUrl,{
+        method: 'POST',
+        headers:{"apikey":apiKey},
+        body: JSON.stringify(body)
+      })
+      document.getElementById('certificate-receive-alert').style.display="none";
+      console.log('post api response ',response)
+    }
+
   useEffect(() => {
 
     const apiKey=process.env.AMDON_API_KEY;
@@ -131,15 +141,7 @@ function Course({
       "grade" : changedGrade
     }
 
-    const postGradeHandler = async () =>{
-      const response = await fetch(postGradeApiUrl,{
-        method: 'POST',
-        headers:{"apikey":apiKey},
-        body: JSON.stringify(body)
-      })
-      document.getElementById('certificate-receive-alert').style.display="none";
-      console.log('post api response ',response)
-    }
+
     
 
     //post grade
