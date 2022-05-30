@@ -15,7 +15,7 @@ function CertificateReceiveAlert({
   const progressUrl = `${baseUrl}/learning/course/${courseId}/progress`;
 
     const closeAlertBox = () =>{
-        document.getElementById('certificate-receive-alert').style.display="none";
+        
         postGradeHandler();
     }
 
@@ -29,12 +29,12 @@ function CertificateReceiveAlert({
 
   return (
    <div className="alert-wrapper" id="certificate-receive-alert" style={{display:'none'}}>
-       <span onClick={closeAlertBox}>Close</span>
+       <span onClick={()=>postGradeHandler()}>Close</span>
        <br/>
        <img src={refreshImage} alt="Refresh Image" />
        <br/>
        <p>Congratulation, You got {changedGrade}</p>
-       <div className="btn-group" onClick={closeAlertBox}>
+       <div className="btn-group" onClick={()=>postGradeHandler()}>
          <a href={certUrl} className="view-cert">View Certificate</a>
          <a href={progressUrl} className="check-progress">Check Progress</a>
        </div>

@@ -137,6 +137,7 @@ function Course({
         headers:{"apikey":apiKey},
         body: JSON.stringify(body)
       })
+      document.getElementById('certificate-receive-alert').style.display="none";
       console.log('post api response ',response)
     }
     
