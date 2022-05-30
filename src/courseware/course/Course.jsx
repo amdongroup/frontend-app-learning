@@ -131,7 +131,7 @@ function Course({
       "grade" : changedGrade
     }
 
-    const postGradeHandler = async () =>{
+    postGradeHandler = async () =>{
       const response = await fetch(postGradeApiUrl,{
         method: 'POST',
         headers:{"apikey":apiKey},
@@ -241,13 +241,12 @@ function Course({
           />
         ) : null}
       </div>
-      <CertificateReceiveAlert  availableCertId={available_cert_id}
-        overallPercentage={overall_percentage}
-        passingPoint={pass_point}
+      <CertificateReceiveAlert  
+      availableCertId={available_cert_id}
         checked={seenBox}
         courseId={courseId}
         changedGrade={changedGrade}
-        postGradeHandler={postGradeHandler}
+        postGradeHandler={this.postGradeHandler}
         />
       <CourseGradeProgress 
         availableCertId={available_cert_id}

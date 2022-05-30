@@ -4,8 +4,6 @@ import refreshImage from "../course/celebration/assets/refresh.png";
 // import refreshImage from '../course/celebration/assets/claps_456x328.gif';
 function CertificateReceiveAlert({
   availableCertId,
-  overallPercentage,
-  passingPoint,
   checked,
   courseId,
   changedGrade,
