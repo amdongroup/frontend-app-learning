@@ -115,7 +115,7 @@ function CertificateStatusAlert({ intl, payload }) {
       let certAry = certURL.split("certificates/");
       if (certAry.length == 2) certId = certAry[1];
       alertProps.buttonLink =
-        "https://stg-certificate.apixoxygen.com/certificate/" + certId;
+        "https://smefe-certificate.apixoxygen.com/certificate/" + certId;
       // alertProps.buttonLink =
       //   "https://exts-dev.stemwerkz.org/open-edx-cert/" + certId;
       alertProps.buttonAction = () => {

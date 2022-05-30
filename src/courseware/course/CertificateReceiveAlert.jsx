@@ -11,7 +11,7 @@ function CertificateReceiveAlert({
   changedGrade
 }) {
 
-  const certUrl = `https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`;
+  const certUrl = `https://smefe-certificate.apixoxygen.com/certificate/${availableCertId}`;
   const baseUrl = getConfig().LMS_BASE_URL;
   const progressUrl = `${baseUrl}/learning/course/${courseId}/progress`;
 

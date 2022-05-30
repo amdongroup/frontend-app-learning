@@ -104,7 +104,7 @@ function CourseCelebration({ intl }) {
         let certAry = certWebViewUrl.split("certificates/");
         if (certAry.length == 2) certId = certAry[1];
         buttonLocation =
-          "https://stg-certificate.apixoxygen.com/certificate/" + certId;
+          "https://smefe-certificate.apixoxygen.com/certificate/" + certId;
         // buttonLocation =
         //   "https://exts-dev.stemwerkz.org/open-edx-cert/" + certId;
         buttonText = intl.formatMessage(messages.viewCertificateButton);
