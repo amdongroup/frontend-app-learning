@@ -102,6 +102,12 @@ function Course({
 
   const apiKey=process.env.AMDON_API_KEY;
 
+  const logMe = (text)=>{
+    console.log(text)
+  }
+
+  logMe('Im here')
+
   const postGradeHandler = async () =>{
     const response = await fetch(postGradeApiUrl,{
       method: 'POST',
