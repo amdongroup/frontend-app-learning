@@ -124,27 +124,31 @@ function Course({
     // call check api whether to show pass or change grade
     let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${courseId}`
     const isChecked = async () =>{
-      const response = await fetch(checkApiUrl,{
+      // const response = await fetch(checkApiUrl,{
+      //   method: 'GET',
+      //   headers:{"apikey":apiKey}
+      // })
+      fetch(checkApiUrl,{
         method: 'GET',
         headers:{"apikey":apiKey}
-      })
-      console.log('is Checked api called')
+      }).then(res=>{
+        console.log('is Checked api called',res,res.data)
       
-      if(response.length == 0){
-        console.log(response);
-        setSeenBox(false);
-      }
-      else{
-        console.log(response.json());
-
-        //comlpare grade
-        console.log('compare ',changedGrade , response[0])
-        if(changedGrade && changedGrade !== response[0]){
+        if(res.data.length == 0){
+          console.log(response);
           setSeenBox(false);
-        }else{
-          setSeenBox(true);
         }
-      }
+        else{
+          //comlpare grade
+          console.log('compare ',changedGrade , res?.data[0])
+          if(changedGrade && changedGrade !== res?.data[0]){
+            setSeenBox(false);
+          }else{
+            setSeenBox(true);
+          }
+        }
+      })
+
     }
     
     // call check api whether to show pass or change grade
