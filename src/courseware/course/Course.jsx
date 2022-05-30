@@ -105,7 +105,7 @@ function Course({
   const postGradeHandler = async () =>{
     const response = await fetch(postGradeApiUrl,{
       method: 'POST',
-      headers:{"apikey":apiKey,"Content-Type": "application/json"},
+      headers: new Headers({"apikey":apiKey,'content-type': 'application/json'}),
       body: JSON.stringify(body)
     })
     document.getElementById('certificate-receive-alert').style.display="none";
