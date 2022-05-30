@@ -96,7 +96,7 @@ function Course({
   let postGradeApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades`
   const body ={
     "user_id" : authenticatedUser.username,
-    "course_id":courseId,
+    "course_id":encodeURIComponent(courseId),
     "grade" : changedGrade
   }
 
@@ -122,7 +122,7 @@ function Course({
     
     const apiKey=process.env.AMDON_API_KEY;
     // call check api whether to show pass or change grade
-    let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${courseId}`
+    let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${encodeURIComponent(courseId)}`
     const isChecked = async () =>{
       // const response = await fetch(checkApiUrl,{
       //   method: 'GET',
@@ -204,11 +204,10 @@ function Course({
             setSeenBox(false);
             setChangedGrade(data.course_grade.letter_grade)
           }
-          
         }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
-          if(data.course_grade.letter_grade !== "FAIL"){
+          // if(data.course_grade.letter_grade !== "FAIL"){
             setChangedGrade(data.course_grade.letter_grade)
-          }
+          // }
           setPass_point(data.grading_policy.grade_range.Pass)
         }
 
