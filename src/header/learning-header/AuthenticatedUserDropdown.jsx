@@ -40,7 +40,7 @@ function AuthenticatedUserDropdown({ intl, username, fullName }) {
               {intl.formatMessage(messages.orderHistory)}
             </Dropdown.Item>
           )}
-          <Dropdown.Item href={getConfig().LOGOUT_URL + "?next=https://devsfe.proxtera.app/"}>
+          <Dropdown.Item href={getConfig().LOGOUT_URL + "?next=https://www.smefe.org/"}>
             {intl.formatMessage(messages.signOut)}
           </Dropdown.Item>
         </Dropdown.Menu>
