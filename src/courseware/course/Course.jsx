@@ -130,7 +130,7 @@ function Course({
       // })
       fetch(checkApiUrl,{
         method: 'GET',
-        headers:{"apikey":apiKey}
+        headers: new Headers({"apikey":apiKey,'content-type': 'application/json'}),
       }).then(res=>{
         console.log('is Checked api called',res,res.data)
       
