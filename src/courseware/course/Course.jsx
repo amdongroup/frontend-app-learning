@@ -132,21 +132,22 @@ function Course({
         method: 'GET',
         headers: new Headers({"apikey":apiKey,'content-type': 'application/json'}),
       }).then(res=>{
-        console.log('is Checked api called',res,res.data)
-      
-        if(res.data.length == 0){
-          console.log(response);
-          setSeenBox(false);
-        }
-        else{
-          //comlpare grade
-          console.log('compare ',changedGrade , res?.data[0])
-          if(changedGrade && changedGrade !== res?.data[0]){
-            setSeenBox(false);
-          }else{
-            setSeenBox(true);
-          }
-        }
+        console.log('is Checked api called',res)
+        res.json().then((data) => {
+            console.log('data',data);
+            if(data.length == 0){
+              setSeenBox(false);
+            }
+            else{
+              //compare grade
+              console.log('compare ',changedGrade , data[0])
+              if(changedGrade && changedGrade !== data[0]){
+                setSeenBox(false);
+              }else{
+                setSeenBox(true);
+              }
+            }
+        });
       })
 
     }
