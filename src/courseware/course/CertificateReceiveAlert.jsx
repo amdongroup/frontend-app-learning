@@ -32,7 +32,9 @@ function CertificateReceiveAlert({
   return (
    <div className="alert-wrapper" id="certificate-receive-alert" style={{display:'none'}}>
        <span onClick={closeAlertBox}>Close</span>
+       <br/>
        <img src={refreshImage} alt="Refresh Image" />
+       <br/>
        <p>Congratulation, You got {changedGrade}</p>
        <div className="btn-group" onClick={closeAlertBox}>
          <a href={certUrl} className="view-cert">View Certificate</a>

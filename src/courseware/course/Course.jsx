@@ -247,7 +247,7 @@ function Course({
         checked={seenBox}
         courseId={courseId}
         changedGrade={changedGrade}
-        postGradeHandler={postGrade}
+        postGrade={postGradeHandler}
         />
       <CourseGradeProgress 
         availableCertId={available_cert_id}
