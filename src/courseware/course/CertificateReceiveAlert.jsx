@@ -18,7 +18,7 @@ function CertificateReceiveAlert({
 
     const closeAlertBox = () =>{
         document.getElementById('certificate-receive-alert').style.display="none";
-        postGrade;
+        postGrade();
     }
 
   useEffect(() => {

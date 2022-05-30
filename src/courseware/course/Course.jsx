@@ -131,7 +131,7 @@ function Course({
       "grade" : changedGrade
     }
 
-    const postGrade = async () =>{
+    const postGradeHandler = async () =>{
       const response = await fetch(postGradeApiUrl,{
         method: 'POST',
         headers:{"apikey":apiKey},
@@ -247,7 +247,7 @@ function Course({
         checked={seenBox}
         courseId={courseId}
         changedGrade={changedGrade}
-        postGrade={()=>postGrade}
+        postGradeHandler={postGrade}
         />
       <CourseGradeProgress 
         availableCertId={available_cert_id}
