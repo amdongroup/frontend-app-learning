@@ -135,7 +135,7 @@ function Course({
         setSeenBox(false);
       }
       else{
-        console.log(response);
+        console.log(response.json());
 
         //comlpare grade
         console.log('compare ',changedGrade , response[0])
