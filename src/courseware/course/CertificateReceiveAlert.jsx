@@ -20,7 +20,7 @@ function CertificateReceiveAlert({
     }
 
   useEffect(() => {
-    if(!checked){
+    if(!checked && availableCertId){
         document.getElementById('certificate-receive-alert').style.display="";
     }else{
         document.getElementById('certificate-receive-alert').style.display="none";

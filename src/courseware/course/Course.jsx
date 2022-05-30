@@ -138,7 +138,8 @@ function Course({
         console.log(response);
 
         //comlpare grade
-        if(changedGrade !== response[0]){
+        console.log('compare ',changedGrade , response[0])
+        if(changedGrade && changedGrade !== response[0]){
           setSeenBox(false);
         }else{
           setSeenBox(true);
