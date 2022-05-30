@@ -61,12 +61,12 @@ function LearningHeader({
         <div className='d-inline-flex flex-row'>
           <>
             <Responsive maxWidth={768}>
-              <a href='https://www.smefe.org/dashboard'>
+              <a href='https://www.devsfe.proxtera.app/dashboard'>
                 <img src={BackToDashboardButton} style={{ marginRight: "10px" }} />
               </a>
             </Responsive>
             <Responsive minWidth={769}>
-              <a href='https://www.smefe.org/dashboard'>
+              <a href='https://www.devsfe.proxtera.app/dashboard'>
                 <img src={BackToDashboard} style={{ marginRight: "10px" }} />
               </a>
             </Responsive>

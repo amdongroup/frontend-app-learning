@@ -133,7 +133,7 @@ function CourseGradeProgress({
           </div>
           <a
             target="_blank"
-            href={`https://smefe-certificate.apixoxygen.com/certificate/${availableCertId}`}
+            href={`https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`}
             className="view-cert"
             id="view-cert"
           >
@@ -201,7 +201,7 @@ function CourseGradeProgress({
             </div>
             <a
               target="_blank"
-              href={`https://smefe-certificate.apixoxygen.com/certificate/${availableCertId}`}
+              href={`https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`}
               className="view-cert"
               id="view-cert-mobile"
             >
