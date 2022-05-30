@@ -100,6 +100,8 @@ function Course({
     "grade" : changedGrade
   }
 
+  const apiKey=process.env.AMDON_API_KEY;
+
   const postGradeHandler = async () =>{
     const response = await fetch(postGradeApiUrl,{
       method: 'POST',
@@ -117,8 +119,8 @@ function Course({
 
   useEffect(() => {
 
+    
     const apiKey=process.env.AMDON_API_KEY;
-
     // call check api whether to show pass or change grade
     let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${courseId}`
     const isChecked = async () =>{
