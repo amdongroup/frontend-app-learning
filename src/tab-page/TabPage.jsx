@@ -44,7 +44,8 @@ function TabPage({ intl, ...props }) {
   } = useModel(metadataModel, courseId);
 
   const authenticatedUser = getUser()
-  const [ fullName, setFullName ] = useState("")
+  const fullName_Ref = useRef("")
+  const fullName = fullName_Ref.current
 
   console.log(authenticatedUser)
 
@@ -56,8 +57,7 @@ function TabPage({ intl, ...props }) {
 
       console.log("Account Data")
       console.log(data)
-
-      setFullName(data.name)
+      fullName_Ref = data.name
     }
 
     getUserAccount()
