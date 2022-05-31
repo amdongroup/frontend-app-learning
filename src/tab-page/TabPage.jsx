@@ -62,7 +62,7 @@ function TabPage({ intl, ...props }) {
 
     getUserAccount()
 
-  })
+  },[])
 
   if (courseStatus === 'loading') {
     return (
