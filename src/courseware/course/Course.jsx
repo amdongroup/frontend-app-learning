@@ -310,4 +310,4 @@ Course.defaultProps = {
   unitId: null,
 };
 
-export default Course;
+export default React.memo(Course);
