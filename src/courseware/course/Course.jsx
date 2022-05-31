@@ -189,19 +189,22 @@ function Course({
       // various Grade
 
       if(data.grading_policy != null && data.grading_policy.grade_range != null && Object.keys(data.grading_policy.grade_range).length > 1) {
-        let arr = Object.values(data.grading_policy.grade_range)
-        let min = Math.min(...arr)
-        console.log('min ',min)
-        console.log('new branch works')
+        let minArr = Object.values(data.grading_policy.grade_range)
+        let min = Math.min(...minArr)
+
+        let maxGradeArr = Object.keys(data.grading_policy.grade_range)
+        let maxGrade = Math.max(...maxGradeArr)
+
+        let minGradeArr = Object.keys(data.grading_policy.grade_range)
+        let minGrade = Math.max(...minGradeArr)
+
         pass_point_Ref.current = min
-        console.log('current grade ',changedGrade)
-        console.log('api grade ',data.course_grade.letter_grade)
-        if(data.course_grade.letter_grade !== changedGrade){
-          console.log('set new grade')
+        if(data.course_grade.letter_grade !== changedGrade && (data.course_grade.letter_grade=== minGrade || data.course_grade.letter_grade === maxGrade)){
           seenBox_Ref.current = false
           changedGrade_Ref.current = data.course_grade.letter_grade
         }
       }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
+        //need to check pass fail condition
         changedGrade_Ref.current = data.grading_policy.grade_range
         pass_point_Ref.current=data.grading_policy.grade_range.Pass
       }

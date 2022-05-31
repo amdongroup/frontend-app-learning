@@ -44,7 +44,7 @@ function TabPage({ intl, ...props }) {
   } = useModel(metadataModel, courseId);
 
   const authenticatedUser = getUser()
-  const fullName_Ref = useRef("")
+  const fullName_Ref = React.useRef("")
   const fullName = fullName_Ref.current
 
   console.log(authenticatedUser)
