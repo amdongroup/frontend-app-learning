@@ -87,7 +87,7 @@ function Course({
   const overall_percentage_Ref = React.useRef(0);
   const available_cert_id_Ref = React.useRef("");
   const pass_point_Ref = React.useRef(0);
-  const seenBox_Ref = React.useRef(false);
+  const seenBox_Ref = React.useRef(true);
   const changedGrade_Ref = React.useRef("");
 
   const overall_percentage = overall_percentage_Ref.current
@@ -205,8 +205,12 @@ function Course({
         }
       }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
         //need to check pass fail condition
-        changedGrade_Ref.current = data.grading_policy.grade_range
-        pass_point_Ref.current=data.grading_policy.grade_range.Pass
+        let valueArray = Object.values(data.grading_policy.grade_range)
+        if(valueArray[0] < data.course_grade.percent){
+          seenBox_Ref.current = false
+          changedGrade_Ref.current = data.grading_policy.grade_range
+          pass_point_Ref.current=data.grading_policy.grade_range.Pass
+        }
       }
 
       isChecked()
