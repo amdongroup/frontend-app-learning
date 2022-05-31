@@ -57,7 +57,7 @@ function TabPage({ intl, ...props }) {
 
       console.log("Account Data")
       console.log(data)
-      fullName_Ref = data.name
+      fullName_Ref.current = data.name
     }
 
     getUserAccount()
