@@ -84,11 +84,17 @@ function Course({
     setLocalStorage('notificationStatus', 'inactive');
   };
 
-  const [overall_percentage, setOverall_percentage] = useState(0);
-  const [available_cert_id, setAvailable_cert_id] = useState("");
-  const [pass_point, setPass_point] = useState(0);
-  const [seenBox,setSeenBox] = useState(false);
-  const [changedGrade,setChangedGrade] = useState("");
+  // const [overall_percentage, setOverall_percentage] = useState(0);
+  // const [available_cert_id, setAvailable_cert_id] = useState("");
+  // const [pass_point, setPass_point] = useState(0);
+  // const [seenBox,setSeenBox] = useState(false);
+  // const [changedGrade,setChangedGrade] = useState("");
+
+  const overall_percentage = React.useRef(0);
+  const available_cert_id = React.useRef("");
+  const pass_point = React.useRef(0);
+  const seenBox = React.useRef(false);
+  const changedGrade = React.useRef("");
 
   const authenticatedUser = getUser()
 
@@ -132,15 +138,15 @@ function Course({
       res.json().then((data) => {
           console.log('data',data);
           if(data.length == 0){
-            setSeenBox(false);
+            seenBox.current = false
           }
           else{
             //compare grade
             console.log('compare ',changedGrade , data[0])
             if(changedGrade && changedGrade !== data[0]){
-              setSeenBox(false);
+              seenBox.current = false
             }else{
-              setSeenBox(true);
+              seenBox.current = true
             }
           }
       });
@@ -178,11 +184,11 @@ function Course({
       }
 
       //data.course_grade.percent
-      setAvailable_cert_id(certId)
+      available_cert_id.current = certId
       }
       
       if(data.course_grade != null) {
-        setOverall_percentage(data.course_grade.percent * 100)
+        overall_percentage.current=data.course_grade.percent * 100
       }
 
       // various Grade
@@ -192,27 +198,22 @@ function Course({
         let min = Math.min(...arr)
         console.log('min ',min)
         console.log('new branch works')
-        setPass_point(min)
+        pass_point.current = min
         console.log('current grade ',changedGrade)
         console.log('api grade ',data.course_grade.letter_grade)
         if(data.course_grade.letter_grade !== changedGrade){
           console.log('set new grade')
-          setSeenBox(false);
-          setChangedGrade(data.course_grade.letter_grade)
+          seenBox.current = false
+          changedGrade.current = data.course_grade.letter_grade
         }
       }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
-        // if(data.course_grade.letter_grade !== "FAIL"){
-          setChangedGrade(data.course_grade.letter_grade)
-        // }
-        setPass_point(data.grading_policy.grade_range.Pass)
+        changedGrade.current = data.grading_policy.grade_range
+        pass_point.current=data.grading_policy.grade_range.Pass
       }
 
       isChecked()
 
     }
-
-    // setAvailable_cert_id("12345678")
-    // setOverall_percentage(70)
 
   }
 
@@ -310,4 +311,4 @@ Course.defaultProps = {
   unitId: null,
 };
 
-export default React.memo(Course);
+export default Course;
