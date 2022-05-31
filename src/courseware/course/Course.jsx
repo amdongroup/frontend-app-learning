@@ -90,11 +90,11 @@ function Course({
   const seenBox_Ref = React.useRef(false);
   const changedGrade_Ref = React.useRef("");
 
-  const overall_percentage = overall_percentage_Ref
-  const available_cert_id = available_cert_id_Ref
-  const pass_point = pass_point_Ref
-  const seenBox = seenBox_Ref
-  const changedGrade = changedGrade_Ref
+  const overall_percentage = overall_percentage_Ref.current
+  const available_cert_id = available_cert_id_Ref.current
+  const pass_point = pass_point_Ref.current
+  const seenBox = seenBox_Ref.current
+  const changedGrade = changedGrade_Ref.current
 
   const authenticatedUser = getUser()
 
