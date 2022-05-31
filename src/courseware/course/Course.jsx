@@ -121,113 +121,105 @@ function Course({
 
   //post grade
 
-
-
-  useEffect(() => {
-
-    
-    const apiKey=process.env.AMDON_API_KEY;
-    // call check api whether to show pass or change grade
-    let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${encodeURIComponent(courseId)}`
-    const isChecked = async () =>{
-      // const response = await fetch(checkApiUrl,{
-      //   method: 'GET',
-      //   headers:{"apikey":apiKey}
-      // })
-      fetch(checkApiUrl,{
-        method: 'GET',
-        headers: new Headers({"apikey":apiKey,'content-type': 'application/json'}),
-      }).then(res=>{
-        console.log('is Checked api called',res)
-        res.json().then((data) => {
-            console.log('data',data);
-            if(data.length == 0){
-              setSeenBox(false);
-            }
-            else{
-              //compare grade
-              console.log('compare ',changedGrade , data[0])
-              if(changedGrade && changedGrade !== data[0]){
-                setSeenBox(false);
-              }else{
-                setSeenBox(true);
-              }
-            }
-        });
-      })
-
-    }
-    
-    // call check api whether to show pass or change grade
-
-    
-
-    let url = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
-    const getCourseProgress = async () => {
-      
-      const { data } = await getAuthenticatedHttpClient().get(url)
-
-      console.log("Course Progress")
-      console.log(url)
-      console.log(data)
-      console.log(data.course_grade.percent)
-      console.log("PassingPoint")
-      console.log(data.grading_policy.grade_range)
-
-
-      if(data != null) {
-
-        if(data.certificate_data != null) {
-          let certId = null
-        if(data.certificate_data.cert_web_view_url) {
-
-          let certAry = data.certificate_data.cert_web_view_url.split("certificates/")
-          if(certAry.length == 2)
-            certId = certAry[1]
-
-        }
-
-        //data.course_grade.percent
-        setAvailable_cert_id(certId)
-        }
-        
-        if(data.course_grade != null) {
-          setOverall_percentage(data.course_grade.percent * 100)
-        }
-
-        // various Grade
-
-        if(data.grading_policy != null && data.grading_policy.grade_range != null && Object.keys(data.grading_policy.grade_range).length > 1) {
-          let arr = Object.values(data.grading_policy.grade_range)
-          let min = Math.min(...arr)
-          console.log('min ',min)
-          console.log('new branch works')
-          setPass_point(min)
-          console.log('current grade ',changedGrade)
-          console.log('api grade ',data.course_grade.letter_grade)
-          if(data.course_grade.letter_grade !== changedGrade){
-            console.log('set new grade')
+  // call check api whether to show pass or change grade
+  let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${encodeURIComponent(courseId)}`
+  const isChecked = async () =>{
+    fetch(checkApiUrl,{
+      method: 'GET',
+      headers: new Headers({"apikey":apiKey,'content-type': 'application/json'}),
+    }).then(res=>{
+      console.log('is Checked api called',res)
+      res.json().then((data) => {
+          console.log('data',data);
+          if(data.length == 0){
             setSeenBox(false);
-            setChangedGrade(data.course_grade.letter_grade)
           }
-        }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
-          // if(data.course_grade.letter_grade !== "FAIL"){
-            setChangedGrade(data.course_grade.letter_grade)
-          // }
-          setPass_point(data.grading_policy.grade_range.Pass)
-        }
+          else{
+            //compare grade
+            console.log('compare ',changedGrade , data[0])
+            if(changedGrade && changedGrade !== data[0]){
+              setSeenBox(false);
+            }else{
+              setSeenBox(true);
+            }
+          }
+      });
+    })
 
-        isChecked()
+  }
+  
+  // call check api whether to show pass or change grade
+
+  
+
+  let url = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
+  const getCourseProgress = async () => {
+    
+    const { data } = await getAuthenticatedHttpClient().get(url)
+
+    console.log("Course Progress")
+    console.log(url)
+    console.log(data)
+    console.log(data.course_grade.percent)
+    console.log("PassingPoint")
+    console.log(data.grading_policy.grade_range)
+
+
+    if(data != null) {
+
+      if(data.certificate_data != null) {
+        let certId = null
+      if(data.certificate_data.cert_web_view_url) {
+
+        let certAry = data.certificate_data.cert_web_view_url.split("certificates/")
+        if(certAry.length == 2)
+          certId = certAry[1]
 
       }
 
-      // setAvailable_cert_id("12345678")
-      // setOverall_percentage(70)
+      //data.course_grade.percent
+      setAvailable_cert_id(certId)
+      }
+      
+      if(data.course_grade != null) {
+        setOverall_percentage(data.course_grade.percent * 100)
+      }
+
+      // various Grade
+
+      if(data.grading_policy != null && data.grading_policy.grade_range != null && Object.keys(data.grading_policy.grade_range).length > 1) {
+        let arr = Object.values(data.grading_policy.grade_range)
+        let min = Math.min(...arr)
+        console.log('min ',min)
+        console.log('new branch works')
+        setPass_point(min)
+        console.log('current grade ',changedGrade)
+        console.log('api grade ',data.course_grade.letter_grade)
+        if(data.course_grade.letter_grade !== changedGrade){
+          console.log('set new grade')
+          setSeenBox(false);
+          setChangedGrade(data.course_grade.letter_grade)
+        }
+      }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
+        // if(data.course_grade.letter_grade !== "FAIL"){
+          setChangedGrade(data.course_grade.letter_grade)
+        // }
+        setPass_point(data.grading_policy.grade_range.Pass)
+      }
+
+      isChecked()
 
     }
 
-    getCourseProgress()
+    // setAvailable_cert_id("12345678")
+    // setOverall_percentage(70)
 
+  }
+
+
+
+  useEffect(() => {
+    getCourseProgress()
   },[])
 
   /** [MM-P2P] Experiment */
