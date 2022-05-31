@@ -84,17 +84,17 @@ function Course({
     setLocalStorage('notificationStatus', 'inactive');
   };
 
-  // const [overall_percentage, setOverall_percentage] = useState(0);
-  // const [available_cert_id, setAvailable_cert_id] = useState("");
-  // const [pass_point, setPass_point] = useState(0);
-  // const [seenBox,setSeenBox] = useState(false);
-  // const [changedGrade,setChangedGrade] = useState("");
+  const overall_percentage_Ref = React.useRef(0);
+  const available_cert_id_Ref = React.useRef("");
+  const pass_point_Ref = React.useRef(0);
+  const seenBox_Ref = React.useRef(false);
+  const changedGrade_Ref = React.useRef("");
 
-  const overall_percentage = React.useRef(0);
-  const available_cert_id = React.useRef("");
-  const pass_point = React.useRef(0);
-  const seenBox = React.useRef(false);
-  const changedGrade = React.useRef("");
+  const overall_percentage = overall_percentage_Ref
+  const available_cert_id = available_cert_id_Ref
+  const pass_point = pass_point_Ref
+  const seenBox = seenBox_Ref
+  const changedGrade = changedGrade_Ref
 
   const authenticatedUser = getUser()
 
@@ -117,14 +117,12 @@ function Course({
   const postGradeHandler = async () =>{
     const response = await fetch(postGradeApiUrl,{
       method: 'POST',
-      headers: new Headers({"apikey":apiKey,'content-type': 'application/json'}),
+      headers: new Headers({'apikey':apiKey,'content-type': 'application/json'}),
       body: JSON.stringify(body)
     })
     document.getElementById('certificate-receive-alert').style.display="none";
     console.log('post api response ',response)
   }
-  
-
   //post grade
 
   // call check api whether to show pass or change grade
@@ -138,25 +136,22 @@ function Course({
       res.json().then((data) => {
           console.log('data',data);
           if(data.length == 0){
-            seenBox.current = false
+            seenBox_Ref.current = false
           }
           else{
             //compare grade
             console.log('compare ',changedGrade , data[0])
             if(changedGrade && changedGrade !== data[0]){
-              seenBox.current = false
+              seenBox_Ref.current = false
             }else{
-              seenBox.current = true
+              seenBox_Ref.current = true
             }
           }
       });
     })
 
   }
-  
   // call check api whether to show pass or change grade
-
-  
 
   let url = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
   const getCourseProgress = async () => {
@@ -184,11 +179,11 @@ function Course({
       }
 
       //data.course_grade.percent
-      available_cert_id.current = certId
+      available_cert_id_Ref.current = certId
       }
       
       if(data.course_grade != null) {
-        overall_percentage.current=data.course_grade.percent * 100
+        overall_percentage_Ref.current=data.course_grade.percent * 100
       }
 
       // various Grade
@@ -198,17 +193,17 @@ function Course({
         let min = Math.min(...arr)
         console.log('min ',min)
         console.log('new branch works')
-        pass_point.current = min
+        pass_point_Ref.current = min
         console.log('current grade ',changedGrade)
         console.log('api grade ',data.course_grade.letter_grade)
         if(data.course_grade.letter_grade !== changedGrade){
           console.log('set new grade')
-          seenBox.current = false
-          changedGrade.current = data.course_grade.letter_grade
+          seenBox_Ref.current = false
+          changedGrade_Ref.current = data.course_grade.letter_grade
         }
       }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
-        changedGrade.current = data.grading_policy.grade_range
-        pass_point.current=data.grading_policy.grade_range.Pass
+        changedGrade_Ref.current = data.grading_policy.grade_range
+        pass_point_Ref.current=data.grading_policy.grade_range.Pass
       }
 
       isChecked()
