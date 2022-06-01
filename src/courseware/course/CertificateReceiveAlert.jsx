@@ -1,12 +1,14 @@
 import React, { useEffect } from "react";
 import { getConfig } from '@edx/frontend-platform';
-import refreshImage from "../course/celebration/assets/refresh.png";
-// import refreshImage from '../course/celebration/assets/claps_456x328.gif';
+import Cancel from "../course/celebration/assets/cancel_l.png";
+import Pass from "../course/celebration/assets/grade_pass.png";
+import Certificate from "../course/celebration/assets/grade_certificate.png";
+
 function CertificateReceiveAlert({
   availableCertId,
-  checked,
   courseId,
-  changedGrade,
+  isPass,
+  overallPercentage,
   postGradeHandler
 }) {
 
@@ -14,35 +16,31 @@ function CertificateReceiveAlert({
   const baseUrl = getConfig().LMS_BASE_URL;
   const progressUrl = `${baseUrl}/learning/course/${courseId}/progress`;
 
-    const closeAlertBox = () =>{
-        
-        postGradeHandler();
-    }
-
-  useEffect(() => {
-    if(!checked && availableCertId){
-        document.getElementById('root').append(document.getElementById('alert-overlay'));
-        document.getElementById('alert-overlay').style.display="";
-    }else{
-        document.getElementById('alert-overlay').style.display="none";
-    }
-  });
-
   return (
-    <div className="alert-overlay" id="alert-overlay" style={{display:'none'}}>
-         <div className="alert-wrapper" id="certificate-receive-alert" >
-       <span onClick={()=>postGradeHandler()}>Close</span>
-       <br/>
-       <img src={refreshImage} alt="Refresh Image" />
-       <br/>
-       <p>Congratulation, You got {changedGrade}</p>
-       <div className="btn-group" onClick={()=>postGradeHandler()}>
-         <a href={certUrl} className="view-cert">View Certificate</a>
-         <a href={progressUrl} className="check-progress">Check Progress</a>
-       </div>
-   </div>
+    <div className="alert-wrapper" id="certificate-receive-alert" >
+      <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
+      {isPass ? 
+        (<div className="d-flex flex-column">
+          <span className="">Congratulations!</span>
+          <span className="">You have earned a certificate.</span>
+          <span className="">Keep it up! You will earn a Distinction Certificate when you get {overallPercentage}% </span>
+          <img className="" src={Pass} alt="" />
+          <div className="btn-group" onClick={()=>postGradeHandler()}>
+            <a href={certUrl} className="box-btn">View my progress</a>
+            <a href={progressUrl} className="box-btn">View certificate</a>
+          </div>
+        </div>) :
+        (<div className="d-flex flex-column">
+          <span className="">Congratulations!</span>
+          <span className="">Your certificate has been upgraded to Distinction certificate.</span>
+          <img className="" src={Pass} alt="" />
+          <div className="btn-group" onClick={()=>postGradeHandler()}>
+            <a href={certUrl} className="box-btn">View my progress</a>
+            <a href={progressUrl} className="box-btn">View certificate</a>
+          </div>
+        </div>)
+      }
     </div>
-
   );
 }
 

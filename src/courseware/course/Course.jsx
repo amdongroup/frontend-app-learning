@@ -89,12 +89,14 @@ function Course({
   const pass_point_Ref = React.useRef(0);
   const seenBox_Ref = React.useRef(true);
   const changedGrade_Ref = React.useRef("");
+  const isPass_Ref = React.useRef(false);
 
   const overall_percentage = overall_percentage_Ref.current
   const available_cert_id = available_cert_id_Ref.current
   const pass_point = pass_point_Ref.current
   const seenBox = seenBox_Ref.current
   const changedGrade = changedGrade_Ref.current
+  const isPass = isPass_Ref.current
 
   const authenticatedUser = getUser()
 
@@ -202,6 +204,11 @@ function Course({
         if(data.course_grade.letter_grade !== changedGrade && (data.course_grade.letter_grade=== minGrade || data.course_grade.letter_grade === maxGrade)){
           seenBox_Ref.current = false
           changedGrade_Ref.current = data.course_grade.letter_grade
+          if(data.course_grade.letter_grade=== minGrade){
+            isPass_Ref.current = true // just pass
+          }else {
+            isPass_Ref.current = false // distinction
+          }
         }
       }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
         //need to check pass fail condition
@@ -254,13 +261,17 @@ function Course({
           />
         ) : null}
       </div>
-      <CertificateReceiveAlert  
-      availableCertId={available_cert_id}
-        checked={seenBox}
-        courseId={courseId}
-        changedGrade={changedGrade}
-        postGradeHandler={postGradeHandler}
-        />
+      {
+        // available_cert_id && !seenBox && 
+        <CertificateReceiveAlert  
+        availableCertId={available_cert_id}
+          courseId={courseId}
+          isPass={isPass}
+          postGradeHandler={postGradeHandler}
+          overallPercentage={overall_percentage}
+          />
+      }
+      
       <CourseGradeProgress 
         availableCertId={available_cert_id}
         overallPercentage={overall_percentage}
