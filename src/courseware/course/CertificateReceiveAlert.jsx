@@ -20,29 +20,29 @@ function CertificateReceiveAlert({
     }
 
   useEffect(() => {
-    if(true){
-    // if(!checked && availableCertId){
-      const element = `<div className="alert-overlay">
-      <div className="alert-wrapper" id="certificate-receive-alert" style={{display:'none'}}>
-      <span onClick={()=>postGradeHandler()}>Close</span>
-      <br/>
-      <img src={refreshImage} alt="Refresh Image" />
-      <br/>
-      <p>Congratulation, You got {changedGrade}</p>
-      <div className="btn-group" onClick={()=>postGradeHandler()}>
-        <a href={certUrl} className="view-cert">View Certificate</a>
-        <a href={progressUrl} className="check-progress">Check Progress</a>
-      </div>
-      </div>
-      </div>`
-      document.getElementById('root').append(element);
+    if(!checked && availableCertId){
+        document.getElementById('root').append(document.getElementById('alert-overlay'));
+        document.getElementById('alert-overlay').style.display="";
     }else{
-        document.getElementById('certificate-receive-alert').style.display="none";
+        document.getElementById('alert-overlay').style.display="none";
     }
   });
 
   return (
-    <></>
+    <div className="alert-overlay" id="alert-overlay" style={{display:'none'}}>
+         <div className="alert-wrapper" id="certificate-receive-alert" >
+       <span onClick={()=>postGradeHandler()}>Close</span>
+       <br/>
+       <img src={refreshImage} alt="Refresh Image" />
+       <br/>
+       <p>Congratulation, You got {changedGrade}</p>
+       <div className="btn-group" onClick={()=>postGradeHandler()}>
+         <a href={certUrl} className="view-cert">View Certificate</a>
+         <a href={progressUrl} className="check-progress">Check Progress</a>
+       </div>
+   </div>
+    </div>
+
   );
 }
 
