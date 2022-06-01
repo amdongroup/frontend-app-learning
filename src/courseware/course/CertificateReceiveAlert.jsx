@@ -41,7 +41,7 @@ function CertificateReceiveAlert({
         (<div className="d-flex flex-column align-items-center box-content">
           <span className="h1-strong">Congratulations!</span>
           <span className="body-l mb-51 box-text">Your certificate has been upgraded to Distinction certificate.</span>
-          <img className="cert-img" src={Cert} alt="" />
+          <img className="cert-img" src={Certificate} alt="" />
           <div className="box-btn-group" onClick={()=>postGradeHandler()}>
             <a href={certUrl} className="box-btn">View my progress</a>
             <a href={progressUrl} className="box-btn">View certificate</a>
