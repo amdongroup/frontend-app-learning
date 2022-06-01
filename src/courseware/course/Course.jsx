@@ -90,6 +90,8 @@ function Course({
   const seenBox_Ref = React.useRef(true);
   const changedGrade_Ref = React.useRef("");
   const isPass_Ref = React.useRef(false);
+  const gradeList_Ref = React.useRef([]);
+  const amdon_API_GradeList_Ref = React.useRef([]);
 
   const overall_percentage = overall_percentage_Ref.current
   const available_cert_id = available_cert_id_Ref.current
@@ -97,15 +99,32 @@ function Course({
   const seenBox = seenBox_Ref.current
   const changedGrade = changedGrade_Ref.current
   const isPass = isPass_Ref.current
+  const gradeList = gradeList_Ref.current
+  const amdon_API_GradeList = amdon_API_GradeList_Ref.current
 
   const authenticatedUser = getUser()
 
   //post grade
   let postGradeApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades`
+  const prepareGrade = ()=>{
+    // check if current grade is pass or distinction
+    if(isPass){
+      return changedGrade
+    }else{
+      if(gradeList.indexOf(changedGrade) == gradeList.length-1){
+        return changedGrade
+      }else {
+        let nextGradeList = gradeList.slice(gradeList.indexOf(changedGrade)+1, gradeList.length)
+        let removeDuplicate = nextGradeList.filter((item) => amdon_API_GradeList.indexOf(item) == -1)
+        return removeDuplicate
+      }
+      
+    }
+  }
   const body ={
     "user_id" : authenticatedUser.username,
     "course_id":encodeURIComponent(courseId),
-    "grade" : changedGrade
+    "grade" : prepareGrade()
   }
 
   const apiKey=process.env.AMDON_API_KEY;
@@ -116,15 +135,26 @@ function Course({
 
   logMe('Im here')
 
+  const removeElementsByClass = (className) =>{
+    const elements = document.getElementsByClassName(className);
+    while(elements.length > 0){
+        elements[0].parentNode.removeChild(elements[0]);
+    }
+  }
+
   const postGradeHandler = async () =>{
     const response = await fetch(postGradeApiUrl,{
       method: 'POST',
       headers: new Headers({'apikey':apiKey,'content-type': 'application/json'}),
       body: JSON.stringify(body)
     })
+    removeElementsByClass('overlay')
+    document.body.style.overflow = 'auto';
     document.getElementById('certificate-receive-alert').style.display="none";
     console.log('post api response ',response)
   }
+
+  
   //post grade
 
   // call check api whether to show pass or change grade
@@ -137,13 +167,14 @@ function Course({
       console.log('is Checked api called',res)
       res.json().then((data) => {
           console.log('data',data);
+          amdon_API_GradeList_Ref.current = data;
           if(data.length == 0){
             seenBox_Ref.current = false
           }
           else{
             //compare grade
             console.log('compare ',changedGrade , data[0])
-            if(changedGrade && changedGrade !== data[0]){
+            if(changedGrade && data.indexOf(changedGrade) != -1){
               seenBox_Ref.current = false
             }else{
               seenBox_Ref.current = true
@@ -196,6 +227,8 @@ function Course({
 
         let maxGradeArr = Object.keys(data.grading_policy.grade_range)
         let maxGrade = Math.max(...maxGradeArr)
+
+        gradeList_Ref.current = maxGradeArr
 
         let minGradeArr = Object.keys(data.grading_policy.grade_range)
         let minGrade = Math.max(...minGradeArr)

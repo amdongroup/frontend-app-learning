@@ -20,6 +20,7 @@ function CertificateReceiveAlert({
     const overlay = document.createElement('div');
     overlay.classList.add('overlay');
     document.getElementById('root').append(overlay);
+    document.body.style.overflow = 'hidden';
   }
 
   appendOverlay()
