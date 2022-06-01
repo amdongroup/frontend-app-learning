@@ -20,25 +20,29 @@ function CertificateReceiveAlert({
     }
 
   useEffect(() => {
-    if(!checked && availableCertId){
-        document.getElementById('certificate-receive-alert').style.display="";
+    if(true){
+    // if(!checked && availableCertId){
+      const element = `<div className="alert-overlay">
+      <div className="alert-wrapper" id="certificate-receive-alert" style={{display:'none'}}>
+      <span onClick={()=>postGradeHandler()}>Close</span>
+      <br/>
+      <img src={refreshImage} alt="Refresh Image" />
+      <br/>
+      <p>Congratulation, You got {changedGrade}</p>
+      <div className="btn-group" onClick={()=>postGradeHandler()}>
+        <a href={certUrl} className="view-cert">View Certificate</a>
+        <a href={progressUrl} className="check-progress">Check Progress</a>
+      </div>
+      </div>
+      </div>`
+      document.getElementById('root').append(element);
     }else{
         document.getElementById('certificate-receive-alert').style.display="none";
     }
   });
 
   return (
-   <div className="alert-wrapper" id="certificate-receive-alert" style={{display:'none'}}>
-       <span onClick={()=>postGradeHandler()}>Close</span>
-       <br/>
-       <img src={refreshImage} alt="Refresh Image" />
-       <br/>
-       <p>Congratulation, You got {changedGrade}</p>
-       <div className="btn-group" onClick={()=>postGradeHandler()}>
-         <a href={certUrl} className="view-cert">View Certificate</a>
-         <a href={progressUrl} className="check-progress">Check Progress</a>
-       </div>
-   </div>
+    <></>
   );
 }
 
