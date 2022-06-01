@@ -49,19 +49,18 @@ function TabPage({ intl, ...props }) {
 
   console.log(authenticatedUser)
 
+  const getUserAccount = async () => {
+    let url = `${getConfig().LMS_BASE_URL}/api/user/v1/accounts/${authenticatedUser.username}`
+    const { data } = await getAuthenticatedHttpClient().get(url)
+
+    console.log("Account Data")
+    console.log(data)
+    fullName_Ref.current = data.name
+  }
+
+  getUserAccount()
   useEffect(() => {
-
-    const getUserAccount = async () => {
-      let url = `${getConfig().LMS_BASE_URL}/api/user/v1/accounts/${authenticatedUser.username}`
-      const { data } = await getAuthenticatedHttpClient().get(url)
-
-      console.log("Account Data")
-      console.log(data)
-      fullName_Ref.current = data.name
-    }
-
-    getUserAccount()
-
+    
   },[])
 
   if (courseStatus === 'loading') {

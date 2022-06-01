@@ -143,15 +143,19 @@ function Course({
   }
 
   const postGradeHandler = async () =>{
-    const response = await fetch(postGradeApiUrl,{
-      method: 'POST',
-      headers: new Headers({'apikey':apiKey,'content-type': 'application/json'}),
-      body: JSON.stringify(body)
-    })
-    removeElementsByClass('overlay')
-    document.body.style.overflow = 'auto';
-    document.getElementById('certificate-receive-alert').style.display="none";
-    console.log('post api response ',response)
+    if(body.grade){
+      const response = await fetch(postGradeApiUrl,{
+        method: 'POST',
+        headers: new Headers({'apikey':apiKey,'content-type': 'application/json'}),
+        body: JSON.stringify(body)
+      })
+      removeElementsByClass('overlay')
+      document.body.style.overflow = 'auto';
+      document.getElementById('certificate-receive-alert').style.display="none";
+      console.log('post api response ',response)
+    }
+    
+
   }
 
   
