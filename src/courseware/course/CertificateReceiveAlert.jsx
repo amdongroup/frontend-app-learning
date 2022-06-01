@@ -16,6 +16,14 @@ function CertificateReceiveAlert({
   const baseUrl = getConfig().LMS_BASE_URL;
   const progressUrl = `${baseUrl}/learning/course/${courseId}/progress`;
 
+  const appendOverlay = () =>{
+    const overlay = document.createElement('div');
+    overlay.classList.add('overlay');
+    document.getElementById('root').append(overlay);
+  }
+
+  appendOverlay()
+
   return (
     <div className="alert-wrapper" id="certificate-receive-alert" >
       <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
@@ -32,9 +40,9 @@ function CertificateReceiveAlert({
         </div>) :
         (<div className="d-flex flex-column align-items-center box-content">
           <span className="h1-strong">Congratulations!</span>
-          <span className="body-l mb-51">Your certificate has been upgraded to Distinction certificate.</span>
-          <img className="cert-img" src={Pass} alt="" />
-          <div className="btn-group" onClick={()=>postGradeHandler()}>
+          <span className="body-l mb-51 box-text">Your certificate has been upgraded to Distinction certificate.</span>
+          <img className="cert-img" src={Cert} alt="" />
+          <div className="box-btn-group" onClick={()=>postGradeHandler()}>
             <a href={certUrl} className="box-btn">View my progress</a>
             <a href={progressUrl} className="box-btn">View certificate</a>
           </div>
