@@ -295,6 +295,9 @@ function Course({
 
   useEffect(() => {
     getCourseProgress()
+    window.addEventListener('load',()=>{
+      getCourseProgress()
+    })
   })
 
   /** [MM-P2P] Experiment */
