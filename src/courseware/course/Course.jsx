@@ -220,7 +220,7 @@ function Course({
       }
       
       if(data.course_grade != null) {
-        overall_percentage_Ref.current=data.course_grade.percent * 100
+        overall_percentage_Ref.current= Math.round(data.course_grade.percent * 100)
       }
 
       // various Grade
