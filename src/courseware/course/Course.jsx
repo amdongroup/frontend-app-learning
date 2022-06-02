@@ -153,9 +153,12 @@ function Course({
       document.body.style.overflow = 'auto';
       document.getElementById('certificate-receive-alert').style.display="none";
       console.log('post api response ',response)
+    }else{
+      // in case for testing
+      removeElementsByClass('overlay')
+      document.body.style.overflow = 'auto';
+      document.getElementById('certificate-receive-alert').style.display="none";
     }
-    
-
   }
 
   

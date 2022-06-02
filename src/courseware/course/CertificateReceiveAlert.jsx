@@ -38,8 +38,8 @@ function CertificateReceiveAlert({
           <span className="body-xl mb-17">Keep it up! You will earn a Distinction Certificate when you get {overallPercentage}% </span>
           <img className="pass-img" src={Pass} alt="" />
           <div className="btn-group" onClick={()=>postGradeHandler()}>
-            <a href={certUrl} className="box-btn">View my progress</a>
-            <a href={progressUrl} className="box-btn">View certificate</a>
+            <a href={progressUrl} className="box-btn">View my progress</a>
+            <a href={certUrl} className="box-btn">View certificate</a>
           </div>
         </div>) :
         (<div className="d-flex flex-column align-items-center box-content">
@@ -47,8 +47,8 @@ function CertificateReceiveAlert({
           <span className="body-l mb-51 box-text">Your certificate has been upgraded to Distinction certificate.</span>
           <img className="cert-img" src={Certificate} alt="" />
           <div className="box-btn-group" onClick={()=>postGradeHandler()}>
-            <a href={certUrl} className="box-btn">View my progress</a>
-            <a href={progressUrl} className="box-btn">View certificate</a>
+            <a href={progressUrl} className="box-btn">View my progress</a>
+            <a href={certUrl} className="box-btn">View certificate</a>
           </div>
         </div>)
       }
