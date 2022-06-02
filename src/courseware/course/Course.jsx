@@ -84,18 +84,16 @@ function Course({
     setLocalStorage('notificationStatus', 'inactive');
   };
 
-  const overall_percentage_Ref = React.useRef(0);
-  const available_cert_id_Ref = React.useRef("");
-  const pass_point_Ref = React.useRef(0);
+  const [overall_percentage,setOverall_percentage] = useState(0)
+  const [available_cert_id,setAvailable_cert_id] = useState(null)
+  const [pass_point,setPass_point] = useState(0)
+
   const seenBox_Ref = React.useRef(true);
   const changedGrade_Ref = React.useRef("");
   const isPass_Ref = React.useRef(false);
   const gradeList_Ref = React.useRef([]);
   const amdon_API_GradeList_Ref = React.useRef([]);
 
-  const overall_percentage = overall_percentage_Ref.current
-  const available_cert_id = available_cert_id_Ref.current
-  const pass_point = pass_point_Ref.current
   const seenBox = seenBox_Ref.current
   const changedGrade = changedGrade_Ref.current
   const isPass = isPass_Ref.current
@@ -219,11 +217,11 @@ function Course({
       }
 
       //data.course_grade.percent
-      available_cert_id_Ref.current = certId
+      setAvailable_cert_id(certId)
       }
       
       if(data.course_grade != null) {
-        overall_percentage_Ref.current= Math.round(data.course_grade.percent * 100)
+        setOverall_percentage(Math.round(data.course_grade.percent * 100))
       }
 
       // various Grade
@@ -239,8 +237,7 @@ function Course({
 
         let minGradeArr = Object.keys(data.grading_policy.grade_range)
         let minGrade = Math.max(...minGradeArr)
-
-        pass_point_Ref.current = min
+        setPass_point(min)
 
         const checkChangeGrade = ()=>{
 
@@ -279,7 +276,7 @@ function Course({
         if(valueArray[0] < data.course_grade.percent){
           seenBox_Ref.current = false
           changedGrade_Ref.current = data.grading_policy.grade_range
-          pass_point_Ref.current=data.grading_policy.grade_range.Pass
+          setPass_point(data.grading_policy.grade_range.Pass)
         }
       }
 
