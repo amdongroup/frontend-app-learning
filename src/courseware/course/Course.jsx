@@ -92,7 +92,6 @@ function Course({
   const isPass_Ref = React.useRef(false);
   const gradeList_Ref = React.useRef([]);
   const amdon_API_GradeList_Ref = React.useRef([]);
-  const apiFinish_Ref = React.useRef(false);
 
   const overall_percentage = overall_percentage_Ref.current
   const available_cert_id = available_cert_id_Ref.current
@@ -102,7 +101,6 @@ function Course({
   const isPass = isPass_Ref.current
   const gradeList = gradeList_Ref.current
   const amdon_API_GradeList = amdon_API_GradeList_Ref.current
-  const apiFinish = apiFinish_Ref.current
 
   const authenticatedUser = getUser()
 
@@ -284,21 +282,16 @@ function Course({
           pass_point_Ref.current=data.grading_policy.grade_range.Pass
         }
       }
-      apiFinish_Ref.current = true
+
       isChecked()
 
     }
 
   }
 
-  
-
   useEffect(() => {
     getCourseProgress()
-    window.addEventListener('load',()=>{
-      getCourseProgress()
-    })
-  })
+  },[])
 
   /** [MM-P2P] Experiment */
   const MMP2P = initCoursewareMMP2P(courseId, sequenceId, unitId);
@@ -332,20 +325,17 @@ function Course({
       {
         // available_cert_id && !seenBox && 
         <CertificateReceiveAlert  
-        availableCertId={available_cert_id}
+          availableCertId={available_cert_id}
           courseId={courseId}
           isPass={isPass}
           postGradeHandler={postGradeHandler}
           overallPercentage={overall_percentage}
           />
       }
-      {
-        apiFinish && <CourseGradeProgress 
+         <CourseGradeProgress 
         availableCertId={available_cert_id}
         overallPercentage={overall_percentage}
         passingPoint={pass_point}/>
-      }
-      
       
       <AlertList topic="sequence" />
       <Sequence

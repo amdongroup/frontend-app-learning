@@ -26,8 +26,10 @@ function CertificateReceiveAlert({
     }
   }
 
-  appendOverlay()
-
+  useEffect(()=>{
+    appendOverlay()
+  },[])
+    
   return (
     <div className="alert-wrapper" id="certificate-receive-alert" >
       <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
