@@ -748,6 +748,13 @@ $white: #ffffff;
   align-items: center;
   justify-content: center;
   cursor: pointer;
+  text-decoration: none;
+  &:hover{
+      background: #00A653;
+      text-decoration: none;
+      color: #ffffff;
+      transform: scale(1.05);
+  }
 }
 
 .box-btn-group{

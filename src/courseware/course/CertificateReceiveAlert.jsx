@@ -19,6 +19,7 @@ function CertificateReceiveAlert({
   const appendOverlay = () =>{
     const overlay = document.createElement('div');
     overlay.classList.add('overlay');
+    overlay.id = 'overlay';
     if(document.getElementsByClassName('overlay').length === 0){
       document.getElementById('root').append(overlay);
       document.body.style.overflow = 'hidden';
