@@ -289,10 +289,10 @@ function Course({
 
   }
 
-  getCourseProgress()
+  
 
   useEffect(() => {
-    
+    getCourseProgress()
   },[])
 
   /** [MM-P2P] Experiment */
@@ -325,7 +325,7 @@ function Course({
         ) : null}
       </div>
       {
-        available_cert_id && !seenBox && 
+        // available_cert_id && !seenBox && 
         <CertificateReceiveAlert  
         availableCertId={available_cert_id}
           courseId={courseId}

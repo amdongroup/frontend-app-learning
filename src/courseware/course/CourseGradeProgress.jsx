@@ -98,7 +98,7 @@ function CourseGradeProgress({
       });
     document.getElementById("progress-value-mobile").style.width =
       overallPercentage + "%";
-  });
+  },[]);
 
   return (
     <div className="apo-progress-wrapper" id="apo-progress-wrapper">
