@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
 import refreshImage from "../course/celebration/assets/refresh.png";
-// import refreshImage from '../course/celebration/assets/claps_456x328.gif';
+
 function CourseGradeProgress({
   availableCertId,
   overallPercentage,
   passingPoint,
 }) {
+  
   const passingPointIn100 = passingPoint * 100;
 
   useEffect(() => {
+    console.log('CourseGradeProgress useEffect');
+    console.log(passingPoint, overallPercentage);
     let progress_bar_width = 276;
     let progress_pointer_width = 10;
 
@@ -95,7 +98,7 @@ function CourseGradeProgress({
       });
     document.getElementById("progress-value-mobile").style.width =
       overallPercentage + "%";
-  });
+  },[]);
 
   return (
     <div className="apo-progress-wrapper" id="apo-progress-wrapper">

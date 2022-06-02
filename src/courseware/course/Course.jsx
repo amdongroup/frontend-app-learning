@@ -241,7 +241,30 @@ function Course({
         let minGrade = Math.max(...minGradeArr)
 
         pass_point_Ref.current = min
-        if(data.course_grade.letter_grade !== changedGrade && (data.course_grade.letter_grade=== minGrade || data.course_grade.letter_grade === maxGrade)){
+
+        const checkChangeGrade = ()=>{
+
+          const differentGrade = () =>{
+            return data.course_grade.letter_grade !== changedGrade
+          }
+
+          const equalWithMinGrade = () =>{
+            return data.course_grade.letter_grade=== minGrade
+          }
+
+          const equalWithMaxGrade = () => {
+            return data.course_grade.letter_grade === maxGrade
+          }
+
+          if(differentGrade()){
+            if(equalWithMinGrade() || equalWithMaxGrade()){
+              return true
+            }
+          }
+          return false
+        }
+
+        if(checkChangeGrade()){
           seenBox_Ref.current = false
           changedGrade_Ref.current = data.course_grade.letter_grade
           if(data.course_grade.letter_grade=== minGrade){
@@ -302,7 +325,7 @@ function Course({
         ) : null}
       </div>
       {
-        // available_cert_id && !seenBox && 
+        available_cert_id && !seenBox && 
         <CertificateReceiveAlert  
         availableCertId={available_cert_id}
           courseId={courseId}
