@@ -9,7 +9,7 @@ function CourseGradeProgress({
 
   const passingPointIn100 = passingPoint * 100;
 
-  // useEffect(() => {
+  useEffect(() => {
     console.log('CourseGradeProgress useEffect');
     console.log(passingPoint, overallPercentage);
     let progress_bar_width = 276;
@@ -98,7 +98,7 @@ function CourseGradeProgress({
       });
     document.getElementById("progress-value-mobile").style.width =
       overallPercentage + "%";
-  // },[]);
+  });
 
   return (
     <div className="apo-progress-wrapper" id="apo-progress-wrapper">
