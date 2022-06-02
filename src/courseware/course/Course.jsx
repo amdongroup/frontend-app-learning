@@ -289,10 +289,10 @@ function Course({
 
   }
 
-
+  getCourseProgress()
 
   useEffect(() => {
-    getCourseProgress()
+    
   },[])
 
   /** [MM-P2P] Experiment */
