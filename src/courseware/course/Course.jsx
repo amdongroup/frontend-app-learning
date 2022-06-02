@@ -334,12 +334,11 @@ function Course({
           overallPercentage={overall_percentage}
           />
       }
-      
       <CourseGradeProgress 
         availableCertId={available_cert_id}
         overallPercentage={overall_percentage}
         passingPoint={pass_point}/>
-
+      
       <AlertList topic="sequence" />
       <Sequence
         unitId={unitId}
