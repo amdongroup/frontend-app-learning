@@ -44,6 +44,7 @@ function CertificateReceiveAlert({
     overlay.id = "overlay";
     if(!checkOverlayExisted()){
       document.body.appendChild(overlay);
+      document.body.style.overflow = 'hidden'
     }
   }
 
@@ -52,6 +53,7 @@ function CertificateReceiveAlert({
     if(overlay != null){
       document.body.removeChild(overlay);
     }
+    document.body.style.overflow = 'auto'
   }
 
   const postGradeHandler = async ()=>{
