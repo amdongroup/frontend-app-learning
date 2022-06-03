@@ -128,15 +128,15 @@ function CertificateReceiveAlert({
       return false
     }
 
-    const lessThanMaxGrade = (currentGrade,maxPoint) =>{
-      if(currentGrade < maxPoint){
+    const lessThanMaxGrade = (currentPercent,maxPoint) =>{
+      if(currentPercent < maxPoint){
         return true
       }
       return false
     }
 
-    const greaterThanMinGrade = (currentGrade,minPoint) =>{
-      if(currentGrade > minPoint){
+    const greaterThanMinGrade = (currentPercent,minPoint) =>{
+      if(currentPercent > minPoint){
         return true
       }
       return false
@@ -177,20 +177,28 @@ function CertificateReceiveAlert({
             // let maxGradeArr = Object.keys(gradeRange)
             // let maxGrade = maxGradeArr.sort().shift()
 
-            let minPointArr = Object.keys(gradeRange)
+            let minPointArr = Object.values(gradeRange)
             let minPoint = minPointArr.sort().pop()
 
-            let maxPointArr = Object.keys(gradeRange)
+            let maxPointArr = Object.values(gradeRange)
             let maxPoint = maxPointArr.sort().shift()
 
             let currentGrade = progress_data.course_grade.letter_grade
+            let currentPercent = progress_data.course_grade.percent
 
             if(progress_data.grading_policy.grade_range){ //prevent error log when api calling
               prepareDistPercent()
             }
 
             if(isNormal(gradeRange)){
-
+              if(isMinGrade(currentGrade,minGrade) || greaterThanMinGrade(currentPercent,minPoint)){
+                let array = []
+                array.push(minGrade)
+                setGradeArray(array)
+                setShowBox(true)
+                postGradeHandler()
+                overlayCreate()
+              }
             }else{
               if(gradeData.length == 0 ){
                 if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
@@ -206,7 +214,7 @@ function CertificateReceiveAlert({
                   setShowBox(true)
                   postGradeHandler()
                   overlayCreate()
-                }else if(lessThanMaxGrade(currentGrade,maxPoint) && greaterThanMinGrade(currentGrade,minPoint)){
+                }else if(lessThanMaxGrade(currentPercent,maxPoint) && greaterThanMinGrade(currentPercent,minPoint)){
                   let array = []
                   array.push(minGrade)
                   setGradeArray(array)
