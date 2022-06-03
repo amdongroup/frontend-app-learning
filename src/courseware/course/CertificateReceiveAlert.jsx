@@ -82,7 +82,11 @@ function CertificateReceiveAlert({
             }
             
             if(gradeData.length == 0){
-              setShowBox(true)
+              if(isMaxGrade(progress_data.course_grade.letter_grade) || isMinGrade(progress_data.course_grade.letter_grade)){
+                setShowBox(true)
+              }else{
+                setShowBox(false)
+              }
             }else if(gradeIsNew(progress_data.course_grade.letter_grade,gradeData)){
               if(isMaxGrade(progress_data.course_grade.letter_grade) || isMinGrade(progress_data.course_grade.letter_grade)){
                 setShowBox(true)
