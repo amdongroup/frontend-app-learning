@@ -16,6 +16,7 @@ function CertificateReceiveAlert({
   const certUrl = `https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`;
   const baseUrl = getConfig().LMS_BASE_URL;
   const progressUrl = `${baseUrl}/learning/course/${courseId}/progress`;
+  const apiKey=process.env.AMDON_API_KEY;
 
   const [dist_percent,setDist_percent] = useState(0);
   const [isPass,setIsPass] = useState(true);
@@ -26,8 +27,6 @@ function CertificateReceiveAlert({
   }
 
   useEffect(() => {
-
-
     const prepareDistPercent = () =>{
       let maxGradeArr = Object.values(progress_data.grading_policy.grade_range)
       let maxGrade = Math.max(...maxGradeArr)
