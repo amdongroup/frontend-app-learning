@@ -166,8 +166,8 @@ function CertificateReceiveAlert({
 
             
 
-            let minGrade = Object.keys(gradeRange).reduce((key, v) => obj[v] < obj[key] ? v : key);
-            let maxGrade = Object.keys(gradeRange).reduce((key, v) => obj[v] > obj[key] ? v : key);
+            let minGrade = Object.keys(gradeRange).reduce((key, v) => gradeRange[v] < gradeRange[key] ? v : key);
+            let maxGrade = Object.keys(gradeRange).reduce((key, v) => gradeRange[v] > gradeRange[key] ? v : key);
             
 
             // let minGradeArr = Object.keys(gradeRange)
