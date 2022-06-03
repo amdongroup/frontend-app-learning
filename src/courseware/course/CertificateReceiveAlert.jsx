@@ -58,7 +58,6 @@ function CertificateReceiveAlert({
 
   const postGradeHandler = async ()=>{
     overlayRemove()
-    document.getElementById('certificate-receive-alert').style.display="none";
     console.log('call api with grade ',gradeArray)
     let postGradeApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades`
     const body ={
@@ -96,10 +95,12 @@ function CertificateReceiveAlert({
       if(apiData.indexOf(minGrade) > -1){
         array.push(maxGrade)
         setGradeArray(array)
+        overlayCreate()
       }else{
         array.push(maxGrade)
         array.push(minGrade)
         setGradeArray(array)
+        overlayCreate()
       }
     }
 
@@ -118,7 +119,10 @@ function CertificateReceiveAlert({
       console.log('minGrade');
       console.log(minGrade,currentGrade);
       if(minGrade === currentGrade){
+        let array = []
+        array.push(minGrade)
         setIsPass(true)
+        setGradeArray(array)
         return true
       }
       return false
@@ -160,11 +164,18 @@ function CertificateReceiveAlert({
             console.log('data',gradeData);
             let gradeRange = progress_data.grading_policy.grade_range
 
-            let minGradeArr = Object.keys(gradeRange)
-            let minGrade = minGradeArr.sort().pop()
+            gradeRange.sort(function (a, b) {
+              return a.Cost - b.Cost
+            })
+          
+            let minGrade = gradeRange[0]
+            let maxGrade = gradeRange[gradeRange.length - 1]
 
-            let maxGradeArr = Object.keys(gradeRange)
-            let maxGrade = maxGradeArr.sort().shift()
+            // let minGradeArr = Object.keys(gradeRange)
+            // let minGrade = minGradeArr.sort().pop()
+
+            // let maxGradeArr = Object.keys(gradeRange)
+            // let maxGrade = maxGradeArr.sort().shift()
 
             let minPointArr = Object.keys(gradeRange)
             let minPoint = minPointArr.sort().pop()
@@ -194,12 +205,14 @@ function CertificateReceiveAlert({
                   }
                   setShowBox(true)
                   postGradeHandler()
+                  overlayCreate()
                 }else if(lessThanMaxGrade(currentGrade,maxPoint) && greaterThanMinGrade(currentGrade,minPoint)){
                   let array = []
                   array.push(minGrade)
                   setGradeArray(array)
                   setShowBox(true)
                   postGradeHandler()
+                  overlayCreate()
                 }else{
                   setShowBox(false)
                 }
@@ -207,6 +220,7 @@ function CertificateReceiveAlert({
                 if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
                   setShowBox(true)
                   postGradeHandler()
+                  overlayCreate()
                 }else{
                   setShowBox(false)
                 }
