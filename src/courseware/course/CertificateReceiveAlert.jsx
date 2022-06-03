@@ -5,6 +5,7 @@ import {getUser} from '../../experiments/mm-p2p/utils'
 import Cancel from "../course/celebration/assets/cancel_l.png";
 import Pass from "../course/celebration/assets/grade_pass.png";
 import Certificate from "../course/celebration/assets/grade_certificate.png";
+import NormalPass from "../course/celebration/assets/claps_456x328.gif"
 import { max } from "lodash";
 
 function CertificateReceiveAlert({
@@ -16,13 +17,20 @@ function CertificateReceiveAlert({
   const authenticatedUser = getUser()
   const certUrl = `https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`;
   const baseUrl = getConfig().LMS_BASE_URL;
-  const progressUrl = `${baseUrl}/learning/course/${courseId}/progress`;
+  const progressUrl = `${prefixApps(baseUrl)}/learning/course/${courseId}/progress`;
   const apiKey=process.env.AMDON_API_KEY;
 
   const [dist_percent,setDist_percent] = useState(0);
   const [isPass,setIsPass] = useState(true);
   const [showBox,setShowBox] = useState(false);
   const [gradeArray,setGradeArray] = useState([]);
+  const [normal,setNormal] = useState(false);
+
+  const prefixApps = (baseUrl)=>{
+    let array = baseUrl.split("//")
+    let fixedUrl = array[0]+"//apps."+array[1]
+    return fixedUrl
+  }
 
   const postGradeHandler = async ()=>{
     document.getElementById('certificate-receive-alert').style.display="none";
@@ -30,7 +38,7 @@ function CertificateReceiveAlert({
     let postGradeApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades`
     const body ={
       "user_id" : authenticatedUser.username,
-      "course_id":encodeURIComponent(courseId),
+      "course_id":courseId,
       "grade" : gradeArray
     }
     const response = await fetch(postGradeApiUrl,{
@@ -104,8 +112,17 @@ function CertificateReceiveAlert({
       return false
     }
 
+    const isNormal = (gradeRange)=>{
+      let array = Object.keys(gradeRange)
+      if(array.length === 1){
+        setNormal(true)
+        return true
+      }
+      return false
+    }
+
     // call check api whether to show pass or change grade
-    let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${encodeURIComponent(courseId)}`
+    let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${courseId}`
     
     const getApiGrade = async () =>{
       fetch(checkApiUrl,{
@@ -134,34 +151,40 @@ function CertificateReceiveAlert({
             if(progress_data.grading_policy.grade_range){ //prevent error log when api calling
               prepareDistPercent()
             }
-            
-            if(gradeData.length == 0 ){
-              if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
-                setShowBox(true)
-                let array = []
-                if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade)){
-                  array.push(maxGrade)
+
+            if(isNormal(gradeRange)){
+
+            }else{
+              if(gradeData.length == 0 ){
+                if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
+                  setShowBox(true)
+                  let array = []
+                  if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade)){
+                    array.push(maxGrade)
+                    array.push(minGrade)
+                    setGradeArray(array)
+                  }else if(isMinGrade(currentGrade,minGrade)){
+                    array.push(minGrade)
+                    setGradeArray(array)
+                  }
+                }else if(lessThanMaxGrade(currentGrade,maxPoint) && greaterThanMinGrade(currentGrade,minPoint)){
+                  let array = []
                   array.push(minGrade)
                   setGradeArray(array)
-                }else if(isMinGrade(currentGrade,minGrade)){
-                  array.push(minGrade)
-                  setGradeArray(array)
+                  setShowBox(true)
+                }else{
+                  setShowBox(false)
                 }
-              }else if(lessThanMaxGrade(currentGrade,maxPoint) && greaterThanMinGrade(currentGrade,minPoint)){
-                let array = []
-                array.push(minGrade)
-                setGradeArray(array)
-                setShowBox(true)
-              }else{
-                setShowBox(false)
-              }
-            }else if(gradeIsNew(currentGrade,gradeData)){
-              if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
-                setShowBox(true)
-              }else{
-                setShowBox(false)
+              }else if(gradeIsNew(currentGrade,gradeData)){
+                if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
+                  setShowBox(true)
+                }else{
+                  setShowBox(false)
+                }
               }
             }
+            
+            
         });
       })
     }
@@ -173,7 +196,7 @@ function CertificateReceiveAlert({
 
   return (
     <>
-      {showBox && (
+      {showBox && !normal && (
            <div className="alert-wrapper" id="certificate-receive-alert" >
            <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
            {isPass ? 
@@ -184,7 +207,7 @@ function CertificateReceiveAlert({
                <img className="pass-img" src={Pass} alt="" />
                <div className="box-btn-group" onClick={()=>postGradeHandler()}>
                  <a href={progressUrl} className="box-btn">View my progress</a>
-                 <a href={certUrl} className="box-btn">View certificate</a>
+                 <a href={certUrl} target="_blank" className="box-btn">View certificate</a>
                </div>
              </div>) :
              (<div className="d-flex flex-column align-items-center box-content">
@@ -193,12 +216,28 @@ function CertificateReceiveAlert({
                <img className="cert-img" src={Certificate} alt="" />
                <div className="box-btn-group" onClick={()=>postGradeHandler()}>
                  <a href={progressUrl} className="box-btn">View my progress</a>
-                 <a href={certUrl} className="box-btn">View certificate</a>
+                 <a href={certUrl} target="_blank" className="box-btn">View certificate</a>
                </div>
              </div>)
            }
          </div>
       )}
+      {
+        showBox && normal && (
+          <div className="alert-wrapper" id="certificate-receive-alert" >
+          <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
+          <div className="d-flex flex-column align-items-center box-content">
+            <span className="h1-strong">Congratulations!</span>
+            <span className="body-l mb-51" >You have earned a certificate.</span>
+            <img className="pass-img" src={NormalPass} alt="" />
+            <div className="box-btn-group" onClick={()=>postGradeHandler()}>
+              <a href={progressUrl} className="box-btn">View my progress</a>
+              <a href={certUrl} target="_blank" className="box-btn">View certificate</a>
+            </div>
+          </div>
+        </div>
+        )
+      }
     </>
 
   );
