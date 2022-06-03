@@ -44,6 +44,8 @@ function CertificateReceiveAlert({
     const isMaxGrade = (currentGrade) =>{
       let maxGradeArr = Object.keys(progress_data.grading_policy.grade_range)
       let maxGrade = Math.max(...maxGradeArr)
+      console.log('maxGrade');
+      console.log(maxGrade,currentGrade);
       if(maxGrade === currentGrade){
         setIsPass(false)
         return true
@@ -54,14 +56,14 @@ function CertificateReceiveAlert({
     const isMinGrade = (currentGrade) =>{
       let minGradeArr = Object.keys(progress_data.grading_policy.grade_range)
       let minGrade = Math.max(...minGradeArr)
+      console.log('minGrade');
+      console.log(minGrade,currentGrade);
       if(minGrade === currentGrade){
         setIsPass(true)
         return true
       }
       return false
     }
-
-    
 
     // call check api whether to show pass or change grade
     let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${encodeURIComponent(courseId)}`
@@ -74,8 +76,11 @@ function CertificateReceiveAlert({
         console.log('is Checked api called',res)
         res.json().then((gradeData) => {
             console.log('data',gradeData);
-            prepareDistPercent()
 
+            if(progress_data.grading_policy.grade_range){ //prevent error log when api calling
+              prepareDistPercent()
+            }
+            
             if(gradeData.length == 0){
               setShowBox(true)
             }else if(gradeIsNew(progress_data.course_grade.letter_grade,gradeData)){
