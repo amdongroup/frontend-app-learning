@@ -141,6 +141,7 @@ function CertificateReceiveAlert({
                 let array = []
                 if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade)){
                   array.push(maxGrade)
+                  array.push(minGrade)
                   setGradeArray(array)
                 }else if(isMinGrade(currentGrade,minGrade)){
                   array.push(minGrade)
