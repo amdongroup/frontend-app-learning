@@ -67,7 +67,7 @@ function CertificateReceiveAlert({
     isChecked()
     // call check api whether to show pass or change grade
 
-  },[availableCertId,progress_data,courseId]);
+  },[]);
 
   return (
    <div className="alert-wrapper" id="certificate-receive-alert" >
