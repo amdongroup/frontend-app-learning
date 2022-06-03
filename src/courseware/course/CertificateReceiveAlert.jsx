@@ -58,6 +58,7 @@ function CertificateReceiveAlert({
 
   const postGradeHandler = async ()=>{
     overlayRemove()
+    setShowBox(false)
     console.log('call api with grade ',gradeArray)
     let postGradeApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades`
     const body ={
@@ -195,7 +196,6 @@ function CertificateReceiveAlert({
                 array.push(minGrade)
                 setGradeArray(array)
                 setShowBox(true)
-                postGradeHandler()
                 overlayCreate()
               }
             }else{
@@ -211,14 +211,12 @@ function CertificateReceiveAlert({
                     setGradeArray(array)
                   }
                   setShowBox(true)
-                  postGradeHandler()
                   overlayCreate()
                 }else if(lessThanMaxGrade(currentPercent,maxPoint) && greaterThanMinGrade(currentPercent,minPoint)){
                   let array = []
                   array.push(minGrade)
                   setGradeArray(array)
                   setShowBox(true)
-                  postGradeHandler()
                   overlayCreate()
                 }else{
                   setShowBox(false)
@@ -226,7 +224,6 @@ function CertificateReceiveAlert({
               }else if(gradeIsNew(currentGrade,gradeData)){
                 if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
                   setShowBox(true)
-                  postGradeHandler()
                   overlayCreate()
                 }else{
                   setShowBox(false)
