@@ -164,12 +164,11 @@ function CertificateReceiveAlert({
             console.log('data',gradeData);
             let gradeRange = progress_data.grading_policy.grade_range
 
-            gradeRange.sort(function (a, b) {
-              return a.Cost - b.Cost
-            })
-          
-            let minGrade = gradeRange[0]
-            let maxGrade = gradeRange[gradeRange.length - 1]
+            
+
+            let minGrade = Object.keys(gradeRange).reduce((key, v) => obj[v] < obj[key] ? v : key);
+            let maxGrade = Object.keys(gradeRange).reduce((key, v) => obj[v] > obj[key] ? v : key);
+            
 
             // let minGradeArr = Object.keys(gradeRange)
             // let minGrade = minGradeArr.sort().pop()
