@@ -104,16 +104,16 @@ function CertificateReceiveAlert({
             let gradeRange = progress_data.grading_policy.grade_range
 
             let minGradeArr = Object.keys(gradeRange)
-            let minGrade = minGradeArr.sort().shift()
+            let minGrade = minGradeArr.sort().pop()
 
             let maxGradeArr = Object.keys(gradeRange)
-            let maxGrade = maxGradeArr.sort().pop()
+            let maxGrade = maxGradeArr.sort().shift()
 
             let minPointArr = Object.keys(gradeRange)
-            let minPoint = minPointArr.sort().shift()
+            let minPoint = minPointArr.sort().pop()
 
             let maxPointArr = Object.keys(gradeRange)
-            let maxPoint = maxPointArr.sort().pop()
+            let maxPoint = maxPointArr.sort().shift()
 
             let currentGrade = progress_data.course_grade.letter_grade
 
@@ -124,6 +124,14 @@ function CertificateReceiveAlert({
             if(gradeData.length == 0 ){
               if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
                 setShowBox(true)
+                let array = []
+                if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade)){
+                  array.push(maxGrade)
+                  setGradeArray(array)
+                }else if(isMinGrade(currentGrade,minGrade)){
+                  array.push(minGrade)
+                  setGradeArray(array)
+                }
               }else if(lessThanMaxGrade(currentGrade,maxPoint) && greaterThanMinGrade(currentGrade,minPoint)){
                 let array = []
                 array.push(minGrade)
