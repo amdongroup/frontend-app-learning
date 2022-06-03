@@ -84,20 +84,9 @@ function Course({
   const [overall_percentage, setOverall_percentage] = useState(0);
   const [available_cert_id, setAvailable_cert_id] = useState("");
   const [pass_point, setPass_point] = useState(0);
-  const [seenBox,setSeenBox] = useState(true);
-  const [changedGrade,setChangedGrade] = useState("");
+  const [progress_data, setProgress_data] = useState({});
 
   useEffect(() => {
-
-    // call check api whether to show pass or change grade
-    // let checkApiUrl = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
-    // const isChecked = async () =>{
-    //   const { data } = await getAuthenticatedHttpClient().get(url)
-    //   console.log(data)
-    //   setSeenBox(false) // change from api;
-    // }
-    // call check api whether to show pass or change grade
-
     let url = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
     const getCourseProgress = async () => {
       
@@ -106,6 +95,7 @@ function Course({
       console.log("Course Progress")
       console.log(url)
       console.log(data)
+      setProgress_data(data)
       console.log(data.course_grade.percent)
       console.log("PassingPoint")
       console.log(data.grading_policy.grade_range.Pass)
@@ -180,13 +170,11 @@ function Course({
           />
         ) : null}
       </div>
-      {/* <CertificateReceiveAlert  availableCertId={available_cert_id}
-        overallPercentage={overall_percentage}
-        passingPoint={pass_point}
-        checked={seenBox}
+      <CertificateReceiveAlert  
+        availableCertId={available_cert_id}
         courseId={courseId}
-        changedGrade={changedGrade}
-        /> */}
+        progress_data={progress_data}
+        />
       <CourseGradeProgress 
         availableCertId={available_cert_id}
         overallPercentage={overall_percentage}
