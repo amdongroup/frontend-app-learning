@@ -5,6 +5,7 @@ import {getUser} from '../../experiments/mm-p2p/utils'
 import Cancel from "../course/celebration/assets/cancel_l.png";
 import Pass from "../course/celebration/assets/grade_pass.png";
 import Certificate from "../course/celebration/assets/grade_certificate.png";
+import { max } from "lodash";
 
 function CertificateReceiveAlert({
   availableCertId,
@@ -21,10 +22,11 @@ function CertificateReceiveAlert({
   const [dist_percent,setDist_percent] = useState(0);
   const [isPass,setIsPass] = useState(true);
   const [showBox,setShowBox] = useState(false);
+  const [gradeArray,setGradeArray] = useState([]);
 
   const postGradeHandler = ()=>{
     document.getElementById('certificate-receive-alert').style.display="none";
-    console.log('call api')
+    console.log('call api with grade ',gradeArray)
   }
 
   useEffect(() => {
@@ -40,26 +42,49 @@ function CertificateReceiveAlert({
       }
       return false
     }
+    
+    const checkJump = (apiData,maxGrade,minGrade) =>{
+      let array = []
+      if(apiData.indexOf(minGrade) > -1){
+        array.push(maxGrade)
+        setGradeArray(array)
+      }else{
+        array.push(maxGrade)
+        array.push(minGrade)
+        setGradeArray(array)
+      }
+    }
 
-    const isMaxGrade = (currentGrade) =>{
-      let maxGradeArr = Object.keys(progress_data.grading_policy.grade_range)
-      let maxGrade = Math.max(...maxGradeArr)
+    const isMaxGrade = (currentGrade,apiData,maxGrade,minGrade) =>{
       console.log('maxGrade');
       console.log(maxGrade,currentGrade);
       if(maxGrade === currentGrade){
         setIsPass(false)
+        checkJump(apiData,maxGrade,minGrade)
         return true
       }
       return false
     }
 
-    const isMinGrade = (currentGrade) =>{
-      let minGradeArr = Object.keys(progress_data.grading_policy.grade_range)
-      let minGrade = Math.max(...minGradeArr)
+    const isMinGrade = (currentGrade,minGrade) =>{
       console.log('minGrade');
       console.log(minGrade,currentGrade);
       if(minGrade === currentGrade){
         setIsPass(true)
+        return true
+      }
+      return false
+    }
+
+    const lessThanMaxGrade = (currentGrade,maxPoint) =>{
+      if(currentGrade < maxPoint){
+        return true
+      }
+      return false
+    }
+
+    const greaterThanMinGrade = (currentGrade,minPoint) =>{
+      if(currentGrade > minPoint){
         return true
       }
       return false
@@ -77,18 +102,35 @@ function CertificateReceiveAlert({
         res.json().then((gradeData) => {
             console.log('data',gradeData);
 
+            let minGradeArr = Object.keys(progress_data.grading_policy.grade_range)
+            let minGrade = Math.max(...minGradeArr)
+            let maxGradeArr = Object.keys(progress_data.grading_policy.grade_range)
+            let maxGrade = Math.max(...maxGradeArr)
+
+            let minPointArr = Object.keys(progress_data.grading_policy.grade_range)
+            let minPoint = Math.max(...minPointArr)
+            let maxPointArr = Object.keys(progress_data.grading_policy.grade_range)
+            let maxPoint = Math.max(...maxPointArr)
+
+            let currentGrade = progress_data.course_grade.letter_grade
+
             if(progress_data.grading_policy.grade_range){ //prevent error log when api calling
               prepareDistPercent()
             }
             
-            if(gradeData.length == 0){
-              if(isMaxGrade(progress_data.course_grade.letter_grade) || isMinGrade(progress_data.course_grade.letter_grade)){
+            if(gradeData.length == 0 ){
+              if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
+                setShowBox(true)
+              }else if(lessThanMaxGrade(currentGrade,maxPoint) && greaterThanMinGrade(currentGrade,minPoint)){
+                let array = []
+                array.push(minGrade)
+                setGradeArray(array)
                 setShowBox(true)
               }else{
                 setShowBox(false)
               }
-            }else if(gradeIsNew(progress_data.course_grade.letter_grade,gradeData)){
-              if(isMaxGrade(progress_data.course_grade.letter_grade) || isMinGrade(progress_data.course_grade.letter_grade)){
+            }else if(gradeIsNew(currentGrade,gradeData)){
+              if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
                 setShowBox(true)
               }else{
                 setShowBox(false)
