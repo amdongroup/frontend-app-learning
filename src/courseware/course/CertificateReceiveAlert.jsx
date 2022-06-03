@@ -14,6 +14,12 @@ function CertificateReceiveAlert({
   courseId,
 }) {
 
+  const prefixApps = (baseUrl)=>{
+    let array = baseUrl.split("//")
+    let fixedUrl = array[0]+"//apps."+array[1]
+    return fixedUrl
+  }
+
   const authenticatedUser = getUser()
   const certUrl = `https://stg-certificate.apixoxygen.com/certificate/${availableCertId}`;
   const baseUrl = getConfig().LMS_BASE_URL;
@@ -26,11 +32,7 @@ function CertificateReceiveAlert({
   const [gradeArray,setGradeArray] = useState([]);
   const [normal,setNormal] = useState(false);
 
-  const prefixApps = (baseUrl)=>{
-    let array = baseUrl.split("//")
-    let fixedUrl = array[0]+"//apps."+array[1]
-    return fixedUrl
-  }
+  
 
   const postGradeHandler = async ()=>{
     document.getElementById('certificate-receive-alert').style.display="none";
