@@ -139,7 +139,7 @@ function Course({
 
     getCourseProgress()
 
-  })
+  },[])
 
   /** [MM-P2P] Experiment */
   const MMP2P = initCoursewareMMP2P(courseId, sequenceId, unitId);
