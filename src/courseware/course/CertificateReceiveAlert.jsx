@@ -32,9 +32,30 @@ function CertificateReceiveAlert({
   const [gradeArray,setGradeArray] = useState([]);
   const [normal,setNormal] = useState(false);
 
-  
+
+  const checkOverlayExisted = () => {
+    let overlay = document.getElementById("overlay");
+    return overlay != null;
+  }
+
+  const overlayCreate = () =>{
+    let overlay = document.createElement("div");
+    overlay.className = "overlay";
+    overlay.id = "overlay";
+    if(!checkOverlayExisted()){
+      document.body.appendChild(overlay);
+    }
+  }
+
+  const overlayRemove = () =>{
+    let overlay = document.getElementById("overlay");
+    if(overlay != null){
+      document.body.removeChild(overlay);
+    }
+  }
 
   const postGradeHandler = async ()=>{
+    overlayRemove()
     document.getElementById('certificate-receive-alert').style.display="none";
     console.log('call api with grade ',gradeArray)
     let postGradeApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades`
@@ -50,6 +71,7 @@ function CertificateReceiveAlert({
     })
     // removeElementsByClass('overlay')
     // document.body.style.overflow = 'auto';
+    
     console.log('post api response ',response)
   }
 
@@ -159,7 +181,6 @@ function CertificateReceiveAlert({
             }else{
               if(gradeData.length == 0 ){
                 if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
-                  setShowBox(true)
                   let array = []
                   if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade)){
                     array.push(maxGrade)
@@ -169,24 +190,26 @@ function CertificateReceiveAlert({
                     array.push(minGrade)
                     setGradeArray(array)
                   }
+                  setShowBox(true)
+                  postGradeHandler()
                 }else if(lessThanMaxGrade(currentGrade,maxPoint) && greaterThanMinGrade(currentGrade,minPoint)){
                   let array = []
                   array.push(minGrade)
                   setGradeArray(array)
                   setShowBox(true)
+                  postGradeHandler()
                 }else{
                   setShowBox(false)
                 }
               }else if(gradeIsNew(currentGrade,gradeData)){
                 if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
                   setShowBox(true)
+                  postGradeHandler()
                 }else{
                   setShowBox(false)
                 }
               }
             }
-            
-            
         });
       })
     }
