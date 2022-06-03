@@ -101,16 +101,19 @@ function CertificateReceiveAlert({
         console.log('is Checked api called',res)
         res.json().then((gradeData) => {
             console.log('data',gradeData);
+            let gradeRange = progress_data.grading_policy.grade_range
 
-            let minGradeArr = Object.keys(progress_data.grading_policy.grade_range)
-            let minGrade = Math.max(...minGradeArr)
-            let maxGradeArr = Object.keys(progress_data.grading_policy.grade_range)
-            let maxGrade = Math.max(...maxGradeArr)
+            let minGradeArr = Object.keys(gradeRange)
+            let minGrade = minGradeArr.sort().shift()
 
-            let minPointArr = Object.keys(progress_data.grading_policy.grade_range)
-            let minPoint = Math.max(...minPointArr)
-            let maxPointArr = Object.keys(progress_data.grading_policy.grade_range)
-            let maxPoint = Math.max(...maxPointArr)
+            let maxGradeArr = Object.keys(gradeRange)
+            let maxGrade = maxGradeArr.sort().pop()
+
+            let minPointArr = Object.keys(gradeRange)
+            let minPoint = minPointArr.sort().shift()
+
+            let maxPointArr = Object.keys(gradeRange)
+            let maxPoint = maxPointArr.sort().pop()
 
             let currentGrade = progress_data.course_grade.letter_grade
 
