@@ -24,9 +24,23 @@ function CertificateReceiveAlert({
   const [showBox,setShowBox] = useState(false);
   const [gradeArray,setGradeArray] = useState([]);
 
-  const postGradeHandler = ()=>{
+  const postGradeHandler = async ()=>{
     document.getElementById('certificate-receive-alert').style.display="none";
     console.log('call api with grade ',gradeArray)
+    let postGradeApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades`
+    const body ={
+      "user_id" : authenticatedUser.username,
+      "course_id":encodeURIComponent(courseId),
+      "grade" : gradeArray
+    }
+    const response = await fetch(postGradeApiUrl,{
+      method: 'POST',
+      headers: new Headers({'apikey':apiKey,'content-type': 'application/json'}),
+      body: JSON.stringify(body)
+    })
+    // removeElementsByClass('overlay')
+    // document.body.style.overflow = 'auto';
+    console.log('post api response ',response)
   }
 
   useEffect(() => {
