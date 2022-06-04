@@ -929,6 +929,20 @@ $white: #ffffff;
     }
   }
 }
+
+@media (max-height:420px){
+  .alert-wrapper{
+    width:95%;
+  }
+
+  .box-text{
+    max-width: 100%;
+  }
+
+  .mb-51,.mb-17,.cert-img,.pass-img{
+    margin-bottom: 8px;
+  }
+}
 //end alert
 
 // Import component-specific sass files
