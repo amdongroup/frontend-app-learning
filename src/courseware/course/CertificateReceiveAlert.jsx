@@ -86,9 +86,9 @@ function CertificateReceiveAlert({
 
     const gradeIsNew = (currentGrade,apiGrade) =>{
       if(apiGrade.indexOf(currentGrade) > -1){
-        return true
+        return false
       }
-      return false
+      return true
     }
     
     const checkJump = (apiData,maxGrade,minGrade) =>{
