@@ -153,7 +153,7 @@ function CertificateReceiveAlert({
     }
 
     // call check api whether to show pass or change grade
-    let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${courseId}`
+    let checkApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades?user_id=${authenticatedUser.username}&course_id=${encodeURIComponent(courseId)}`
     
     const getApiGrade = async () =>{
       fetch(checkApiUrl,{
