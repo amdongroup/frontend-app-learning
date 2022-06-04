@@ -5,7 +5,7 @@ import {getUser} from '../../experiments/mm-p2p/utils'
 import Cancel from "../course/celebration/assets/cancel_l.png";
 import Pass from "../course/celebration/assets/grade_pass.png";
 import Certificate from "../course/celebration/assets/grade_certificate.png";
-import NormalPass from "../course/celebration/assets/claps_456x328.gif"
+import NormalPass from "../course/celebration/assets/normal_pass.png"
 import { max } from "lodash";
 
 function CertificateReceiveAlert({
