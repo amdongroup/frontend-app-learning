@@ -70,10 +70,11 @@ function CertificateReceiveAlert({
       method: 'POST',
       headers: new Headers({'apikey':apiKey,'content-type': 'application/json'}),
       body: JSON.stringify(body)
-    }).then(
-      window.location.href = url
-    )
+    })
     console.log('post api response ',response)
+    if(url){
+      window.location.href = url
+    }
   }
 
   useEffect(() => {
