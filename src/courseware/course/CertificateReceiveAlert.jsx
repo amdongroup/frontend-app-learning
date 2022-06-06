@@ -56,7 +56,7 @@ function CertificateReceiveAlert({
     document.body.style.overflow = 'auto'
   }
 
-  const postGradeHandler = async (url)=>{
+  const postGradeHandler = async ()=>{
     overlayRemove()
     setShowBox(false)
     console.log('call api with grade ',gradeArray)
@@ -72,9 +72,9 @@ function CertificateReceiveAlert({
       body: JSON.stringify(body)
     })
     console.log('post api response ',response)
-    if(url){
-      window.location.href = url
-    }
+    // if(url){
+    //   window.location.href = url
+    // }
   }
 
   useEffect(() => {
@@ -243,7 +243,7 @@ function CertificateReceiveAlert({
     <>
       {showBox && !normal && availableCertId (
            <div className="alert-wrapper" id="certificate-receive-alert" >
-           <img className="box-close" onClick={()=>postGradeHandler(null)} src={Cancel} alt="Refresh Image" />
+           <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
            {isPass ? 
              (<div className="d-flex flex-column align-items-center box-content">
                <span className="h1-strong">Congratulations!</span>
@@ -251,8 +251,8 @@ function CertificateReceiveAlert({
                <span className="body-xl mb-17">Keep it up! You will earn a Distinction Certificate when you get {dist_percent}% </span>
                <img className="pass-img" src={Pass} alt="" />
                <div className="box-btn-group">
-                 <a className="box-btn" onClick={()=>postGradeHandler(progressUrl)}>View my progress</a>
-                 <a href={certUrl} target="_blank" className="box-btn" onClick={()=>postGradeHandler(null)}>View certificate</a>
+                 <a className="box-btn" onClick={()=>postGradeHandler()}>View my progress</a>
+                 <a href={certUrl} target="_blank" className="box-btn" onClick={()=>postGradeHandler()}>View certificate</a>
                </div>
              </div>
              ) :
@@ -262,8 +262,8 @@ function CertificateReceiveAlert({
                <span className="body-l mb-51 box-text">Your certificate has been upgraded to Distinction certificate.</span>
                <img className="cert-img" src={Certificate} alt="" />
                <div className="box-btn-group">
-                 <a className="box-btn" onClick={()=>postGradeHandler(progressUrl)}>View my progress</a>
-                 <a href={certUrl} target="_blank" className="box-btn" onClick={()=>postGradeHandler(null)}>View certificate</a>
+                 <a className="box-btn" onClick={()=>postGradeHandler()}>View my progress</a>
+                 <a href={certUrl} target="_blank" className="box-btn" onClick={()=>postGradeHandler()}>View certificate</a>
                </div>
              </div>)
            }
@@ -272,14 +272,14 @@ function CertificateReceiveAlert({
       {
         showBox && normal && availableCertId (
           <div className="alert-wrapper" id="certificate-receive-alert" >
-          <img className="box-close" onClick={()=>postGradeHandler(null)} src={Cancel} alt="Refresh Image" />
+          <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
           <div className="d-flex flex-column align-items-center box-content">
             <span className="h1-strong">Congratulations!</span>
             <span className="body-l mb-51" >You have earned a certificate.</span>
             <img className="pass-img" src={NormalPass} alt="" />
             <div className="box-btn-group">
-              <a className="box-btn" onClick={()=>postGradeHandler(progressUrl)}>View my progress</a>
-              <a href={certUrl} target="_blank" className="box-btn" onClick={()=>postGradeHandler(null)}>View certificate</a>
+              <a className="box-btn" onClick={()=>postGradeHandler()}>View my progress</a>
+              <a href={certUrl} target="_blank" className="box-btn" onClick={()=>postGradeHandler()}>View certificate</a>
             </div>
           </div>
         </div>
