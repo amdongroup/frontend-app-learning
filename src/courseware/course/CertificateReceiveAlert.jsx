@@ -71,9 +71,6 @@ function CertificateReceiveAlert({
       headers: new Headers({'apikey':apiKey,'content-type': 'application/json'}),
       body: JSON.stringify(body)
     })
-    // removeElementsByClass('overlay')
-    // document.body.style.overflow = 'auto';
-    
     console.log('post api response ',response)
   }
 
@@ -241,7 +238,7 @@ function CertificateReceiveAlert({
 
   return (
     <>
-      {showBox && !normal && (
+      {showBox && !normal && availableCertId (
            <div className="alert-wrapper" id="certificate-receive-alert" >
            <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
            {isPass ? 
@@ -268,7 +265,7 @@ function CertificateReceiveAlert({
          </div>
       )}
       {
-        showBox && normal && (
+        showBox && normal && availableCertId (
           <div className="alert-wrapper" id="certificate-receive-alert" >
           <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
           <div className="d-flex flex-column align-items-center box-content">
