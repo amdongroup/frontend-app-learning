@@ -28,7 +28,7 @@ function CertificateReceiveAlert({
 
   const [dist_percent,setDist_percent] = useState(0);
   const [isPass,setIsPass] = useState(true);
-  const [showBox,setShowBox] = useState(false);
+  const [showBox,setShowBox] = useState(true);
   const [gradeArray,setGradeArray] = useState([]);
   const [normal,setNormal] = useState(false);
 
@@ -253,8 +253,10 @@ function CertificateReceiveAlert({
                  <a className="box-btn" onClick={()=>postGradeHandler(progressUrl)}>View my progress</a>
                  <a href={certUrl} target="_blank" className="box-btn" onClick={()=>postGradeHandler(null)}>View certificate</a>
                </div>
-             </div>) :
-             (<div className="d-flex flex-column align-items-center box-content">
+             </div>
+             ) :
+             (
+             <div className="d-flex flex-column align-items-center box-content">
                <span className="h1-strong">Congratulations!</span>
                <span className="body-l mb-51 box-text">Your certificate has been upgraded to Distinction certificate.</span>
                <img className="cert-img" src={Certificate} alt="" />
