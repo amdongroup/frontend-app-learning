@@ -39,12 +39,14 @@ function CertificateReceiveAlert({
   }
 
   const overlayCreate = () =>{
-    let overlay = document.createElement("div");
-    overlay.className = "overlay";
-    overlay.id = "overlay";
-    if(!checkOverlayExisted()){
-      document.body.appendChild(overlay);
-      document.body.style.overflow = 'hidden'
+    if(availableCertId){
+      let overlay = document.createElement("div");
+      overlay.className = "overlay";
+      overlay.id = "overlay";
+      if(!checkOverlayExisted()){
+        document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden'
+      }
     }
   }
 
@@ -57,8 +59,7 @@ function CertificateReceiveAlert({
   }
 
   const postGradeHandler = async (url)=>{
-    overlayRemove()
-    setShowBox(false)
+    
     console.log('call api with grade ',gradeArray)
     let postGradeApiUrl = `${process.env.AMDON_BASE_API_URL}/api/course-grades`
     const body ={
@@ -72,9 +73,15 @@ function CertificateReceiveAlert({
       body: JSON.stringify(body)
     }).then(res =>{
       console.log(res)
+      overlayRemove()
+    setShowBox(false)
       if(url){
         window.url.href = url
       }
+    },err=>{
+      console.log(err)
+      overlayRemove()
+    setShowBox(false)
     })
     console.log('post api response ',response)
   }
