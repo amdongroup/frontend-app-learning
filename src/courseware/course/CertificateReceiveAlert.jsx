@@ -30,7 +30,7 @@ function CertificateReceiveAlert({
   const [isPass,setIsPass] = useState(true);
   const [showBox,setShowBox] = useState(false);
   const [gradeArray,setGradeArray] = useState([]);
-  const [normal,setNormal] = useState(false);
+  const [checkNormal,setNormal] = useState(false);
 
 
   const checkOverlayExisted = () => {
@@ -238,7 +238,7 @@ function CertificateReceiveAlert({
 
   return (
     <>
-      {showBox && !normal (
+      {showBox && !normal && availableCertId &&(
            <div className="alert-wrapper" id="certificate-receive-alert" >
            <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
            {isPass ? 
@@ -265,7 +265,7 @@ function CertificateReceiveAlert({
          </div>
       )}
       {
-        showBox && normal (
+        showBox && normal && availableCertId && (
           <div className="alert-wrapper" id="certificate-receive-alert" >
           <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
           <div className="d-flex flex-column align-items-center box-content">
