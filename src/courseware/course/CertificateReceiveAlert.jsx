@@ -238,7 +238,7 @@ function CertificateReceiveAlert({
 
   return (
     <>
-      {showBox && !normal && availableCertId (
+      {showBox && !normal (
            <div className="alert-wrapper" id="certificate-receive-alert" >
            <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
            {isPass ? 
@@ -265,7 +265,7 @@ function CertificateReceiveAlert({
          </div>
       )}
       {
-        showBox && normal && availableCertId(
+        showBox && normal (
           <div className="alert-wrapper" id="certificate-receive-alert" >
           <img className="box-close" onClick={()=>postGradeHandler()} src={Cancel} alt="Refresh Image" />
           <div className="d-flex flex-column align-items-center box-content">
