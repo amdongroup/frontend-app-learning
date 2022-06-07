@@ -39,7 +39,6 @@ function CertificateReceiveAlert({
   }
 
   const overlayCreate = () =>{
-    if(availableCertId){
       let overlay = document.createElement("div");
       overlay.className = "overlay";
       overlay.id = "overlay";
@@ -47,7 +46,6 @@ function CertificateReceiveAlert({
         document.body.appendChild(overlay);
         document.body.style.overflow = 'hidden'
       }
-    }
   }
 
   const overlayRemove = () =>{
@@ -236,7 +234,9 @@ function CertificateReceiveAlert({
       })
     }
 
-    getApiGrade()
+    if(availableCertId != null){
+      getApiGrade()
+    }
     // call check api whether to show pass or change grade
 
   },[progress_data,availableCertId]);
