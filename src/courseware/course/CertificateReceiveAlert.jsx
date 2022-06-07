@@ -185,10 +185,10 @@ function CertificateReceiveAlert({
             // let maxGrade = maxGradeArr.sort().shift()
 
             let minPointArr = Object.values(gradeRange)
-            let minPoint = minPointArr.sort().pop()
+            let minPoint = minPointArr.sort().shift()
 
             let maxPointArr = Object.values(gradeRange)
-            let maxPoint = maxPointArr.sort().shift()
+            let maxPoint = maxPointArr.sort().pop()
 
             console.log('minPoint',minPoint);
             console.log('maxPoint',maxPoint);
@@ -220,8 +220,6 @@ function CertificateReceiveAlert({
                   }else if(isMinGrade(currentGrade,minGrade)){
                     array.push(minGrade)
                     setGradeArray(array)
-                  }else{
-                    setShowBox(false)
                   }
                   setShowBox(true)
                   overlayCreate()
@@ -243,8 +241,7 @@ function CertificateReceiveAlert({
       })
     }
 
-    if(availableCertId != null 
-      // || availableCertId != ""
+    if(availableCertId != null || availableCertId != ""
       ){
       console.log('calling api')
       console.log('availableCertId',availableCertId);
