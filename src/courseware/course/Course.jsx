@@ -176,7 +176,7 @@ function Course({
         ) : null}
       </div>
       <CertificateReceiveAlert  
-        availableCertId={available_cert_id}
+        availableCertId={null}
         courseId={courseId}
         progress_data={progress_data}
         />

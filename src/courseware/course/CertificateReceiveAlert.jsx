@@ -214,6 +214,8 @@ function CertificateReceiveAlert({
                   }else if(isMinGrade(currentGrade,minGrade)){
                     array.push(minGrade)
                     setGradeArray(array)
+                  }else{
+                    setShowBox(false)
                   }
                   setShowBox(true)
                   overlayCreate()
@@ -235,7 +237,9 @@ function CertificateReceiveAlert({
       })
     }
 
-    if(availableCertId != null && availableCertId != ''){
+    if(availableCertId != null 
+      // || availableCertId != ""
+      ){
       console.log('calling api')
       console.log('availableCertId',availableCertId);
       getApiGrade()
