@@ -39,12 +39,14 @@ function CertificateReceiveAlert({
   }
 
   const overlayCreate = () =>{
-    let overlay = document.createElement("div");
-    overlay.className = "overlay";
-    overlay.id = "overlay";
-    if(!checkOverlayExisted()){
-      document.body.appendChild(overlay);
-      document.body.style.overflow = 'hidden'
+    if(availableCertId){
+      let overlay = document.createElement("div");
+      overlay.className = "overlay";
+      overlay.id = "overlay";
+      if(!checkOverlayExisted()){
+        document.body.appendChild(overlay);
+        document.body.style.overflow = 'hidden'
+      }
     }
   }
 
