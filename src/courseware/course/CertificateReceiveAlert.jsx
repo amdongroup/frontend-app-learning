@@ -286,7 +286,7 @@ function CertificateReceiveAlert({
           <div className="d-flex flex-column align-items-center box-content">
             <span className="h1-strong">Congratulations!</span>
             <span className="body-l mb-51" >You have earned a certificate.</span>
-            <img className="pass-img" src={NormalPass} alt="" />
+            <img className="normal-img" src={NormalPass} alt="" />
             <div className="box-btn-group" onClick={()=>postGradeHandler()}>
               <a href={progressUrl} className="box-btn">View my progress</a>
               <a href={certUrl} target="_blank" className="box-btn">View certificate</a>
