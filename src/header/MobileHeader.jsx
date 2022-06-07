@@ -64,7 +64,7 @@ class MobileHeader extends React.Component {
     let logoutIndex = filteredUserMenu.findIndex((menuItem) => menuItem.content === "Logout")
     
     if(logoutIndex != -1)
-      filteredUserMenu[logoutIndex].href += "?next=https://devsfe.proxtera.app/"
+      filteredUserMenu[logoutIndex].href += "?next=https://www.smefe.org/"
 
     return filteredUserMenu.map(({ type, href, content }) => (
       <li className="nav-item" key={`${type}-${content}`}>
