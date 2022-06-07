@@ -39,6 +39,10 @@ function CertificateReceiveAlert({
   }
 
   const overlayCreate = () =>{
+    console.log('availableCertId ',availableCertId);
+    console.log('showBox ',showBox);
+    console.log('isPass ',isPass);
+    console.log('normal ',normal);
       let overlay = document.createElement("div");
       overlay.className = "overlay";
       overlay.id = "overlay";
@@ -78,6 +82,7 @@ function CertificateReceiveAlert({
   }
 
   useEffect(() => {
+    console.log('from useEffect')
     const prepareDistPercent = () =>{
       let maxGradeArr = Object.values(progress_data.grading_policy.grade_range)
       let maxGrade = Math.max(...maxGradeArr)
@@ -218,15 +223,11 @@ function CertificateReceiveAlert({
                   setGradeArray(array)
                   setShowBox(true)
                   overlayCreate()
-                }else{
-                  setShowBox(false)
                 }
               }else if(gradeIsNew(currentGrade,gradeData)){
                 if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
                   setShowBox(true)
                   overlayCreate()
-                }else{
-                  setShowBox(false)
                 }
               }
             }
@@ -234,7 +235,9 @@ function CertificateReceiveAlert({
       })
     }
 
-    if(availableCertId != null){
+    if(availableCertId != null && availableCertId != ''){
+      console.log('calling api')
+      console.log('availableCertId',availableCertId);
       getApiGrade()
     }
     // call check api whether to show pass or change grade
