@@ -39,6 +39,10 @@ function CertificateReceiveAlert({
   }
 
   const overlayCreate = () =>{
+    console.log('availableCertId ',availableCertId);
+    console.log('showBox ',showBox);
+    console.log('isPass ',isPass);
+    console.log('normal ',normal);
       let overlay = document.createElement("div");
       overlay.className = "overlay";
       overlay.id = "overlay";
@@ -78,6 +82,7 @@ function CertificateReceiveAlert({
   }
 
   useEffect(() => {
+    console.log('from useEffect')
     const prepareDistPercent = () =>{
       let maxGradeArr = Object.values(progress_data.grading_policy.grade_range)
       let maxGrade = Math.max(...maxGradeArr)
@@ -130,6 +135,7 @@ function CertificateReceiveAlert({
     }
 
     const lessThanMaxGrade = (currentPercent,maxPoint) =>{
+      console.log('lessThanMaxGrade',currentPercent < maxPoint);
       if(currentPercent < maxPoint){
         return true
       }
@@ -137,6 +143,7 @@ function CertificateReceiveAlert({
     }
 
     const greaterThanMinGrade = (currentPercent,minPoint) =>{
+      console.log('greaterThanMinGrade',currentPercent > minPoint);
       if(currentPercent > minPoint){
         return true
       }
@@ -178,19 +185,23 @@ function CertificateReceiveAlert({
             // let maxGrade = maxGradeArr.sort().shift()
 
             let minPointArr = Object.values(gradeRange)
-            let minPoint = minPointArr.sort().pop()
+            let minPoint = minPointArr.sort().shift()
 
             let maxPointArr = Object.values(gradeRange)
-            let maxPoint = maxPointArr.sort().shift()
+            let maxPoint = maxPointArr.sort().pop()
+
+            console.log('minPoint',minPoint);
+            console.log('maxPoint',maxPoint);
 
             let currentGrade = progress_data.course_grade.letter_grade
             let currentPercent = progress_data.course_grade.percent
+            console.log('currentPercent',currentPercent);
 
             if(progress_data.grading_policy.grade_range){ //prevent error log when api calling
               prepareDistPercent()
             }
 
-            if(isNormal(gradeRange)){
+            if(isNormal(gradeRange) && gradeData.length == 0){
               if(isMinGrade(currentGrade,minGrade) || greaterThanMinGrade(currentPercent,minPoint)){
                 let array = []
                 array.push(minGrade)
@@ -218,15 +229,11 @@ function CertificateReceiveAlert({
                   setGradeArray(array)
                   setShowBox(true)
                   overlayCreate()
-                }else{
-                  setShowBox(false)
                 }
               }else if(gradeIsNew(currentGrade,gradeData)){
                 if(isMaxGrade(currentGrade,gradeData,maxGrade,minGrade) || isMinGrade(currentGrade,minGrade)){
                   setShowBox(true)
                   overlayCreate()
-                }else{
-                  setShowBox(false)
                 }
               }
             }
@@ -234,7 +241,10 @@ function CertificateReceiveAlert({
       })
     }
 
-    if(availableCertId != null){
+    if(availableCertId != null &&  availableCertId != ""
+      ){
+      console.log('calling api')
+      console.log('availableCertId',availableCertId);
       getApiGrade()
     }
     // call check api whether to show pass or change grade
@@ -276,7 +286,7 @@ function CertificateReceiveAlert({
           <div className="d-flex flex-column align-items-center box-content">
             <span className="h1-strong">Congratulations!</span>
             <span className="body-l mb-51" >You have earned a certificate.</span>
-            <img className="pass-img" src={NormalPass} alt="" />
+            <img className="normal-img" src={NormalPass} alt="" />
             <div className="box-btn-group" onClick={()=>postGradeHandler()}>
               <a href={progressUrl} className="box-btn">View my progress</a>
               <a href={certUrl} target="_blank" className="box-btn">View certificate</a>
