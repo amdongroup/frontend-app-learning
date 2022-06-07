@@ -135,6 +135,7 @@ function CertificateReceiveAlert({
     }
 
     const lessThanMaxGrade = (currentPercent,maxPoint) =>{
+      console.log('lessThanMaxGrade',currentPercent < maxPoint);
       if(currentPercent < maxPoint){
         return true
       }
@@ -142,6 +143,7 @@ function CertificateReceiveAlert({
     }
 
     const greaterThanMinGrade = (currentPercent,minPoint) =>{
+      console.log('greaterThanMinGrade',currentPercent > minPoint);
       if(currentPercent > minPoint){
         return true
       }
@@ -188,8 +190,12 @@ function CertificateReceiveAlert({
             let maxPointArr = Object.values(gradeRange)
             let maxPoint = maxPointArr.sort().shift()
 
+            console.log('minPoint',minPoint);
+            console.log('maxPoint',maxPoint);
+
             let currentGrade = progress_data.course_grade.letter_grade
             let currentPercent = progress_data.course_grade.percent
+            console.log('currentPercent',currentPercent);
 
             if(progress_data.grading_policy.grade_range){ //prevent error log when api calling
               prepareDistPercent()
