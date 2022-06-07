@@ -195,7 +195,7 @@ function CertificateReceiveAlert({
               prepareDistPercent()
             }
 
-            if(isNormal(gradeRange) && gradeIsNew(currentGrade,gradeData)){
+            if(isNormal(gradeRange) && gradeData.length == 0){
               if(isMinGrade(currentGrade,minGrade) || greaterThanMinGrade(currentPercent,minPoint)){
                 let array = []
                 array.push(minGrade)
