@@ -241,7 +241,7 @@ function CertificateReceiveAlert({
       })
     }
 
-    if(availableCertId != null || availableCertId != ""
+    if(availableCertId != null &&  availableCertId != ""
       ){
       console.log('calling api')
       console.log('availableCertId',availableCertId);
