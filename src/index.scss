@@ -392,6 +392,21 @@ $white: #ffffff;
 }
 
 //apo css
+
+nav {
+	ol {
+		li {
+			a.text-primary-500 {
+				display: block;
+				width: 100px !important;
+				overflow: hidden;
+				text-overflow: ellipsis;
+				white-space: nowrap;
+			}
+		}
+	}
+}
+
 .apo-progress-wrapper {
   width: 100%;
   // background: #f2f3f5;
