@@ -392,6 +392,8 @@ $white: #ffffff;
 }
 
 //apo css
+
+
 .apo-progress-wrapper {
   width: 100%;
   // background: #f2f3f5;
@@ -608,6 +610,42 @@ $white: #ffffff;
   color: #ffffff !important;
   text-decoration: none;
   cursor: not-allowed;
+}
+
+@media (max-width:768px) and (min-width:421px){
+  .pgn__menu-select-trigger-btn{
+  display: block;
+    width: 200px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0rem !important;
+  }
+}
+
+@media (max-width:420px) {
+  .pgn__menu-select-trigger-btn{
+    display: block;
+    width: 100px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0rem !important;
+  }
+  nav {
+    ol {
+      li {
+        a.text-primary-500 {
+          display: block;
+          width: 100px !important;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+      }
+    }
+  }
+  
 }
 @media (max-width: 800px) and (min-width: 420px) {
   .progress-part {
