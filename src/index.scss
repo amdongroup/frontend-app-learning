@@ -612,6 +612,17 @@ $white: #ffffff;
   cursor: not-allowed;
 }
 
+@media (max-width:768px) and (min-width:421px){
+  .pgn__menu-select-trigger-btn{
+  display: block;
+    width: 200px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    padding: 0rem !important;
+  }
+}
+
 @media (max-width:420px) {
   .pgn__menu-select-trigger-btn{
     display: block;
