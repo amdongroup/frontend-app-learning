@@ -613,6 +613,13 @@ $white: #ffffff;
 }
 
 @media (max-width:420px) {
+  .pgn__menu-select-trigger-btn{
+    display: block;
+    width: 100px !important;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
   nav {
     ol {
       li {
