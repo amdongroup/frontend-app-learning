@@ -33,6 +33,14 @@ function CurrentGradeTooltip({ intl, tooltipClassName }) {
     currentGradeDirection = currentGrade < 50 ? '-' : '';
   }
 
+  let currentGradeDirection = currentGrade < 50 ? '' : '-';
+
+  const isLocaleRtl = isRtl(getLocale());
+
+  if (isLocaleRtl) {
+    currentGradeDirection = currentGrade < 50 ? '-' : '';
+  }
+
   return (
     <>
       <OverlayTrigger
