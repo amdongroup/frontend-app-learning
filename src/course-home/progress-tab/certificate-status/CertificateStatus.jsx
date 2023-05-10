@@ -63,6 +63,7 @@ function CertificateStatus({ intl }) {
 
   let certStatus;
   let certWebViewUrl;
+  let downloadUrl;
   const timezoneFormatArgs = userTimezone ? { timeZone: userTimezone } : {};
 
   if (certificateData) {
@@ -147,7 +148,6 @@ function CertificateStatus({ intl }) {
             values={{ dashboardLink, profileLink }}
           />
         );
-
         if (certWebViewUrl) {
           let certId = null;
           let certAry = certWebViewUrl.split("certificates/");
