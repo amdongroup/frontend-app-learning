@@ -18,6 +18,7 @@ import SidebarTriggers from './sidebar/SidebarTriggers';
 import { useModel } from '../../generic/model-store';
 import { getSessionStorage, setSessionStorage } from '../../data/sessionStorage';
 
+
 /** [MM-P2P] Experiment */
 import { initCoursewareMMP2P, MMP2PBlockModal } from '../../experiments/mm-p2p';
 
@@ -47,7 +48,6 @@ function Course({
     section,
     course,
   ].filter(element => element != null).map(element => element.title);
-
 
   // Below the tabs, above the breadcrumbs alerts (appearing in the order listed here)
   const dispatch = useDispatch();
@@ -188,14 +188,6 @@ function Course({
         unitNavigationHandler={unitNavigationHandler}
         nextSequenceHandler={nextSequenceHandler}
         previousSequenceHandler={previousSequenceHandler}
-        toggleNotificationTray={toggleNotificationTray}
-        isNotificationTrayVisible={isNotificationTrayVisible}
-        notificationTrayVisible={notificationTrayVisible}
-        notificationStatus={notificationStatus}
-        setNotificationStatus={setNotificationStatus}
-        onNotificationSeen={onNotificationSeen}
-        upgradeNotificationCurrentState={upgradeNotificationCurrentState}
-        setupgradeNotificationCurrentState={setupgradeNotificationCurrentState}
         //* * [MM-P2P] Experiment */
         mmp2p={MMP2P}
       />
