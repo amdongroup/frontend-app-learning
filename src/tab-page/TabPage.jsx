@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import PropTypes from 'prop-types';
 import { injectIntl, intlShape } from '@edx/frontend-platform/i18n';
 import { useDispatch, useSelector } from 'react-redux';
@@ -7,6 +7,7 @@ import { Redirect } from 'react-router';
 import Footer from '@edx/frontend-component-footer';
 import { Toast } from '@edx/paragon';
 import { LearningHeader as Header } from '@edx/frontend-component-header';
+//import { LearningHeader as Header } from '@edx/frontend-component-header';
 import PageLoading from '../generic/PageLoading';
 import { getAccessDeniedRedirectUrl } from '../shared/access';
 import { useModel } from '../generic/model-store';
@@ -17,12 +18,17 @@ import LoadedTabPage from './LoadedTabPage';
 import { setCallToActionToast } from '../course-home/data/slice';
 import LaunchCourseHomeTourButton from '../product-tours/newUserCourseHomeTour/LaunchCourseHomeTourButton';
 
+import { getConfig } from '@edx/frontend-platform';
+import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
+import { getUser } from '../experiments/mm-p2p/utils'
+
 function TabPage({ intl, ...props }) {
   const {
     activeTabSlug,
     courseId,
     courseStatus,
     metadataModel,
+    unitId,
   } = props;
   const {
     toastBodyLink,
@@ -37,6 +43,27 @@ function TabPage({ intl, ...props }) {
     start,
     title,
   } = useModel('courseHomeMeta', courseId);
+
+  const authenticatedUser = getUser()
+  const [ fullName, setFullName ] = useState("")
+
+  console.log(authenticatedUser)
+
+  useEffect(() => {
+
+    const getUserAccount = async () => {
+      let url = `${getConfig().LMS_BASE_URL}/api/user/v1/accounts/${authenticatedUser.username}`
+      const { data } = await getAuthenticatedHttpClient().get(url)
+
+      console.log("Account Data")
+      console.log(data)
+
+      setFullName(data.name)
+    }
+
+    getUserAccount()
+
+  })
 
   if (courseStatus === 'loading') {
     return (
@@ -74,10 +101,16 @@ function TabPage({ intl, ...props }) {
           {toastHeader}
         </Toast>
         {metadataModel === 'courseHomeMeta' && (<LaunchCourseHomeTourButton srOnly />)}
+        {/* <Header
+          courseOrg={org}
+          courseNumber={number}
+          courseTitle={title}
+        /> */}
         <Header
           courseOrg={org}
           courseNumber={number}
           courseTitle={title}
+          fullName={fullName}
         />
         <LoadedTabPage {...props} />
         <Footer />

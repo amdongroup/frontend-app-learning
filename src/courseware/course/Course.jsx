@@ -21,6 +21,10 @@ import { getSessionStorage, setSessionStorage } from '../../data/sessionStorage'
 /** [MM-P2P] Experiment */
 import { initCoursewareMMP2P, MMP2PBlockModal } from '../../experiments/mm-p2p';
 
+import { getAuthenticatedHttpClient } from '@edx/frontend-platform/auth';
+import CourseGradeProgress from './CourseGradeProgress';
+import CertificateReceiveAlert from './CertificateReceiveAlert';
+
 function Course({
   courseId,
   sequenceId,
@@ -43,6 +47,7 @@ function Course({
     section,
     course,
   ].filter(element => element != null).map(element => element.title);
+
 
   // Below the tabs, above the breadcrumbs alerts (appearing in the order listed here)
   const dispatch = useDispatch();
@@ -69,8 +74,11 @@ function Course({
     }
   }
 
-  /** [MM-P2P] Experiment */
-  const MMP2P = initCoursewareMMP2P(courseId, sequenceId, unitId);
+
+  const [overall_percentage, setOverall_percentage] = useState(0);
+  const [available_cert_id, setAvailable_cert_id] = useState("");
+  const [pass_point, setPass_point] = useState(0);
+  const [progress_data, setProgress_data] = useState({});
 
   useEffect(() => {
     const celebrateFirstSection = celebrations && celebrations.firstSection;
@@ -81,7 +89,67 @@ function Course({
       dispatch,
       celebrations,
     ));
-  }, [sequenceId]);
+    let url = `${getConfig().LMS_BASE_URL}/api/course_home/progress/${courseId}`
+    const getCourseProgress = async () => {
+      
+      const { data } = await getAuthenticatedHttpClient().get(url)
+
+      console.log("Course Progress")
+      console.log(url)
+      console.log(data)
+      setProgress_data(data)
+      console.log(data.course_grade.percent)
+      console.log("PassingPoint")
+      console.log(data.grading_policy.grade_range.Pass)
+
+      if(data != null) {
+
+        if(data.certificate_data != null) {
+          let certId = null
+        if(data.certificate_data.cert_web_view_url) {
+
+          let certAry = data.certificate_data.cert_web_view_url.split("certificates/")
+          if(certAry.length == 2)
+            certId = certAry[1]
+
+        }
+
+        //data.course_grade.percent
+        setAvailable_cert_id(certId)
+        }
+        
+        if(data.course_grade != null) {
+          setOverall_percentage(Math.round(data.course_grade.percent * 100))
+        }
+
+        // various Grade
+
+        if(data.grading_policy != null && data.grading_policy.grade_range != null && Object.keys(data.grading_policy.grade_range).length > 1) {
+          let arr = Object.values(data.grading_policy.grade_range);
+          let min = Math.min(...arr);
+          setPass_point(min)
+        }else if(data.grading_policy != null && data.grading_policy.grade_range != null) {
+          setPass_point(data.grading_policy.grade_range.Pass)
+        }
+
+      }
+
+      // setAvailable_cert_id("12345678")
+      // setOverall_percentage(70)
+
+    }
+
+    getCourseProgress()
+
+  },[courseId,
+    sequenceId,
+    unitId,
+    nextSequenceHandler,
+    previousSequenceHandler,
+    unitNavigationHandler])
+
+  /** [MM-P2P] Experiment */
+  const MMP2P = initCoursewareMMP2P(courseId, sequenceId, unitId);
 
   return (
     <SidebarProvider courseId={courseId} unitId={unitId}>
@@ -102,6 +170,15 @@ function Course({
           <SidebarTriggers />
         )}
       </div>
+      <CertificateReceiveAlert  
+        availableCertId={available_cert_id}
+        courseId={courseId}
+        progress_data={progress_data}
+        />
+      <CourseGradeProgress 
+        availableCertId={available_cert_id}
+        overallPercentage={overall_percentage}
+        passingPoint={pass_point}/>
 
       <AlertList topic="sequence" />
       <Sequence
@@ -111,6 +188,14 @@ function Course({
         unitNavigationHandler={unitNavigationHandler}
         nextSequenceHandler={nextSequenceHandler}
         previousSequenceHandler={previousSequenceHandler}
+        toggleNotificationTray={toggleNotificationTray}
+        isNotificationTrayVisible={isNotificationTrayVisible}
+        notificationTrayVisible={notificationTrayVisible}
+        notificationStatus={notificationStatus}
+        setNotificationStatus={setNotificationStatus}
+        onNotificationSeen={onNotificationSeen}
+        upgradeNotificationCurrentState={upgradeNotificationCurrentState}
+        setupgradeNotificationCurrentState={setupgradeNotificationCurrentState}
         //* * [MM-P2P] Experiment */
         mmp2p={MMP2P}
       />
