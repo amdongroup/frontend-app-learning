@@ -21,7 +21,8 @@ function CertificateReceiveAlert({
   }
 
   const authenticatedUser = getUser()
-  const certUrl = `https://smefe-certificate.apixoxygen.com/certificate/${availableCertId}`;
+  // const certUrl = `https://smefe-certificate.apixoxygen.com/certificate/${availableCertId}`;
+  const certUrl = `https://exts-dev.stemwerkz.org/open-edx-cert/${availableCertId}`;
   const baseUrl = getConfig().LMS_BASE_URL;
   const progressUrl = `${prefixApps(baseUrl)}/learning/course/${courseId}/progress`;
   const apiKey=process.env.AMDON_API_KEY;
