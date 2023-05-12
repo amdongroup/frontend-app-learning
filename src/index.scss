@@ -428,15 +428,15 @@ $white: #ffffff;
 .progress {
   width: 276px;
   height: 16px;
-  background: #edeef0;
-  border-radius: 99px;
+  background: #edeef0 !important;
+  border-radius: 99px !important;
   margin-top: 8px;
 }
 
 .progress-bar {
   height: 16px;
-  background: #e6a653;
-  border-radius: 99px;
+  background: #e6a653 !important;
+  border-radius: 99px !important;
 }
 
 .passmark {
