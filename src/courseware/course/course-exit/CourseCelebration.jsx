@@ -109,7 +109,7 @@ function CourseCelebration({ intl }) {
         // buttonLocation =
         //   "https://smefe-certificate.apixoxygen.com/certificate/" + certId;
         buttonLocation =
-          "https://exts-dev.stemwerkz.org/open-edx-cert/" + certId;
+          "https://open-edx-cert.pagewerkz.com/certificate/" + certId;
         buttonText = intl.formatMessage(messages.viewCertificateButton);
       } else if (downloadUrl) {
         buttonLocation = downloadUrl;

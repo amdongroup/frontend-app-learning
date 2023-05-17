@@ -117,7 +117,7 @@ function CertificateStatusAlert({ intl, payload }) {
       // alertProps.buttonLink =
       //   "https://smefe-certificate.apixoxygen.com/certificate/" + certId;
       alertProps.buttonLink =
-        "https://exts-dev.stemwerkz.org/open-edx-cert/" + certId;
+        "https://open-edx-cert.pagewerkz.com/certificate/" + certId;
       alertProps.buttonAction = () => {
         sendAlertClickTracking(
           "edx.ui.lms.course_outline.certificate_alert_downloadable_button.clicked"
