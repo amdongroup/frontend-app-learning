@@ -156,7 +156,7 @@ function CertificateStatus({ intl }) {
           // buttonLocation =
           //   "https://smefe-certificate.apixoxygen.com/certificate/" + certId;
           buttonLocation =
-            "https://open-edx-cert.pagewerkz.com/certificate/" + certId;
+            "https://sdl-cert-dev.pagewerkz.com/certificate/" + certId;
           buttonText = intl.formatMessage(messages.viewableButton);
         } else if (downloadUrl) {
           certEventName = "earned_downloadable";

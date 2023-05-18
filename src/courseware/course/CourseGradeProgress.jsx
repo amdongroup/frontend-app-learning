@@ -133,7 +133,7 @@ function CourseGradeProgress({
           </div>
           <a
             target="_blank"
-            href={`https://open-edx-cert.pagewerkz.com/certificate/${availableCertId}`}
+            href={`https://sdl-cert-dev.pagewerkz.com/certificate/${availableCertId}`}
             className="view-cert"
             id="view-cert"
           >
@@ -141,7 +141,7 @@ function CourseGradeProgress({
           </a>
           {/* <a
             target="_blank"
-            href={`https://open-edx-cert.pagewerkz.com/certificate/${availableCertId}`}
+            href={`https://sdl-cert-dev.pagewerkz.com/certificate/${availableCertId}`}
             className="view-cert"
             id="view-cert"
           >
@@ -201,7 +201,7 @@ function CourseGradeProgress({
             </div>
             <a
               target="_blank"
-              href={`https://open-edx-cert.pagewerkz.com/certificate/${availableCertId}`}
+              href={`https://sdl-cert-dev.pagewerkz.com/certificate/${availableCertId}`}
               className="view-cert"
               id="view-cert-mobile"
             >
@@ -209,7 +209,7 @@ function CourseGradeProgress({
             </a>
             {/* <a
               target="_blank"
-              href={`https://open-edx-cert.pagewerkz.com/certificate/${availableCertId}`}
+              href={`https://sdl-cert-dev.pagewerkz.com/certificate/${availableCertId}`}
               className="view-cert"
               id="view-cert-mobile"
             >
