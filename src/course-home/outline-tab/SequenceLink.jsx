@@ -39,8 +39,12 @@ function SequenceLink({
   const coursewareUrl = <Link to={`/course/${courseId}/${id}`}>{title}</Link>;
   const displayTitle = showLink ? coursewareUrl : title;
 
+  const liStyle = {
+    paddingLeft: 2rem,
+  };
+
   return (
-    <li>
+    <li style={liStyle}>
       <div className={classNames('', { 'mt-2 pt-2 border-top border-light': !first })}>
         <div className="row w-100 m-0">
           <div className="col-auto p-0">
