@@ -66,6 +66,11 @@ const messages = defineMessages({
     defaultMessage: 'View my certificate',
     description: 'Button text which view or links to the certifcate',
   },
+  downloadableButton: {
+    id: 'progress.certificateStatus.downloadableButton',
+    defaultMessage: 'Download my certificate',
+    description: 'Button text which download the certifcate',
+  },
   notAvailableHeader: {
     id: 'progress.certificateStatus.notAvailableHeader',
     defaultMessage: 'Certificate status',
