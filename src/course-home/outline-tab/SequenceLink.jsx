@@ -40,7 +40,7 @@ function SequenceLink({
   const displayTitle = showLink ? coursewareUrl : title;
 
   const liStyle = {
-    paddingLeft: 2rem,
+    paddingLeft: '2rem',
   };
 
   return (
