@@ -114,10 +114,8 @@ function CertificateStatusAlert({ intl, payload }) {
       let certId = null;
       let certAry = certURL.split("certificates/");
       if (certAry.length == 2) certId = certAry[1];
-      // alertProps.buttonLink =
-      //   "https://smefe-certificate.apixoxygen.com/certificate/" + certId;
       alertProps.buttonLink =
-        "https://sdl-cert-dev.pagewerkz.com/certificate/" + certId;
+        "https://certificate.sdl.nodma.com/certificate/" + certId;
       alertProps.buttonAction = () => {
         sendAlertClickTracking(
           "edx.ui.lms.course_outline.certificate_alert_downloadable_button.clicked"

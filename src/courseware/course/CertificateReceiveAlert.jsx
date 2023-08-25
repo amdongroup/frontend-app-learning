@@ -21,8 +21,7 @@ function CertificateReceiveAlert({
   }
 
   const authenticatedUser = getUser()
-  // const certUrl = `https://smefe-certificate.apixoxygen.com/certificate/${availableCertId}`;
-  const certUrl = `https://sdl-cert-dev.pagewerkz.com/certificate/${availableCertId}`;
+  const certUrl = `https://certificate.sdl.nodma.com/certificate/${availableCertId}`;
   const baseUrl = getConfig().LMS_BASE_URL;
   const progressUrl = `${prefixApps(baseUrl)}/learning/course/${courseId}/progress`;
   const apiKey=process.env.AMDON_API_KEY;

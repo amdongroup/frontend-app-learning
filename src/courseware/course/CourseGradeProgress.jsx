@@ -133,20 +133,12 @@ function CourseGradeProgress({
           </div>
           <a
             target="_blank"
-            href={`https://sdl-cert-dev.pagewerkz.com/certificate/${availableCertId}`}
+            href={`https://certificate.sdl.nodma.com/certificate/${availableCertId}`}
             className="view-cert"
             id="view-cert"
           >
             View certificate
           </a>
-          {/* <a
-            target="_blank"
-            href={`https://sdl-cert-dev.pagewerkz.com/certificate/${availableCertId}`}
-            className="view-cert"
-            id="view-cert"
-          >
-            View certificate
-          </a> */}
           <a className="no-cert" id="no-cert">
             View certificate
           </a>
@@ -201,20 +193,12 @@ function CourseGradeProgress({
             </div>
             <a
               target="_blank"
-              href={`https://sdl-cert-dev.pagewerkz.com/certificate/${availableCertId}`}
+              href={`https://certificate.sdl.nodma.com/certificate/${availableCertId}`}
               className="view-cert"
               id="view-cert-mobile"
             >
               View certificate
             </a>
-            {/* <a
-              target="_blank"
-              href={`https://sdl-cert-dev.pagewerkz.com/certificate/${availableCertId}`}
-              className="view-cert"
-              id="view-cert-mobile"
-            >
-              View certificate
-            </a> */}
             <a className="no-cert" id="no-cert-mobile">
               View certificate
             </a>

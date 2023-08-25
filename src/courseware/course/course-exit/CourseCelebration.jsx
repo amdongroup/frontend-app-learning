@@ -106,10 +106,8 @@ function CourseCelebration({ intl }) {
         let certId = null;
         let certAry = certWebViewUrl.split("certificates/");
         if (certAry.length == 2) certId = certAry[1];
-        // buttonLocation =
-        //   "https://smefe-certificate.apixoxygen.com/certificate/" + certId;
         buttonLocation =
-          "https://sdl-cert-dev.pagewerkz.com/certificate/" + certId;
+          "https://certificate.sdl.nodma.com/certificate/" + certId;
         buttonText = intl.formatMessage(messages.viewCertificateButton);
       } else if (downloadUrl) {
         buttonLocation = downloadUrl;

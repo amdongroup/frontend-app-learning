@@ -153,10 +153,8 @@ function CertificateStatus({ intl }) {
           let certAry = certWebViewUrl.split("certificates/");
           if (certAry.length == 2) certId = certAry[1];
           certEventName = "earned_viewable";
-          // buttonLocation =
-          //   "https://smefe-certificate.apixoxygen.com/certificate/" + certId;
           buttonLocation =
-            "https://sdl-cert-dev.pagewerkz.com/certificate/" + certId;
+            "https://certificate.sdl.nodma.com/certificate/" + certId;
           buttonText = intl.formatMessage(messages.viewableButton);
         } else if (downloadUrl) {
           certEventName = "earned_downloadable";
